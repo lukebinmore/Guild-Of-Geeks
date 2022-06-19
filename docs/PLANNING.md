@@ -8,8 +8,7 @@
   - [**Site Discussion/Goals**](#site-discussiongoals)
     - [**Peer Based Discussion**](#peer-based-discussion)
     - [**Feature Idea/Requiement Review**](#feature-idearequiement-review)
-    - [**Finalised Goals**](#finalised-goals)
-    - [**Finalised Features**](#finalised-features)
+    - [**Finalised Goals/Features**](#finalised-goalsfeatures)
   - [**Site Design**](#site-design)
     - [**User Journey**](#user-journey)
     - [**Wireframes**](#wireframes)
@@ -85,9 +84,82 @@ A discussion relating to this project was held with friends of mine, with rangin
 
 ### **Feature Idea/Requiement Review**
 
-### **Finalised Goals**
+After the group discussion, the features and points were reviewed to determine importance and viability. During this review, additional features relevant to administration were identified and evaluated as well. The results from this review are highlighted in the table below.
 
-### **Finalised Features**
+A scoring system of 0-5 (Least to Most) has been utilized. This is based on the time required, and the difficulty relative to my currently level of ability with the required language/framework/service.
+
+| Feature | Importance | Viability/Feasibility |
+|---|---|---|
+| Admins can delete posts/comments | 5 | 5 |
+| Admins can disable accounts | 5 | 5 |
+| Users can view a paginated list of posts | 5 | 5 |
+| Users can register for an account | 5 | 5 |
+| Users can update their profile information | 4 | 5 |
+| Users can upload a profile picture | 1 | 3 |
+| Users can reset their password | 5 | 3 |
+| Users can delete their account | 4 | 5 |
+| Users can create new post drafts | 3 | 4 |
+| Users can create new posts | 5 | 5 |
+| Users can add tags to posts | 2 | 4 |
+| Users can comment on posts | 5 | 5 |
+| Users can reply to comments | 1 | 3 |
+| Users can like comments & posts | 2 | 2 |
+| Users can browse posts based on filters | 4 | 3 |
+| Users can follow posts | 1 | 1 |
+| Users can like categories | 1 | 1 |
+| Users can mention other users | 2 | 1 |
+| Users can see list of random posts | 5 | 5 |
+| Users can see list of posts from liked categories | 2 | 2 |
+| Users can see list of their own posts | 5 | 5 |
+| Users can message other users | 3 | 4 |
+| Users can message in groups | 1 | 1 |
+|---|---|---|
+|Totals | 76 | 82 |
+
+A user story template was created to allow partakers in the peer discussion to add additional feature requests, that could be added should time permit.
+
+For user stories relating to this project, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/issues?q=label%3A%22User+Story%22" target="_blank">Click Here.</a>
+
+***
+
+### **Finalised Goals/Features**
+
+Due to the scores listed above, the time available, and the complexity of each task, i have further categoriesed the tasks above into three distinct categories. Musts, Shoulds and Coulds. These will be used to prioritize work during development, and will be added to the To-Do column of the project board each week, to fullfill 60% Musts, and 40% Shoulds & Coulds.
+
+- Key:
+  - M = Must
+  - S = Should
+  - C = Could
+
+| Feature | Status |
+|---|---|
+| Admins can delete posts/comments | M |
+| Admins can disable accounts | M |
+| Users can view a paginated list of posts | M |
+| Users can register for an account | M |
+| Users can update their profile information | M |
+| Users can upload a profile picture | C |
+| Users can reset their password | M |
+| Users can delete their account | M |
+| Users can create new post drafts | M |
+| Users can create new posts | M |
+| Users can add tags to posts | C |
+| Users can comment on posts | M |
+| Users can reply to comments | C |
+| Users can like comments & posts | S |
+| Users can browse posts based on filters | M |
+| Users can follow posts | C |
+| Users can like categories | S |
+| Users can mention other users | S |
+| Users can see list of random posts | M |
+| Users can see list of posts from liked categories | S |
+| Users can see list of their own posts | M |
+| Users can message other users | S |
+| Users can message in groups | C |
+
+To view the project board for this site, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/projects/1" target="_blank">Click Here.</a>
+
+***
 
 ## **Site Design**
 
