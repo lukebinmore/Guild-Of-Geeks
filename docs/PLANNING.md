@@ -118,7 +118,7 @@ A scoring system of 0-5 (Least to Most) has been utilized. This is based on the 
 
 A user story template was created to allow partakers in the peer discussion to add additional feature requests, that could be added should time permit.
 
-For user stories relating to this project, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/issues?q=label%3A%22User+Story%22" target="_blank">Click Here.</a>
+For user stories relating to this project, please [Click Here.](https://github.com/lukebinmore/Guild-Of-Geeks/issues?q=label%3A%22User+Story%22)
 
 ***
 
@@ -157,7 +157,7 @@ Due to the scores listed above, the time available, and the complexity of each t
 | Users can message other users | S |
 | Users can message in groups | C |
 
-To view the project board for this site, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/projects/1" target="_blank">Click Here.</a>
+To view the project board for this site, please [Click Here.](https://github.com/lukebinmore/Guild-Of-Geeks/projects/1)
 
 ***
 
@@ -165,7 +165,7 @@ To view the project board for this site, please <a href="https://github.com/luke
 
 ### **Wireframes**
 
-Below are the basic initial wireframes for the site created with <a href="https://balsamiq.com/" target="_blank">Balsamiq Wireframes</a>. This basic design may evolve and change based on fluctuations with the User Stories.
+Below are the basic initial wireframes for the site created with [Balsamiq Wireframes](https://balsamiq.com/). This basic design may evolve and change based on fluctuations with the User Stories.
 
 **Landing Page:**
 ![Wireframe - Landing Page](wireframes/landing-page.png)
@@ -183,7 +183,7 @@ Below are the basic initial wireframes for the site created with <a href="https:
 
 ### **Logo**
 
-The site logo's were created using the free trial service at <a href="https://www.canva.com/" target="_blank">Canva.com.</a>
+The site logo's were created using the free trial service at [Canva.com.](https://www.canva.com/)
 
 **Large:**
 
@@ -214,7 +214,7 @@ The color scheme in use has been generated based on the logo, utilizing the same
 
 ### **Fonts**
 
-Fonts were selected from <a href="https://fonts.google.com/" target="_blank">Google Fonts</a> based on how they looked in the given color scheme, and how they suited the relevant topics that will be present on the site.
+Fonts were selected from [Google Fonts](https://fonts.google.com/) based on how they looked in the given color scheme, and how they suited the relevant topics that will be present on the site.
 
 **Headings/Titles: Anton**
 
@@ -232,7 +232,7 @@ Fonts were selected from <a href="https://fonts.google.com/" target="_blank">Goo
 
 ### **Database Scheme**
 
-Below are the planned fields for each table in the database for the site. Created in <a href="https://app.diagrams.net/" target="_blank">Diagrams.net.</a>
+Below are the planned fields for each table in the database for the site. Created in [Diagrams.net.](https://app.diagrams.net/)
 
 **User Table:**
 
@@ -268,7 +268,7 @@ This project will be developed using the Agile process, incorporating an iterati
 
 During each iteration, the project will be manually tested for bugs and issues. On encountering an issue or bug, a commit will be made with a message detailing the bug found and the solution implemented to resolve it.
 
-For bugs found and fixed during the development of this project, please <a href="https://github.com/search?q=repo%3Alukebinmore%2FGuild-Of-Geeks+%22Bug+Fix+-+%22&type=commits" target="_blank">Click Here.</a>
+For bugs found and fixed during the development of this project, please [Click Here.](https://github.com/search?q=repo%3Alukebinmore%2FGuild-Of-Geeks+%22Bug+Fix+-+%22&type=commits)
 
 In addition to this, django.test will be used during this project to test for bugs relating to urls, forms and models.
 
@@ -278,12 +278,12 @@ In addition to this, django.test will be used during this project to test for bu
 
 Each iteration will span one week, with a review held at the end of each week to review progress and update the remaining user stories. Incompleted items will be moved back into the backlog to be added back into the To-Do list for a future iteration when possible.
 
-To view the project (KanBan) for this site, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/projects/1" target="_blank">Click Here.</a>
+To view the project (KanBan) for this site, please [Click Here.](https://github.com/lukebinmore/Guild-Of-Geeks/projects/1)
 
 ***
 
 ### **User Stories**
 
-For user stories relating to this project, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/issues?q=label%3A%22User+Story%22" target="_blank">Click Here.</a>
+For user stories relating to this project, please [Click Here.](https://github.com/lukebinmore/Guild-Of-Geeks/issues?q=label%3A%22User+Story%22)
 
 ***

@@ -11,6 +11,6 @@
 
 ## **During Development**
 
-For bugs found and fixed during the development of this project, please <a href="https://github.com/search?q=repo%3Alukebinmore%2FGuild-Of-Geeks+%22Bug+Fix+-+%22&type=commits" target="_blank">Click Here.</a>
+For bugs found and fixed during the development of this project, please [Click Here.](https://github.com/search?q=repo%3Alukebinmore%2FGuild-Of-Geeks+%22Bug+Fix+-+%22&type=commits)
 
 ## **After Finalisation**
