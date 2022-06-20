@@ -189,6 +189,10 @@ The site logo's were created using the free trial service at <a href="https://ww
 
 ![Logo](../static/images/logo-400x68.png)
 
+**Large Inverted (For Dark Mode):**
+
+![Logo](../static/images/logo-400x68-inverted.png)
+
 **Small:**
 
 ![Logo](../static/images/logo-98x68.png)
