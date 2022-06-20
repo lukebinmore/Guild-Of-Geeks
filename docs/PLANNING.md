@@ -260,10 +260,30 @@ Below are the planned fields for each table in the database for the site. Create
 
 ### **Development Process**
 
+This project will be developed using the Agile process, incorporating an iterative approach to progression and prioritisation. GitHub's Issue's and Project (KanBan) features will be used to track progress during the development lifecycle, utlizing the MoSCoW methodology to manage task priority and iteration assignement.
+
+***
+
 ### **Testing Methodologies**
 
+During each iteration, the project will be manually tested for bugs and issues. On encountering an issue or bug, a commit will be made with a message detailing the bug found and the solution implemented to resolve it.
+
+For bugs found and fixed during the development of this project, please <a href="https://github.com/search?q=repo%3Alukebinmore%2FGuild-Of-Geeks+%22Bug+Fix+-+%22&type=commits" target="_blank">Click Here.</a>
+
+In addition to this, django.test will be used during this project to test for bugs relating to urls, forms and models.
+
+***
+
 ### **Periodic Reviews**
+
+Each iteration will span one week, with a review held at the end of each week to review progress and update the remaining user stories. Incompleted items will be moved back into the backlog to be added back into the To-Do list for a future iteration when possible.
+
+To view the project (KanBan) for this site, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/projects/1" target="_blank">Click Here.</a>
+
+***
 
 ### **User Stories**
 
 For user stories relating to this project, please <a href="https://github.com/lukebinmore/Guild-Of-Geeks/issues?q=label%3A%22User+Story%22" target="_blank">Click Here.</a>
+
+***
