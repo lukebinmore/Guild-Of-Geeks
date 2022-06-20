@@ -10,8 +10,8 @@
     - [**Feature Idea/Requiement Review**](#feature-idearequiement-review)
     - [**Finalised Goals/Features**](#finalised-goalsfeatures)
   - [**Site Design**](#site-design)
-    - [**User Journey**](#user-journey)
     - [**Wireframes**](#wireframes)
+    - [**Logo**](#logo)
     - [**Color Scheme**](#color-scheme)
     - [**Fonts**](#fonts)
     - [**Database Scheme**](#database-scheme)
@@ -163,15 +163,94 @@ To view the project board for this site, please <a href="https://github.com/luke
 
 ## **Site Design**
 
-### **User Journey**
-
 ### **Wireframes**
+
+Below are the basic initial wireframes for the site created with <a href="https://balsamiq.com/" target="_blank">Balsamiq Wireframes</a>. This basic design may evolve and change based on fluctuations with the User Stories.
+
+**Landing Page:**
+![Wireframe - Landing Page](wireframes/landing-page.png)
+
+**Profile Page:**
+![Wireframe - Profile Page](wireframes/profile-page.png)
+
+**New Post Page:**
+![Wireframe - New Post Page](wireframes/new-post-page.png)
+
+**Post Page:**
+![Wireframe - Post Page](wireframes/post-page.png)
+
+***
+
+### **Logo**
+
+The site logo's were created using the free trial service at <a href="https://www.canva.com/" target="_blank">Canva.com.</a>
+
+**Large:**
+
+![Logo](../static/images/logo-400x68.png)
+
+**Small:**
+
+![Logo](../static/images/logo-98x68.png)
+
+***
 
 ### **Color Scheme**
 
+The color scheme in use has been generated based on the logo, utilizing the same or similar colors to aid in creating a uniform design.
+
+| Color Image | Color Hex Code | Color Name |
+|---|---|---|
+| ![Pastel Green](images/color-swab-pastel-green.png) | #7CDC54 | Pastel Green |
+| ![Black](images/color-swab-black.png) | #040404 | Black |
+| ![White](images/color-swab-white.png) | #fff | White |
+| ![Ghost](images/color-swab-ghost.png) | #CBCBCB | Ghost |
+
+***
+
 ### **Fonts**
 
+Fonts were selected from <a href="https://fonts.google.com/" target="_blank">Google Fonts</a> based on how they looked in the given color scheme, and how they suited the relevant topics that will be present on the site.
+
+**Headings/Titles: Anton**
+
+![Anton Font](images/font-anton-example.png)
+
+**Other Text: Nunito**
+
+![Nunito Font](images/font-nunito-example.png)
+
+<!--
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Nunito&display=swap');
+-->
+
+***
+
 ### **Database Scheme**
+
+Below are the planned fields for each table in the database for the site. Created in <a href="https://app.diagrams.net/" target="_blank">Diagrams.net.</a>
+
+**User Table:**
+
+![User Table](images/table-user.png)
+
+**Post Table:**
+
+![Post Table](images/table-post.png)
+
+**Comment Table:**
+
+![Comment Table](images/table-comment.png)
+
+**Tag Table:**
+
+![Tag Table](images/table-tag.png)
+
+**Message Table:**
+
+![Message Table](images/table-message.png)
+
+***
 
 ## **Development Management**
 
