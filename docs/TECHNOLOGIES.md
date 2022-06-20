@@ -26,7 +26,7 @@
 
 ## **Services**
 
-- [Heroku - Deployment](https://dashboard.heroku.com/apps)
+- [Heroku - Deployment](https://heroku.com)
 - [Cloudinary - Media Storage Service](https://cloudinary.com/)
 - [Canva - Logo Creation Tool](https://www.canva.com/)
 - [Google Fonts - Modern Fonts](https://fonts.google.com/)

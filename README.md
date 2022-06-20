@@ -11,6 +11,7 @@
   - [**Future Developement**](#future-developement)
   - [**Testing Results**](#testing-results)
   - [**Technologies Used**](#technologies-used)
+  - [**Deployment**](#deployment)
   - [**Mentions**](#mentions)
   - [**Credits**](#credits)
 
@@ -24,6 +25,8 @@
 ## [**Testing Results**](/docs/TESTING.md)
 
 ## [**Technologies Used**](/docs/TECHNOLOGIES.md)
+
+## [**Deployment**](/docs/DEPLOYMENT.md)
 
 ## **Mentions**
 
