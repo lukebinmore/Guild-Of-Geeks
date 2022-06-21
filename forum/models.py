@@ -1,8 +1,33 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
+from dateutil.relativedelta import relativedelta
+from datetime import date
 
-STATE = ((0, "Draft"), (1, "Post"))
+STATE = ((0, 'Draft'), (1, 'Post'))
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=25, blank=True)
+    last_name = models.CharField(max_length=25, blank=True)
+    dob = models.DateField(max_length=8)
+    email = models.EmailField(blank=True)
+    number = models.CharField(max_length=11, blank=True)
+    picture = CloudinaryField('image', default='placeholder-profilepic')
+    dark_mode = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    followed_posts = models.ManyToManyField('Post', related_name='followed_posts', blank=True)
+    followed_categories = models.ManyToManyField('Category', related_name='followed_categories', blank=True)
+
+    def __str__(self):
+        return self.user
+    
+    def get_age(self):
+        return relativedelta(date.today(), self.dob).years
 
 
 class Category(models.Model):
@@ -10,7 +35,7 @@ class Category(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["title"]
+        ordering = ['title']
 
     def __str__(self):
         return self.title
@@ -21,7 +46,7 @@ class Tag(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["title"]
+        ordering = ['title']
 
     def __str__(self):
         return self.title
@@ -34,14 +59,14 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
-    banner_image = CloudinaryField("image", default="placeholder")
+    banner_image = CloudinaryField('image', default='placeholder')
     status = models.IntegerField(choices=STATE, default=0)
-    likes = models.ManyToManyField(User, related_name="blog_likes", blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="blog_categories")
-    tags = models.ManyToManyField(Tag, related_name="blog_tags")
+    likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='blog_categories')
+    tags = models.ManyToManyField(Tag, related_name='blog_tags')
 
     class Meta:
-        ordering = ["-created_on"]
+        ordering = ['-created_on']
 
     def __str__(self):
         return self.title
@@ -56,10 +81,10 @@ class Comment(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     reply_to = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
-    likes = models.ManyToManyField(User, related_name="comment_likes", blank=True)
+    likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
 
     class Meta:
-        ordering = ["created_on"]
+        ordering = ['created_on']
 
     def __str__(self):
         return f"{self.content} - (Posted By: {self.author})"
