@@ -46,3 +46,17 @@ class Post(models.Model):
 
     def likes_count(self):
         return self.likes.count()
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    reply_to = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
+
+    class Meta:
+        ordering = ['created_on']
+    
+    def __str__(self):
+        return f"{self.content} - (Posted By: {self.author})"
