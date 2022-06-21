@@ -1,9 +1,9 @@
-# **Guild Of Geeks**
+# **Guild Of Geeks** - [Live Site](https://guild-of-geeks.herokuapp.com/)
 
 ## **Project Overview**
 
 # **Table Of Contents**
-- [**Guild Of Geeks**](#guild-of-geeks)
+- [**Guild Of Geeks** - Live Site](#guild-of-geeks---live-site)
   - [**Project Overview**](#project-overview)
 - [**Table Of Contents**](#table-of-contents)
   - [**Planning Phase**](#planning-phase)
