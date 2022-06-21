@@ -88,33 +88,33 @@ After the group discussion, the features and points were reviewed to determine i
 
 A scoring system of 0-5 (Least to Most) has been utilized. This is based on the time required, and the difficulty relative to my currently level of ability with the required language/framework/service.
 
-| Feature | Importance | Viability/Feasibility |
-|---|---|---|
-| Admins can delete posts/comments | 5 | 5 |
-| Admins can disable accounts | 5 | 5 |
-| Users can view a paginated list of posts | 5 | 5 |
-| Users can register for an account | 5 | 5 |
-| Users can update their profile information | 4 | 5 |
-| Users can upload a profile picture | 1 | 3 |
-| Users can reset their password | 5 | 3 |
-| Users can delete their account | 4 | 5 |
-| Users can create new post drafts | 3 | 4 |
-| Users can create new posts | 5 | 5 |
-| Users can add tags to posts | 2 | 4 |
-| Users can comment on posts | 5 | 5 |
-| Users can reply to comments | 1 | 3 |
-| Users can like comments & posts | 2 | 2 |
-| Users can browse posts based on filters | 4 | 3 |
-| Users can follow posts | 1 | 1 |
-| Users can like categories | 1 | 1 |
-| Users can mention other users | 2 | 1 |
-| Users can see list of random posts | 5 | 5 |
-| Users can see list of posts from liked categories | 2 | 2 |
-| Users can see list of their own posts | 5 | 5 |
-| Users can message other users | 3 | 4 |
-| Users can message in groups | 1 | 1 |
-|---|---|---|
-|Totals | 76 | 82 |
+| Feature                                           | Importance | Viability/Feasibility |
+| ------------------------------------------------- | ---------- | --------------------- |
+| Admins can delete posts/comments                  | 5          | 5                     |
+| Admins can disable accounts                       | 5          | 5                     |
+| Users can view a paginated list of posts          | 5          | 5                     |
+| Users can register for an account                 | 5          | 5                     |
+| Users can update their profile information        | 4          | 5                     |
+| Users can upload a profile picture                | 1          | 3                     |
+| Users can reset their password                    | 5          | 3                     |
+| Users can delete their account                    | 4          | 5                     |
+| Users can create new post drafts                  | 3          | 4                     |
+| Users can create new posts                        | 5          | 5                     |
+| Users can add tags to posts                       | 2          | 4                     |
+| Users can comment on posts                        | 5          | 5                     |
+| Users can reply to comments                       | 1          | 3                     |
+| Users can like comments & posts                   | 2          | 2                     |
+| Users can browse posts based on filters           | 4          | 3                     |
+| Users can follow posts                            | 1          | 1                     |
+| Users can like categories                         | 1          | 1                     |
+| Users can mention other users                     | 2          | 1                     |
+| Users can see list of random posts                | 5          | 5                     |
+| Users can see list of posts from liked categories | 2          | 2                     |
+| Users can see list of their own posts             | 5          | 5                     |
+| Users can message other users                     | 3          | 4                     |
+| Users can message in groups                       | 1          | 1                     |
+| ---                                               | ---        | ---                   |
+| Totals                                            | 76         | 82                    |
 
 A user story template was created to allow partakers in the peer discussion to add additional feature requests, that could be added should time permit.
 
@@ -131,31 +131,31 @@ Due to the scores listed above, the time available, and the complexity of each t
   - S = Should
   - C = Could
 
-| Feature | Status |
-|---|---|
-| Admins can delete posts/comments | M |
-| Admins can disable accounts | M |
-| Users can view a paginated list of posts | M |
-| Users can register for an account | M |
-| Users can update their profile information | M |
-| Users can upload a profile picture | C |
-| Users can reset their password | M |
-| Users can delete their account | M |
-| Users can create new post drafts | M |
-| Users can create new posts | M |
-| Users can add tags to posts | C |
-| Users can comment on posts | M |
-| Users can reply to comments | C |
-| Users can like comments & posts | S |
-| Users can browse posts based on filters | M |
-| Users can follow posts | C |
-| Users can like categories | S |
-| Users can mention other users | S |
-| Users can see list of random posts | M |
-| Users can see list of posts from liked categories | S |
-| Users can see list of their own posts | M |
-| Users can message other users | S |
-| Users can message in groups | C |
+| Feature                                           | Status |
+| ------------------------------------------------- | ------ |
+| Admins can delete posts/comments                  | M      |
+| Admins can disable accounts                       | M      |
+| Users can view a paginated list of posts          | M      |
+| Users can register for an account                 | M      |
+| Users can update their profile information        | M      |
+| Users can upload a profile picture                | C      |
+| Users can reset their password                    | M      |
+| Users can delete their account                    | M      |
+| Users can create new post drafts                  | M      |
+| Users can create new posts                        | M      |
+| Users can add tags to posts                       | C      |
+| Users can comment on posts                        | M      |
+| Users can reply to comments                       | C      |
+| Users can like comments & posts                   | S      |
+| Users can browse posts based on filters           | M      |
+| Users can follow posts                            | C      |
+| Users can like categories                         | S      |
+| Users can mention other users                     | S      |
+| Users can see list of random posts                | M      |
+| Users can see list of posts from liked categories | S      |
+| Users can see list of their own posts             | M      |
+| Users can message other users                     | S      |
+| Users can message in groups                       | C      |
 
 To view the project board for this site, please [Click Here.](https://github.com/lukebinmore/Guild-Of-Geeks/projects/1)
 
@@ -203,12 +203,12 @@ The site logo's were created using the free trial service at [Canva.com.](https:
 
 The color scheme in use has been generated based on the logo, utilizing the same or similar colors to aid in creating a uniform design.
 
-| Color Image | Color Hex Code | Color Name |
-|---|---|---|
-| ![Pastel Green](images/color-swab-pastel-green.png) | #7CDC54 | Pastel Green |
-| ![Black](images/color-swab-black.png) | #040404 | Black |
-| ![White](images/color-swab-white.png) | #fff | White |
-| ![Ghost](images/color-swab-ghost.png) | #CBCBCB | Ghost |
+| Color Image                                         | Color Hex Code | Color Name   |
+| --------------------------------------------------- | -------------- | ------------ |
+| ![Pastel Green](images/color-swab-pastel-green.png) | #7CDC54        | Pastel Green |
+| ![Black](images/color-swab-black.png)               | #040404        | Black        |
+| ![White](images/color-swab-white.png)               | #fff           | White        |
+| ![Ghost](images/color-swab-ghost.png)               | #CBCBCB        | Ghost        |
 
 ***
 
@@ -236,7 +236,7 @@ Below are the planned fields for each table in the database for the site. Create
 
 **User Table:**
 
-![User Table](images/table-user.png)
+![Profile Table](images/table-profile.png)
 
 **Post Table:**
 
