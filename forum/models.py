@@ -24,7 +24,7 @@ class Profile(models.Model):
     followed_categories = models.ManyToManyField('Category', related_name='followed_categories', blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
     
     def get_age(self):
         return relativedelta(date.today(), self.dob).years
