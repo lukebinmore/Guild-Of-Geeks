@@ -242,6 +242,10 @@ Below are the planned fields for each table in the database for the site. Create
 
 ![Post Table](images/table-post.png)
 
+**Category Table:**
+
+![Category Table](images/table-category.png)
+
 **Comment Table:**
 
 ![Comment Table](images/table-comment.png)
