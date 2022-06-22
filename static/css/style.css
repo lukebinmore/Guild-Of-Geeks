@@ -20,3 +20,8 @@
 hr {
     margin: 1vw 0;
 }
+
+footer {
+    background-color: orange;
+    height: 100px;
+}
