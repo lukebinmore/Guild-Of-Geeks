@@ -14,7 +14,7 @@ class Profile(models.Model):
     dob = models.DateField(max_length=8)
     email = models.EmailField(blank=True)
     number = models.CharField(max_length=11, blank=True)
-    picture = CloudinaryField('image', default='placeholder-profilepic')
+    picture = CloudinaryField('image', default='placeholder')
     dark_mode = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

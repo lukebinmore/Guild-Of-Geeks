@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid justify-content-center gx-0">
+        <div class="row w-100">
+            <div class="col-2 gx-3 d-inline d-md-none">
+
+            </div>
+            <div class="col-8 offset-0 offset-md-2">
+                <a href="{% url 'index' %}" class="navbar-brand">
+                    <img class="d-none d-md-block mx-auto" src="static/images/logo-400x68.png"
+                        alt="Guild Of Geeks Logo">
+                    <img class="d-block d-md-none mx-auto" src="static/images/logo-98x68.png" alt="Guild Of Geeks Logo">
+                </a>
+            </div>
+            <div class="col-2 gx-3">
+                {% if user.is_authenticated %}
+                <a href="#" class="profile-picture">
+                    <img src="{{ user.profile.picture.url }}" alt="Profile Picture" class="float-end rounded-circle">
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+<hr>
