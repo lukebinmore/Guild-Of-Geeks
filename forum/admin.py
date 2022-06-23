@@ -21,7 +21,7 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 @admin.register(models.Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin):
     list_display = ('title', 'author', 'created_on', 'updated_on', 'status', 'category',)
     list_filter = ('author', 'created_on', 'updated_on', 'status', 'category', 'tags',)
     prepopulated_fields = {'slug': ('title',)}
@@ -29,7 +29,7 @@ class PostAdmin(admin.ModelAdmin):
     summernote_fields = ('content')
 
 @admin.register(models.Comment)
-class CommentAdmin(admin.ModelAdmin):
+class CommentAdmin(SummernoteModelAdmin):
     list_display = ('author', 'post', 'created_on', 'reply_to',)
     list_filter = ('author', 'post', 'created_on', 'reply_to',)
     search_fields = ('author', 'post', 'created_on', 'reply_to',)
