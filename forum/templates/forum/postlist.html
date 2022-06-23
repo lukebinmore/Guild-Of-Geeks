@@ -1,0 +1,36 @@
+{% load static %}
+
+<div class="container_fluid">
+    .
+    {% for post in post_list %}
+    <div class="card post-list-post">
+        <div class="card-header">
+            <h4>{{ post.title }}</h4>
+            <p>Category: {{ post.category }}</p>
+            <p class=" float-end">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
+        </div>
+        <div class="card-body post-list-body">
+            <p class="card-text">{{ post.content | safe}}</p>
+        </div>
+        <form action="#" method="POST" class="card-footer row post-list-footer">
+            {% csrf_token %}
+            <div class="col text-end">
+                <button class="btn btn-primary">
+                    <i class="fa-solid fa-comments"></i>
+                    {{ post.comments_count }}
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary">
+                    {% if liked %}
+                    <i class="fas fa-heart"></i>
+                    {% else %}
+                    <i class="far fa-heart"></i>
+                    {% endif %}
+                    {{ post.likes_count }}
+                </button>
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+</div>

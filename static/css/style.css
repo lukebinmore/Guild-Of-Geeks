@@ -19,3 +19,35 @@
 hr {
     margin: 5px 0;
 }
+
+.post-list-post {
+    border-radius: 1.5vw;
+    margin-top: 0.75vh;
+}
+
+.post-list-post h4 {
+    margin-bottom: 5px;
+}
+
+.post-list-post p {
+    margin-bottom: 0;
+}
+
+.post-list-body {
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.post-list-body img {
+    max-width: 100%;
+}
+
+.post-list-footer div {
+    margin: 0 2vw;
+}
+
+.post-list-footer button {
+    color: green;
+    border: none;
+    background: transparent;
+}
