@@ -22,7 +22,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(models.Post)
 class PostAdmin(SummernoteModelAdmin):
-    list_display = ('title', 'author', 'created_on', 'updated_on', 'status', 'category',)
+    list_display = ('title', 'author', 'created_on', 'updated_on', 'status', 'category', 'likes_count',)
     list_filter = ('author', 'created_on', 'updated_on', 'status', 'category', 'tags',)
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('title', 'author', 'created_on', 'updated_on', 'status', 'category', 'tags',)
