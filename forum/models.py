@@ -57,7 +57,6 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
-    banner_image = CloudinaryField('image', default='placeholder')
     status = models.IntegerField(choices=STATE, default=0)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='blog_categories')
