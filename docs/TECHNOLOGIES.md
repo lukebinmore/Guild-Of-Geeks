@@ -21,7 +21,6 @@
 
 - [Balsamiq Wireframes - Wireframe Creation Tool](https://balsamiq.com/)
 - [Visual Studio Code - Development IDE](https://code.visualstudio.com/)
-- [Bootstrap CDN - Bootsrap CSS and JavaScript](https://www.bootstrapcdn.com/)
 
 ***
 
@@ -32,6 +31,8 @@
 - [Canva - Logo Creation Tool](https://www.canva.com/)
 - [Google Fonts - Modern Fonts](https://fonts.google.com/)
 - [Font Awesome - Icons](https://fontawesome.com/)
+- [Bootstrap CDN - Bootsrap CSS and JavaScript](https://www.bootstrapcdn.com/)
+- [CDNJS - JQuery CDN Provider](https://cdnjs.com/libraries/jquery)
 
 ***
 
@@ -40,5 +41,6 @@
 - [dj_database_url - DB URL Environement Variable Formatter](https://pypi.org/project/dj-database-url/)
 - [psycopg2 - PostgreSQL Python Database Adapter](https://pypi.org/project/psycopg2/)
 - [gunicorn - Python WSGI HTTP Server](https://gunicorn.org/)
+- [Waypoints - Infinite Scrolling](http://imakewebthings.com/waypoints/)
 
 ***
