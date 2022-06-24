@@ -31,13 +31,11 @@
         {% endblock %}
 
         <div class="container-fluid text-center">
-            <div class="spinner-border loading" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+            <div class="spinner-border loading" role="status"></div>
         </div>
 
         {% if page_obj.has_next and is_paginated %}
-        <a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link">NEXT</a>
+        <a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link"></a>
         {% endif %}
 
         <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
