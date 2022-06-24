@@ -1,8 +1,8 @@
 {% load static %}
 
-<div class="container_fluid">
+<div class="container_fluid infinite-container">
     {% for post in post_list %}
-    <div class="card post-list-post">
+    <div class="card post-list-post infinite-item">
         <div class="card-header">
             <h4>{{ post.title }}</h4>
             <p>Category: {{ post.category }}</p>
