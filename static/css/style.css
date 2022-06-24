@@ -1,7 +1,21 @@
+/* Global Variables */
+:root {
+    --light-primary: #7ed957;
+}
+
+/* Tag Level Stylings */
 body {
     overflow-x: hidden;
 }
 
+/* General Stylings */
+.rounded-corner {
+    border-radius: 1.5vw;
+    margin-top: 0.75vh;
+    overflow: hidden;
+}
+
+/* Navbar Specific Stylings */
 .navbar div {
     height: 6vw;
     max-height: 80px;
@@ -16,16 +30,7 @@ body {
     border: 2px solid #000;
 }
 
-hr {
-    margin: 5px 0;
-}
-
-.post-list-post {
-    border-radius: 1.5vw;
-    margin-top: 0.75vh;
-    overflow: hidden;
-}
-
+/* Post List Specific Stylings */
 .post-list-post h4 {
     margin-bottom: 5px;
 }
@@ -48,7 +53,7 @@ hr {
 }
 
 .post-list-footer div {
-    color: green;
+    color: var(--light-primary);
     border: none;
     background: transparent;
 }
