@@ -47,7 +47,7 @@ hr {
     margin: 0 2vw;
 }
 
-.post-list-footer button {
+.post-list-footer div {
     color: green;
     border: none;
     background: transparent;
