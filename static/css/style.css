@@ -23,6 +23,7 @@ hr {
 .post-list-post {
     border-radius: 1.5vw;
     margin-top: 0.75vh;
+    overflow: hidden;
 }
 
 .post-list-post h4 {
