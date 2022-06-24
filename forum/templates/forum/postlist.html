@@ -2,11 +2,11 @@
 
 <div class="container_fluid infinite-container">
     {% for post in post_list %}
-    <div class="card post-list-post infinite-item">
+    <div class="card post-list-post infinite-item rounded-corner">
         <div class="card-header">
             <h4>{{ post.title }}</h4>
             <p>Category: {{ post.category }}</p>
-            <p class=" float-end">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
+            <p class="float-end">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
         </div>
         <div class="card-body post-list-body">
             <p class="card-text">{{ post.content | safe}}</p>
