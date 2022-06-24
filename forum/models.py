@@ -61,7 +61,7 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='blog_categories')
     tags = models.ManyToManyField(Tag, related_name='blog_tags')
-    comments = models.ManyToManyField('Comment', related_name='post_comments', blank=True)
+    # comments = models.ManyToManyField('Comment', related_name='post_comments', blank=True)
 
     class Meta:
         ordering = ['-created_on']
@@ -73,12 +73,12 @@ class Post(models.Model):
         return self.likes.count()
 
     def comments_count(self):
-        return self.comments.count()
+        return self.post_comments.count()
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comments')
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     reply_to = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
