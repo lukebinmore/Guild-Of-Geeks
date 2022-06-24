@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid row">
+    <div class="col-10">
+        <div class="card rounded-corner">
+            <div class="card-header">
+                <h1>{{ post.title }}</h1>
+                <p class="list-group-item">{{ post.category }}</p>
+                {% for tag in post.tags.all %}
+                <p class="list-group-item d-inline-block">{{ tag }}</p>
+                {% endfor %}
+                <p class="float-end remove-pm py-2">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
+            </div>
+            <div class="card-body py-0">
+                <p class="card-text">{{ post.content | safe}}</p>
+            </div>
+            <div class="card-footer row">
+                <div class="col text-end">
+                    <i class="fa-solid fa-comments"></i>
+                    {{ post.comments_count }}
+                </div>
+                <div class="col">
+                    {% if liked %}
+                    <i class="fas fa-heart"></i>
+                    {% else %}
+                    <i class="far fa-heart"></i>
+                    {% endif %}
+                    {{ post.likes_count }}
+                </div>
+            </div>
+        </div>
+        <ul class="list-group comments-list rounded-corner">
+            <li class="list-group-item">
+
+            </li>
+
+            <li class="list-group-item">
+
+            </li>
+
+            <li class="list-group-item">
+
+            </li>
+        </ul>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+{% endblock %}
