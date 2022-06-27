@@ -34,7 +34,7 @@
             <div class="spinner-border loading" hidden role="status"></div>
         </div>
 
-        {% if page_obj.has_next and is_paginated %}
+        {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link"></a>
         {% endif %}
 
