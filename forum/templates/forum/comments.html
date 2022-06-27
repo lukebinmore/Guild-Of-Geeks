@@ -1,8 +1,23 @@
-{% load crispy_forms_tags %}
-
 <ul class="list-group rounded-corner infinite-container">
     <li class="list-group-item">
-
+        {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-2 text-center border-end comment-left p-2">
+                    <img src="{{ user.profile.picture.url }}" alt="{{ comment.author }}'s Profile Picture"
+                        class="w-50 rounded-circle">
+                    <p class="my-1">{{ user }}</p>
+                    <p class="my-0">Member Since {{ user.profile.created_on }}</p>
+                </div>
+                <div class="col-10 comment-right">
+                    {{ new_comment_form | safe}}
+                </div>
+                <div class="container-fluid border-top pt-2">
+                    <button type="submit" class="btn btn-primary float-end">Post</button>
+                </div>
+        </form>
+        {% endif %}
     </li>
     {% for comment in comments %}
     <li class="list-group-item infinite-item">

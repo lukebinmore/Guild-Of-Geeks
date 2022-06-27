@@ -37,13 +37,10 @@ class Post(View):
     def post(self, request, slug, *args, **kwargs):
         queryset = models.Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
-
         new_comment_form = forms.NewCommentForm(data=request.POST)
-
         if new_comment_form.is_valid():
             comment = new_comment_form.save(commit=False)
             comment.author = request.user
             comment.post = post
             comment.save()
             return redirect(request.path)
-            
