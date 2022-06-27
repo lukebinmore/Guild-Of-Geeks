@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
 }
 
+img {
+    max-width: 100%;
+}
+
 /* General Stylings */
 .rounded-corner {
     border-radius: 1.5vw;
@@ -31,7 +35,6 @@ body {
 }
 
 .profile-picture img {
-    border-radius: 50%;
     border: 2px solid #000;
 }
 
@@ -61,4 +64,10 @@ body {
     color: var(--light-primary);
     border: none;
     background: transparent;
+}
+
+/* Comment List Specific Stylings */
+.comment-left img {
+    border: 2px solid #000;
+    max-width: 100px;
 }
