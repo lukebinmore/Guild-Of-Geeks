@@ -1,4 +1,3 @@
-from tkinter import getboolean
 from django.shortcuts import get_object_or_404, render
 from django.views import generic, View
 from django.core.paginator import Paginator
