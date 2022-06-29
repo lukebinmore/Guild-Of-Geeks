@@ -42,6 +42,6 @@
 - [psycopg2 - PostgreSQL Python Database Adapter](https://pypi.org/project/psycopg2/)
 - [gunicorn - Python WSGI HTTP Server](https://gunicorn.org/)
 - [Waypoints - Infinite Scrolling](http://imakewebthings.com/waypoints/)
-- [Crispy Forms - Form Rendering Controller](https://django-crispy-forms.readthedocs.io/en/latest/index.html)
+- [Select2 - Searchable Select Form Fields](https://select2.org/)
 
 ***
