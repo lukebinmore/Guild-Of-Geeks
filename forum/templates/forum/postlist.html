@@ -11,18 +11,18 @@
         <div class="card-body post-list-body">
             <p class="card-text">{{ post.content | safe}}</p>
         </div>
-        <div class="card-footer row post-list-footer">
-            <div class="col text-end">
+        <div class="card-footer btn-group remove-pm">
+            <div class="btn pe-none">
                 <i class="fa-solid fa-comments"></i>
                 {{ post.comments_count }}
             </div>
-            <div class="col">
-                {% if liked %}
+            <div class="btn pe-none">
+                {{ post.likes_count }}
+                {% if user in post.likes.all %}
                 <i class="fas fa-heart"></i>
                 {% else %}
                 <i class="far fa-heart"></i>
                 {% endif %}
-                {{ post.likes_count }}
             </div>
         </div>
         <a href="{% url 'post-view' post.slug %}" class="stretched-link"></a>

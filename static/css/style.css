@@ -60,16 +60,6 @@ a {
     max-width: 100%;
 }
 
-.post-list-footer div {
-    margin: 0 2vw;
-}
-
-.post-list-footer div {
-    color: var(--light-primary);
-    border: none;
-    background: transparent;
-}
-
 /* Comment List Specific Stylings */
 .comment-left img {
     border: 2px solid #000;
