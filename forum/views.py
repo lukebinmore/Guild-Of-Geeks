@@ -84,17 +84,20 @@ class PostEdit(View):
             )
     
     def post(self, request, slug, *args, **kwargs):
-        post_form = forms.PostForm(data=request.POST)
+        if slug == 'new-post':
+            post_form = forms.PostForm(data=request.POST)
+        else:
+            queryset = models.Post.objects.all()
+            post = get_object_or_404(queryset, slug=slug)
+            post_form = forms.PostForm(data=request.POST, instance=post)
+
         if post_form.is_valid():
+            post = post_form.save(commit=False)
             if slug == 'new-post':
-                post = post_form.save(commit=False)
                 post.slug = slugify(post.title)
                 post.author = request.user
-                post.save()
+                post = post_form.save()
             else:
-                queryset = models.Post.objects.all()
-                post = get_object_or_404(queryset, slug=slug)
-                post_form = forms.PostForm(data=request.POST, instance=post)
                 post_form.save()
 
             if 'post-submit-draft' in request.POST:
