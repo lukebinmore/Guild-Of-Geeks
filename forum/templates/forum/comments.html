@@ -1,6 +1,11 @@
 <ul class="list-group rounded-corner infinite-container">
+    {% if user.is_authenticated %}
+    {% if edit_mode %}
+    <li class="list-group-item text-center">
+        <p class="my-auto">New Comments not available in edit mode.</p>
+    </li>
+    {% else %}
     <li class="list-group-item">
-        {% if user.is_authenticated %}
         <form method="POST">
             {% csrf_token %}
             <div class="row">
@@ -10,15 +15,16 @@
                     <p class="my-1">{{ user }}</p>
                     <p class="my-0">Member Since {{ user.profile.created_on }}</p>
                 </div>
-                <div class="col-10 comment-right">
+                <div class="col-10">
                     {{ new_comment_form | safe}}
                 </div>
                 <div class="container-fluid border-top pt-2">
                     <button type="submit" class="btn btn-primary float-end">Post</button>
                 </div>
         </form>
-        {% endif %}
     </li>
+    {% endif %}
+    {% endif %}
     {% for comment in comments %}
     <li class="list-group-item infinite-item">
         <div class="row">
@@ -28,7 +34,7 @@
                 <p class="my-1">{{ comment.author }}</p>
                 <p class="my-0">Posted {{ comment.created_on | timesince }} ago.</p>
             </div>
-            <div class="col-10 comment-right">
+            <div class="col-10">
                 {{ comment.content | safe }}
             </div>
         </div>
