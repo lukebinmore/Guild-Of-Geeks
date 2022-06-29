@@ -62,8 +62,8 @@
                         <i class="fa-solid fa-comments"></i>
                         {{ post.comments_count }}
                     </div>
-                    <a href="#" class="btn btn-primary">
-                        {% if liked %}
+                    <a hx-post="{% url 'post-like' post.slug %}" class="btn btn-primary">
+                        {% if user in post.likes.all %}
                         <i class="fas fa-heart"></i>
                         {% else %}
                         <i class="far fa-heart"></i>

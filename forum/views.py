@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from tkinter import getboolean
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.urls import reverse
 from django.views import generic, View
 from django.core.paginator import Paginator
@@ -110,3 +111,25 @@ class PostEdit(View):
             return redirect('post-view', slug=post.slug)
             
         return redirect('index')
+
+class PostLike(View):
+    def post(self, request, slug, *args, **kwargs):
+        queryset = models.Post.objects.all()
+        post = get_object_or_404(queryset, slug=slug)
+        if post.likes.filter(id=self.request.user.id).exists():
+            post.likes.remove(request.user)
+            return HttpResponse('<i class="far fa-heart"></i> ' + str(post.likes.count()))
+        else:
+            post.likes.add(request.user)
+            return HttpResponse('<i class="fas fa-heart"></i> ' + str(post.likes.count()))
+
+class CommentLike(View):
+    def post(self, request, id, *args, **kwargs):
+        queryset = models.Comment.objects.all()
+        comment = get_object_or_404(queryset, id=id)
+        if comment.likes.filter(id=self.request.user.id).exists():
+            comment.likes.remove(request.user)
+            return HttpResponse('<i class="far fa-heart"></i> ' + str(comment.likes.count()))
+        else:
+            comment.likes.add(request.user)
+            return HttpResponse('<i class="fas fa-heart"></i> ' + str(comment.likes.count()))

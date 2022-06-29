@@ -43,5 +43,6 @@
 - [gunicorn - Python WSGI HTTP Server](https://gunicorn.org/)
 - [Waypoints - Infinite Scrolling](http://imakewebthings.com/waypoints/)
 - [Select2 - Searchable Select Form Fields](https://select2.org/)
+- [HTMX - Attribute Based AJAX](https://htmx.org/)
 
 ***

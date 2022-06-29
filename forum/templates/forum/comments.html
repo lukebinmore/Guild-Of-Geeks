@@ -38,9 +38,17 @@
                 {{ comment.content | safe }}
             </div>
         </div>
-        <div class="container-fluid border-top">
-
-        </div>
+        <form class="container-fluid border-top btn-group remove-pm rounded-corner">
+            {% csrf_token %}
+            <a hx-post="{% url 'comment-like' comment.id %}" class="btn btn-primary">
+                {% if user in comment.likes.all %}
+                <i class="fas fa-heart"></i>
+                {% else %}
+                <i class="far fa-heart"></i>
+                {% endif %}
+                {{ comment.likes.count }}
+            </a>
+        </form>
     </li>
     {% endfor %}
 </ul>
