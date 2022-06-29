@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 from django.views import generic, View
 from django.core.paginator import Paginator
+from django.template.defaultfilters import slugify
 from . import models
 from . import forms
 
@@ -16,7 +18,7 @@ class Index(generic.ListView):
         context['tags'] = models.Tag.objects.all()
         return context
 
-class Post(View):
+class PostView(View):
     def get(self, request, slug, *args, **kwargs):
         queryset = models.Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
@@ -44,3 +46,64 @@ class Post(View):
             comment.post = post
             comment.save()
             return redirect(request.path)
+
+class PostEdit(View):
+    def get(self, request, slug, *args, **kwargs):
+        if slug == "new-post":
+            post_form = forms.PostForm(
+                initial={'title': request.GET['new-post-title'],}
+            )
+
+            return render(
+                request,
+                'forum/post.html',
+                {
+                    'edit_mode': True,
+                    'post_form': post_form,
+                }
+            )
+
+        else:
+            queryset = models.Post.objects.all()
+            post = get_object_or_404(queryset, slug=slug)
+            paginator = Paginator(post.post_comments.order_by('created_on'), 5)
+            page = request.GET.get('page')
+            comments = paginator.get_page(page)
+            post_form = forms.PostForm(instance=post)
+
+            return render(
+                request,
+                'forum/post.html',
+                {
+                    'post': post,
+                    'comments': comments,
+                    'page_obj': comments,
+                    'edit_mode': True,
+                    'post_form': post_form,
+                },
+            )
+    
+    def post(self, request, slug, *args, **kwargs):
+        post_form = forms.PostForm(data=request.POST)
+        if post_form.is_valid():
+            if slug == 'new-post':
+                post = post_form.save(commit=False)
+                post.slug = slugify(post.title)
+                post.author = request.user
+                post.save()
+            else:
+                queryset = models.Post.objects.all()
+                post = get_object_or_404(queryset, slug=slug)
+                post_form = forms.PostForm(data=request.POST, instance=post)
+                post_form.save()
+
+            if 'post-submit-draft' in request.POST:
+                post.status = 0
+            else:
+                post.status = 1
+
+            post.save()
+
+            return redirect('post-view', slug=post.slug)
+            
+        return redirect('index')
