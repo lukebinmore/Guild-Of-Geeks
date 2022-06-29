@@ -12,6 +12,10 @@ img {
     max-width: 100%;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* General Stylings */
 .rounded-corner {
     border-radius: 1.5vw;
@@ -70,4 +74,9 @@ img {
 .comment-left img {
     border: 2px solid #000;
     max-width: 100px;
+}
+
+/* Post Specific Stylings */
+.post-header h1 {
+    width: 85%;
 }
