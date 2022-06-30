@@ -133,3 +133,7 @@ class CommentLike(View):
         else:
             comment.likes.add(request.user)
             return HttpResponse('<i class="fas fa-heart"></i> ' + str(comment.likes.count()))
+
+class LoginSignup(View):
+    def post(self, request, *args, **kwargs):
+        return redirect('index')

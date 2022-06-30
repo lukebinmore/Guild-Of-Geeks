@@ -1,0 +1,20 @@
+<div class="modal fade" id="login-signup-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form href="{% url 'login-signup' %}" method="POST" class="modal-content rounded-corner">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title">Login / Signup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group rounded-corner w-100">
+                    <button class="submit btn btn-primary">Login</button>
+                    <button class="submit btn btn-primary">Sign Up</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

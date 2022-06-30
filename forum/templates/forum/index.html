@@ -1,5 +1,9 @@
 {% extends "base.html" %} {% block content %}
 
+{% if user.is_authenticated == False %}
+{% include "forum/loginsignup.html" %}
+{% endif %}
+
 <div class="container_fluid row">
     <div class="col-0 col-sm-2"></div>
     <div class="col-12 col-sm-8">
