@@ -7,18 +7,23 @@
 
             </div>
             <div class="col-8 offset-0 offset-md-2">
-                <a href="{% url 'index' %}" class="navbar-brand">
+                <a href="{% url 'index' %}">
                     <img class="d-none d-md-block mx-auto" src="{% static 'images/logo-400x68.png' %}"
                         alt="Guild Of Geeks Logo">
                     <img class="d-block d-md-none mx-auto" src="{% static 'images/logo-98x68.png' %}"
                         alt="Guild Of Geeks Logo">
                 </a>
             </div>
-            <div class="col-2 gx-3">
+            <div class="col-2 gx-3 d-flex justify-content-end align-items-end">
                 {% if user.is_authenticated %}
-                <a href=" #" class="profile-picture">
-                    <img src="{{ user.profile.picture.url }}" alt="Profile Picture" class="float-end rounded-circle">
-                </a>
+                <div class="profile-picture">
+                    <img src="{{ user.profile.picture.url }}" alt="Profile Picture" class="rounded-circle">
+                </div>
+                {% else %}
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#login-signup-modal">
+                    Login / Signup
+                </button>
                 {% endif %}
             </div>
         </div>
