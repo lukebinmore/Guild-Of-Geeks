@@ -1,4 +1,3 @@
-from re import M
 from . import models
 from django import forms
 from django_summernote.widgets import SummernoteWidget
@@ -30,3 +29,9 @@ class PostForm(forms.ModelForm):
             ),
             'content': SummernoteWidget()
         }
+
+class AccountForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(
+        widget=forms.PasswordInput
+    )
