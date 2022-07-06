@@ -18,7 +18,7 @@ class Index(generic.ListView):
         context = super(Index, self).get_context_data(**kwargs)
         context['categories'] = models.Category.objects.all()
         context['tags'] = models.Tag.objects.all()
-        context['account_form'] = forms.AccountForm()
+        context['user_form'] = forms.UserForm()
         return context
 
 class PostView(View):
@@ -136,17 +136,46 @@ class CommentLike(View):
             comment.likes.add(request.user)
             return HttpResponse('<i class="fas fa-heart"></i> ' + str(comment.likes.count()))
 
-class LoginSignup(View):
+class Login(View):
     def post(self, request, *args, **kwargs):
-        account_form = forms.AccountForm(data=request.POST)
-        if account_form.is_valid():
-            if 'submit-login' in request.POST:
-                user = authenticate(
-                    username = account_form.cleaned_data['username'],
-                    password = account_form.cleaned_data['password']
-                )
-                if user is not None:
-                    login(request, user)
-                    return redirect('index')
+        user_form = forms.UserForm(data=request.POST)
+
+        if user_form.is_valid():
+            user = authenticate(
+                username = user_form.cleaned_data['username'],
+                password = user_form.cleaned_data['password']
+            )
+            if user is not None:
+                login(request, user)
+                return redirect('index')
         else:
             return redirect('index')
+
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'forum/login.html',
+            {
+                'user_form': forms.UserForm()
+            }
+        )
+
+class Signup(View):
+    def post(self, request, *args, **kwargs):
+        user_form = forms.UserForm(data=request.POST)
+        profile_form = forms.ProfileForm(data=request.POST)
+
+        if profile_form.is_valid():
+            pass
+        else:
+            return redirect('index')
+
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'forum/signup.html',
+            {
+                'profile_form': forms.ProfileForm(),
+                'user_form': forms.UserForm()
+            }
+        )
