@@ -1,0 +1,24 @@
+<form action="{% url 'signup' %}" method="POST">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h5 class="modal-title">Signup</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        {{ signup_form.first_name }}
+        {{ signup_form.last_name }}
+        {{ signup_form.username }}
+        {{ signup_form.password }}
+        {{ signup_form.email }}
+        {{ signup_form.dob }}
+        {{ signup_form.number }}
+        {{ signup_form.picture }}
+    </div>
+    <div class="modal-footer">
+        <div class="btn-group rounded-corner w-100">
+            <button type="submit" name="submit-signup" class="btn btn-primary">Signup</button>
+            <button type="button" hx-get="{% url 'login' %}" hx-target="#login-signup-container"
+                class="btn btn-primary">Login</button>
+        </div>
+    </div>
+</form>
