@@ -2,6 +2,7 @@ from tkinter import getboolean
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.urls import reverse
 from django.views import generic, View
+from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator
 from django.template.defaultfilters import slugify
 from . import models
@@ -17,6 +18,7 @@ class Index(generic.ListView):
         context = super(Index, self).get_context_data(**kwargs)
         context['categories'] = models.Category.objects.all()
         context['tags'] = models.Tag.objects.all()
+        context['account_form'] = forms.AccountForm()
         return context
 
 class PostView(View):
@@ -136,4 +138,15 @@ class CommentLike(View):
 
 class LoginSignup(View):
     def post(self, request, *args, **kwargs):
-        return redirect('index')
+        account_form = forms.AccountForm(data=request.POST)
+        if account_form.is_valid():
+            if 'submit-login' in request.POST:
+                user = authenticate(
+                    username = account_form.cleaned_data['username'],
+                    password = account_form.cleaned_data['password']
+                )
+                if user is not None:
+                    login(request, user)
+                    return redirect('index')
+        else:
+            return redirect('index')

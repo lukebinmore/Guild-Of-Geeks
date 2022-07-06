@@ -7,5 +7,5 @@ urlpatterns = [
     path('edit/<slug:slug>/', views.PostEdit.as_view(), name='post-edit'),
     path('post-like/<slug:slug>/', views.PostLike.as_view(), name='post-like'),
     path('comment-like/<int:id>/', views.CommentLike.as_view(), name='comment-like'),
-    path('accounts/login-signup/', views.LoginSignup.as_view(), name='login-signup')
+    path('accounts/login-signup/', views.LoginSignup.as_view(), name='login-signup'),
 ]
