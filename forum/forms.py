@@ -30,8 +30,20 @@ class PostForm(forms.ModelForm):
             'content': SummernoteWidget()
         }
 
-class AccountForm(forms.Form):
+class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(
         widget=forms.PasswordInput
     )
+
+class SignupForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(
+        widget=forms.PasswordInput
+    )
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.EmailField()
+    dob = forms.DateField()
+    number = forms.NumberInput()
+    picture = forms.ImageField()
