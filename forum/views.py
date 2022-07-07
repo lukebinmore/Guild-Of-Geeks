@@ -1,6 +1,4 @@
-from tkinter import getboolean
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from django.urls import reverse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator
@@ -165,8 +163,19 @@ class Signup(View):
         user_form = forms.UserForm(data=request.POST)
         profile_form = forms.ProfileForm(data=request.POST)
 
-        if profile_form.is_valid():
-            pass
+        if user_form.is_valid() and profile_form.is_valid():
+            user = models.User.objects.create(
+                username = user_form.cleaned_data['username'],
+                password = user_form.cleaned_data['password']
+            )
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+
+            login(request, user)
+
+            return redirect('index')
         else:
             return redirect('index')
 
