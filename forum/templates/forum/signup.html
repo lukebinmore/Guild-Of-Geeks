@@ -14,7 +14,13 @@
         <hr>
         <p>{{ profile_form.email }}</p>
         <p>{{ profile_form.number }}</p>
-        {{ profile_form.picture }}
+        <p>{{ profile_form.picture }}</p>
+        <div class="form-check">
+            {{ profile_form.dark_mode }}
+            <label class="form-check-label" for="dark-mode-input">
+                Dark Mode
+            </label>
+        </div>
     </div>
     <div class="modal-footer">
         <div class="btn-group rounded-corner w-100">
