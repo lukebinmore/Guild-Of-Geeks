@@ -5,13 +5,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        {{ profile_form.first_name }}
-        {{ profile_form.last_name }}
-        {{ user_form.username }}
-        {{ user_form.password }}
-        {{ profile_form.email }}
-        {{ profile_form.dob }}
-        {{ profile_form.number }}
+        <p>{{ user_form.username }}</p>
+        <p>{{ user_form.password }}</p>
+        <hr>
+        <p>{{ profile_form.first_name }}</p>
+        <p>{{ profile_form.last_name }}</p>
+        <p>{{ profile_form.dob }}</p>
+        <hr>
+        <p>{{ profile_form.email }}</p>
+        <p>{{ profile_form.number }}</p>
         {{ profile_form.picture }}
     </div>
     <div class="modal-footer">

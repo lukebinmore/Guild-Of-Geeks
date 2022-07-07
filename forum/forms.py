@@ -1,6 +1,10 @@
+from psycopg2 import Date
 from . import models
 from django import forms
 from django_summernote.widgets import SummernoteWidget
+
+class DatePickerInput(forms.DateInput):
+    input_type = 'date'
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
@@ -31,21 +35,59 @@ class PostForm(forms.ModelForm):
         }
 
 class UserForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(
-        widget=forms.PasswordInput
-    )
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':'form-control',
+            'placeholder':'Username*'
+        }
+    ))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class':'form-control',
+            'placeholder':'Password*'
+        }
+    ))
 
-class ProfileForm(forms.Form):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField(
-        required=False
-    )
-    dob = forms.DateField()
-    number = forms.CharField(
-        required=False
-    )
-    picture = forms.ImageField(
-        required=False
-    )
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ['first_name', 'last_name', 'email', 'dob', 'number', 'picture']
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'First Name'
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Last Name'
+                }
+            ),
+            'dob': DatePickerInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Date Of Birth*'
+                }
+            ),
+            'email': forms.EmailInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Email Address'
+                }
+            ),
+            'number': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Phone Number',
+                    'max_length': 12
+                }
+            ),
+            'picture': forms.FileInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Profile Picture'
+                }
+            ),
+        }
