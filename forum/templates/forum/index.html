@@ -13,12 +13,14 @@
 {% endif %}
 
 <div class="container_fluid row">
-    <div class="col-0 col-sm-2"></div>
+    <div class="col-0 col-sm-2 pe-0">
+        {% include 'forum/filters.html' %}
+    </div>
     <div class="col-12 col-sm-8">
         {% include "forum/createnewpost.html" %}
         {% include "forum/postlist.html" %}
     </div>
-    <div class="col-0 col-sm-2"></div>
+    <div class="col-0 col-sm-2 ps-0"></div>
 </div>
 
 {% endblock %}

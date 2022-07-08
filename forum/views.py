@@ -3,12 +3,12 @@ from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout
 from django.core.paginator import Paginator
 from django.template.defaultfilters import slugify
+from django.db.models import Q
 from . import models
 from . import forms
 
 class Index(generic.ListView):
     model = models.Post
-    queryset = models.Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'forum/index.html'
     paginate_by = 2
 
@@ -17,11 +17,32 @@ class Index(generic.ListView):
         context['categories'] = models.Category.objects.all()
         context['tags'] = models.Tag.objects.all()
         context['user_form'] = forms.UserForm()
+        context['post_count'] = self.object_list.count
         return context
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query == None:
+            query = ''
+
+        object_list = models.Post.objects.all()
+
+        if self.request.user.is_authenticated:
+            object_list = object_list.filter(
+                Q(status__exact=1) | Q(author__exact=self.request.user)
+            )
+        else:
+            object_list = object_list.filter(status=1)
+
+        object_list = object_list.filter(
+            Q(title__icontains=query) |
+            Q(author__username__icontains=query)
+        )
+        return object_list
 
 class PostView(View):
     def get(self, request, slug, *args, **kwargs):
-        queryset = models.Post.objects.filter(status=1)
+        queryset = models.Post.objects.all()
         post = get_object_or_404(queryset, slug=slug)
         paginator = Paginator(post.post_comments.order_by('created_on'), 5)
         page = request.GET.get('page')
@@ -38,7 +59,7 @@ class PostView(View):
         )
 
     def post(self, request, slug, *args, **kwargs):
-        queryset = models.Post.objects.filter(status=1)
+        queryset = models.Post.objects.all()
         post = get_object_or_404(queryset, slug=slug)
         new_comment_form = forms.NewCommentForm(data=request.POST)
         if new_comment_form.is_valid():
