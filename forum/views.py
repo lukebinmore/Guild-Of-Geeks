@@ -193,3 +193,26 @@ class Logout(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('index')
+
+class Profile(View):
+    def get(self, request, mode, *args, **kwargs):
+        if mode == 'edit':
+            return render(
+                request,
+                'forum/profile.html',
+                {
+                    'edit_mode': True,
+                    'profile_form': forms.ProfileForm(instance=request.user.profile)
+                }
+            )
+        return render(
+            request,
+            'forum/profile.html',
+        )
+    
+    def post(self, request, *args,**kwargs):
+        profile_form = forms.ProfileForm(data=request.POST, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('profile', 'view')
+        return redirect(request.path)

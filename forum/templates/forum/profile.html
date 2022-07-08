@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid row">
+    <div class="col-9">
+        <form method="POST" class="card rounded-corner">
+            {% csrf_token %}
+            <div class="card-header px-2">
+                <h1 class="d-inline-block">{{ user }}</h1>
+
+                {% if edit_mode %}
+                <h2 class="d-inline-block float-end">
+                    <a href="{% url 'profile' 'view' %}"><i class="fa-solid fa-xmark"></i></i></a>
+                </h2>
+                {% else %}
+                <h2 class="d-inline-block float-end">
+                    <a href="{% url 'profile' 'edit' %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                </h2>
+                {% endif %}
+
+                <p class="remove-pm py-2">Last Updated: {{ user.profile.updated_on  }}</p>
+            </div>
+            <div class="card-body p-2">
+                {% if edit_mode %}
+                <div class="row">
+                    <div class="col-12 text-center py-2">
+                        <h4>Profile Picture</h4>
+                        {{ profile_form.picture }}
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        {{ profile_form.first_name }}
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        {{ profile_form.last_name }}
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        {{ profile_form.email }}
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        {{ profile_form.number }}
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        {{ profile_form.dob }}
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        {{ profile_form.dark_mode }}
+                        <label class="form-check-label" for="dark-mode-input">
+                            Dark Mode
+                        </label>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-12 text-center py-2">
+                        <img src="{{ user.profile.picture.url }}" alt="Profile Picture"
+                            class="rounded-circle border w-25">
+                    </div>
+                    <hr>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        <h4>First Name</h4>
+                        <p class="card-text">{{ user.profile.first_name }}</p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        <h4>Last Name</h4>
+                        <p class="card-text">{{ user.profile.last_name }}</p>
+                    </div>
+                    <hr>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        <h4>Email</h4>
+                        <p class="card-text">{{ user.profile.email }}</p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        <h4>Phone Number</h4>
+                        <p class="card-text">{{ user.profile.number }}</p>
+                    </div>
+                    <hr>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        <h4>Date Of Birth</h4>
+                        <p class="card-text">{{ user.profile.dob }}</p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center py-2">
+                        <h4>Dark Mode</h4>
+                        <p class="card-text">{{ user.profile.dark_mode }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="card-footer remove-pm text-center">
+                {% if edit_mode %}
+                <div class="btn-group remove-pm w-100">
+                    <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+                {% else %}
+                <p class="remove-pm py-2">Created On: {{ user.profile.created_on  }}</p>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    <div class="col-3 text-end"></div>
+</div>
+
+{% endblock %}
