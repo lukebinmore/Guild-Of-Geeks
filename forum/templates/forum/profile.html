@@ -2,7 +2,7 @@
 
 <div class="container-fluid row">
     <div class="col-9">
-        <form method="POST" class="card rounded-corner">
+        <form method="POST" class="card rounded-corner" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card-header px-2">
                 <h1 class="d-inline-block">{{ user }}</h1>

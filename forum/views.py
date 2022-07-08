@@ -161,7 +161,7 @@ class Login(View):
 class Signup(View):
     def post(self, request, *args, **kwargs):
         user_form = forms.UserForm(data=request.POST)
-        profile_form = forms.ProfileForm(data=request.POST)
+        profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = models.User.objects.create(
@@ -211,7 +211,7 @@ class Profile(View):
         )
     
     def post(self, request, *args,**kwargs):
-        profile_form = forms.ProfileForm(data=request.POST, instance=request.user.profile)
+        profile_form = forms.ProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
             profile_form.save()
             return redirect('profile', 'view')
