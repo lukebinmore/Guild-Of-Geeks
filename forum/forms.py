@@ -105,7 +105,7 @@ class FilterForm(forms.Form):
         queryset=models.Category.objects.all(),
         widget=forms.SelectMultiple(
             attrs={
-                'class': 'form-select select2'
+                'class': 'form-select select2 w-100'
         })
     )
 

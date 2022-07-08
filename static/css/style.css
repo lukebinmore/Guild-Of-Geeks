@@ -30,6 +30,10 @@ a {
     margin: 0;
 }
 
+.select2-container {
+    width: 100% !important;
+}
+
 /* Navbar Specific Stylings */
 nav div {
     height: 6vw;

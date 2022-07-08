@@ -16,9 +16,7 @@
         <h5>Tags:</h5>
         {{ filters.tags }}
     </div>
-    {% if q == None %}
     <div class="card-footer p-0">
         <a href="{% url 'index' %}" class="btn btn-danger w-100">Clear Filters</a>
     </div>
-    {% endif %}
 </form>
