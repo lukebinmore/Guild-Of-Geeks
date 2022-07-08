@@ -1,14 +1,8 @@
 <form method="GET" class="card rounded-corner">
     {% csrf_token %}
-    <div class="card-header p-0">
-        <div class="input-group card-header p-0">
-            <button type="submit" class="btn btn-primary input-group-text">
-                <i class="fas fa-search"></i>
-            </button>
-            <input type="text" name="q" placeholder="Search..." class="form-control rounded-corner-te">
-        </div>
-        <div class="text-center py-1">
-            <h5 class="card-text">Results: {{ post_count }}</h5>
+    <div class="card-header">
+        <div class="text-center">
+            <p class="card-text">Posts Found: {{ post_count }}</p>
         </div>
     </div>
     <div class="card-body">

@@ -4,10 +4,6 @@
 }
 
 /* Tag Level Stylings */
-body {
-    overflow-x: hidden;
-}
-
 img {
     max-width: 100%;
 }
@@ -23,8 +19,9 @@ a {
     overflow: hidden;
 }
 
-.rounded-corner-te {
+.rounded-corner-end {
     border-top-right-radius: 1.5vw;
+    border-bottom-right-radius: 1.5vw;
     overflow: hidden;
 }
 
