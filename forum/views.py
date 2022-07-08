@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.core.paginator import Paginator
 from django.template.defaultfilters import slugify
 from . import models
@@ -188,3 +188,8 @@ class Signup(View):
                 'user_form': forms.UserForm()
             }
         )
+
+class Logout(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('index')

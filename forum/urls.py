@@ -9,4 +9,5 @@ urlpatterns = [
     path('comment-like/<int:id>/', views.CommentLike.as_view(), name='comment-like'),
     path('accounts/login/', views.Login.as_view(), name='login'),
     path('accounts/signup/', views.Signup.as_view(), name='signup'),
+    path('accounts/logout/', views.Logout.as_view(), name='logout'),
 ]

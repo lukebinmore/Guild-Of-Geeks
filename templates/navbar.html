@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="navbar sticky-top">
+<nav class="sticky-top py-2">
     <div class="container-fluid justify-content-center gx-0">
         <div class="row w-100">
             <div class="col-2 gx-3 d-inline d-md-none">
@@ -14,11 +14,20 @@
                         alt="Guild Of Geeks Logo">
                 </a>
             </div>
-            <div class="col-2 gx-3 d-flex justify-content-end align-items-end">
+            <div class="col-2 gx-3 d-flex justify-content-end align-items-end dropdown">
                 {% if user.is_authenticated %}
-                <div class="profile-picture">
-                    <img src="{{ user.profile.picture.url }}" alt="Profile Picture" class="rounded-circle">
-                </div>
+                <button type="button" class="btn rounded-circle border h-100 overflow-hidden p-0"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ user.profile.picture.url }}" alt="Profile Picture">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end text-end">
+                    <li><a class="dropdown-item" href="#"></a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout <i
+                                class="fa-solid fa-door-open"></i></a></li>
+                </ul>
                 {% else %}
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#login-signup-modal" hx-get="{% url 'login' %}" hx-target="#login-signup-container">

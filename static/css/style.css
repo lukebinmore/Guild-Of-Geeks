@@ -29,17 +29,14 @@ a {
 }
 
 /* Navbar Specific Stylings */
-.navbar div {
+nav div {
     height: 6vw;
+    min-height: 20px;
     max-height: 80px;
 }
 
-.navbar img {
+nav img {
     height: 100%;
-}
-
-.profile-picture img {
-    border: 2px solid #000;
 }
 
 /* Post List Specific Stylings */
