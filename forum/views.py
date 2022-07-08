@@ -10,21 +10,19 @@ from . import forms
 class Index(generic.ListView):
     model = models.Post
     template_name = 'forum/index.html'
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
-        context['categories'] = models.Category.objects.all()
-        context['tags'] = models.Tag.objects.all()
+        context['filters'] = forms.FilterForm(self.request.GET)
         context['user_form'] = forms.UserForm()
         context['post_count'] = self.object_list.count
         return context
     
     def get_queryset(self):
         query = self.request.GET.get('q')
-        if query == None:
-            query = ''
-
+        categories = self.request.GET.get('categories')
+        tags = self.request.GET.get('tags')
         object_list = models.Post.objects.all()
 
         if self.request.user.is_authenticated:
@@ -34,10 +32,21 @@ class Index(generic.ListView):
         else:
             object_list = object_list.filter(status=1)
 
-        object_list = object_list.filter(
-            Q(title__icontains=query) |
-            Q(author__username__icontains=query)
-        )
+        if query != None:
+            object_list = object_list.filter(
+                Q(title__icontains=query) |
+                Q(author__username__icontains=query)
+            )
+        
+        if categories != None:
+            object_list = object_list.filter(
+                Q(category__id__in=categories)
+            )
+        
+        if tags != None:
+            object_list = object_list.filter(
+                Q(tags__id__in=tags)
+            )
         return object_list
 
 class PostView(View):

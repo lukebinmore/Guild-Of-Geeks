@@ -1,5 +1,30 @@
-<div class="card rounded-corner">
-    <div class="card-body p-0">
-        {% include "forum/search.html" %}
+<form method="GET" class="card rounded-corner">
+    {% csrf_token %}
+    <div class="card-header p-0">
+        <div class="input-group card-header p-0">
+            <button type="submit" class="btn btn-primary input-group-text">
+                <i class="fas fa-search"></i>
+            </button>
+            <input type="text" name="q" placeholder="Search..." class="form-control rounded-corner-te">
+        </div>
+        <div class="text-center py-1">
+            <h5 class="card-text">Results: {{ post_count }}</h5>
+        </div>
     </div>
-</div>
+    <div class="card-body">
+        <button type="submit" class="btn btn-primary w-100">Filter Results</button>
+    </div>
+    <div class="card-body">
+        <h5>Categories:</h5>
+        {{ filters.categories }}
+    </div>
+    <div class="card-body">
+        <h5>Tags:</h5>
+        {{ filters.tags }}
+    </div>
+    {% if q == None %}
+    <div class="card-footer p-0">
+        <a href="{% url 'index' %}" class="btn btn-danger w-100">Clear Filters</a>
+    </div>
+    {% endif %}
+</form>

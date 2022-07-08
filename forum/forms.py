@@ -98,3 +98,22 @@ class ProfileForm(forms.ModelForm):
                 }
             ),
         }
+
+class FilterForm(forms.Form):
+    categories = forms.ModelChoiceField(
+        required=False,
+        queryset=models.Category.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={
+                'class': 'form-select select2'
+        })
+    )
+
+    tags = forms.ModelChoiceField(
+        required=False,
+        queryset=models.Tag.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={
+                'class': 'form-select select2'
+        })
+    )
