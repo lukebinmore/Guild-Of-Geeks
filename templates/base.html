@@ -17,17 +17,15 @@
     </head>
 
     <body class="container-fluid">
-        {% if user.is_authenticated == False %}
-        <div class="modal fade" id="login-signup-modal" tabindex="-1">
+        <div class="modal fade" id="site-modal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-corner">
-                    <div id="login-signup-container">
+                    <div id="site-modal-content">
 
                     </div>
                 </div>
             </div>
         </div>
-        {% endif %}
 
         {% include "navbar.html" %}
 

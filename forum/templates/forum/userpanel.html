@@ -30,8 +30,8 @@
         {% if user.is_authenticated %}
         <a href="{% url 'logout' %}" class="btn btn-danger w-100"><i class="fa-solid fa-door-open"></i> Logout</a>
         {% else %}
-        <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#login-signup-modal"
-            hx-get="{% url 'login' %}" hx-target="#login-signup-container">Sign
+        <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#site-modal"
+            hx-get="{% url 'login' %}" hx-target="#site-modal-content">Sign
             In/Sign Up</button>
         {% endif %}
     </div>
