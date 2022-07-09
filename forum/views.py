@@ -1,3 +1,4 @@
+from re import L
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -274,5 +275,22 @@ class UpdatePassword(View):
                 login(request, user)
 
                 return redirect('index')
-        
         return redirect('password')
+
+class DeleteAccount(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'forum/deleteaccount.html'
+        )
+
+    def post(self, request, *args, **kwargs):
+        confirm = request.POST.get('confirm')
+
+        if request.user.check_password(confirm):
+            user = get_object_or_404(models.User.objects.all(), username=request.user.username)
+            user.delete()
+
+            return redirect('index')
+        
+        return redirect('delete-account')

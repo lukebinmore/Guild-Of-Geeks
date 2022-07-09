@@ -22,7 +22,7 @@
         <h5 class="list-group-item mb-0">Account Management <i class="fa-solid fa-user-gear"></i></h5>
         <a href="{% url 'password' %}" class="list-group-item btn-secondary text-end">Update Password <i
                 class="fa-regular fa-pen-to-square"></i></a>
-        <a href="#" class="list-group-item btn-danger text-end">Delete Account <i
+        <a href="{% url 'delete-account' %}" class="list-group-item btn-danger text-end">Delete Account <i
                 class="fa-regular fa-trash-can"></i></a>
         {% endif %}
     </div>

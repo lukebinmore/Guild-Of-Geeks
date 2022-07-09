@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-xl-4">
+        <form method="POST" class="card rounded-corner text-center">
+            {% csrf_token %}
+            <div class="card-header">
+                <h1>Delete Account</h1>
+            </div>
+            <div class="card-body">
+                <h2>WARNING!</h2>
+                <p class="card-text">
+                    This will delete your account, this action is irreversable.
+                </p>
+                <p class="card-text">Are you sure you wish to proceed?</p>
+                <hr>
+                <p class="card-text">Please enter your current password to continue.</p>
+                <input type="password" name="confirm" class="form-control" placeholder="Current Password" required>
+            </div>
+            <div class="card-footer btn-group p-0">
+                <a href="{% url 'index' %}" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
