@@ -20,8 +20,9 @@
         {% endif %}
 
         <h5 class="list-group-item mb-0">Account Management <i class="fa-solid fa-user-gear"></i></h5>
-        <a href="{% url 'password' %}" class="list-group-item btn-secondary text-end">Update Password <i
-                class="fa-regular fa-pen-to-square"></i></a>
+        <button type="submit" class="list-group-item btn-secondary text-end" data-bs-toggle="modal"
+            data-bs-target="#site-modal" hx-get="{% url 'password' %}" hx-target="#site-modal-content">Update
+            Password <i class="fa-regular fa-pen-to-square"></i></button>
         <button type="submit" class="list-group-item btn-danger text-end" data-bs-toggle="modal"
             data-bs-target="#site-modal" hx-get="{% url 'delete-account' %}" hx-target="#site-modal-content">Delete
             Account <i class="fa-regular fa-trash-can"></i></button>

@@ -130,18 +130,18 @@ class UpdatePasswordForm(forms.Form):
     old = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Current Password'
+            'placeholder': 'Current Password*'
         }
     ))
     new = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'New Password'
+            'placeholder': 'New Password*'
         }
     ))
     confirm = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Confirm Password'
+            'placeholder': 'Confirm Password*'
         }
     ))
