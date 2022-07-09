@@ -24,6 +24,7 @@ class Index(generic.ListView):
         categories = self.request.GET.get('categories')
         tags = self.request.GET.get('tags')
         user_posts = self.request.GET.get('user_posts')
+        followed_posts = self.request.GET.get('followed_posts')
         object_list = models.Post.objects.all()
 
         if self.request.user.is_authenticated:
@@ -52,6 +53,11 @@ class Index(generic.ListView):
         if user_posts:
             object_list = object_list.filter(
                 Q(author__username__exact=self.request.user)
+            )
+
+        if followed_posts:
+            object_list = object_list.filter(
+                Q(id__in=self.request.user.profile.followed_posts.all())
             )
         return object_list
 

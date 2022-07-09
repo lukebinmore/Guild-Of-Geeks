@@ -125,6 +125,14 @@ class FilterForm(forms.Form):
                 'id': 'filters-user-posts'
         })
     )
+    followed_posts = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'filters-followed-posts'
+        })
+    )
 
 class UpdatePasswordForm(forms.Form):
     old = forms.CharField(widget=forms.PasswordInput(
