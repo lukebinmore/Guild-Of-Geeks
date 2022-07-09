@@ -1,17 +1,5 @@
 {% extends "base.html" %} {% block content %}
 
-{% if user.is_authenticated == False %}
-<div class="modal fade" id="login-signup-modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content rounded-corner">
-            <div id="login-signup-container">
-
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
 <div class="container_fluid row">
     <div class="col-0 col-sm-3 pe-0">
         {% include 'forum/filters.html' %}

@@ -183,8 +183,8 @@ class Login(View):
             if user is not None:
                 login(request, user)
                 return redirect('index')
-        else:
-            return redirect('index')
+        
+        return redirect('index')
 
     def get(self, request, *args, **kwargs):
         return render(
@@ -201,20 +201,21 @@ class Signup(View):
         profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
-            user = models.User.objects.create_user(
-                username = user_form.cleaned_data['username'],
-                password = user_form.cleaned_data['password']
-            )
+            if user_form.cleaned_data['password'] == request.POST.get('confirm'):
+                user = models.User.objects.create_user(
+                    username = user_form.cleaned_data['username'],
+                    password = user_form.cleaned_data['password']
+                )
 
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
 
-            login(request, user)
+                login(request, user)
 
-            return redirect('index')
-        else:
-            return redirect('index')
+                return redirect('index')
+        
+        return redirect('index')
 
     def get(self, request, *args, **kwargs):
         return render(
