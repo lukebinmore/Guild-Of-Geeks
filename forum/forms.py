@@ -117,23 +117,31 @@ class FilterForm(forms.Form):
                 'class': 'form-select select2'
         })
     )
+    user_posts = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'filters-user-posts'
+        })
+    )
 
 class UpdatePasswordForm(forms.Form):
     old = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
             'placeholder': 'Current Password'
-        })
-    )
+        }
+    ))
     new = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
             'placeholder': 'New Password'
-        })
-    )
+        }
+    ))
     confirm = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
             'placeholder': 'Confirm Password'
-        })
-    )
+        }
+    ))

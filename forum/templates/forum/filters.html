@@ -16,6 +16,17 @@
         <h5>Tags:</h5>
         {{ filters.tags }}
     </div>
+    {% if user.is_authenticated %}
+    <div class="card-body">
+        <h5>My Posts</h5>
+        <div class="form-check">
+            {{ filters.user_posts }}
+            <label class="form-check-label" for="filter-user-posts">
+                My Posts
+            </label>
+        </div>
+    </div>
+    {% endif %}
     <div class="card-footer p-0">
         <a href="{% url 'index' %}" class="btn btn-danger w-100">Clear Filters</a>
     </div>

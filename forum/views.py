@@ -24,6 +24,7 @@ class Index(generic.ListView):
         query = self.request.GET.get('q')
         categories = self.request.GET.get('categories')
         tags = self.request.GET.get('tags')
+        user_posts = self.request.GET.get('user_posts')
         object_list = models.Post.objects.all()
 
         if self.request.user.is_authenticated:
@@ -47,6 +48,11 @@ class Index(generic.ListView):
         if tags != None:
             object_list = object_list.filter(
                 Q(tags__id__in=tags)
+            )
+
+        if user_posts:
+            object_list = object_list.filter(
+                Q(author__username__exact=self.request.user)
             )
         return object_list
 
