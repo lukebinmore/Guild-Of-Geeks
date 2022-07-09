@@ -1,4 +1,3 @@
-from re import L
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -297,6 +296,4 @@ class DeleteAccount(View):
             user = get_object_or_404(models.User.objects.all(), username=request.user.username)
             user.delete()
 
-            return redirect('index')
-        
-        return redirect('delete-account')
+        return redirect('index')
