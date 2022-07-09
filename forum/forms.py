@@ -117,3 +117,23 @@ class FilterForm(forms.Form):
                 'class': 'form-select select2'
         })
     )
+
+class UpdatePasswordForm(forms.Form):
+    old = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Current Password'
+        })
+    )
+    new = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'New Password'
+        })
+    )
+    confirm = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Confirm Password'
+        })
+    )

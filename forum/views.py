@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.core.paginator import Paginator
 from django.template.defaultfilters import slugify
 from django.db.models import Q
@@ -246,3 +246,33 @@ class Profile(View):
             profile_form.save()
             return redirect('profile', 'view')
         return redirect(request.path)
+
+class UpdatePassword(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'forum/password.html',
+            {
+                'password_form': forms.UpdatePasswordForm(data=request.POST)
+            }
+        )
+    
+    def post(self, request, *args, **kwargs):
+        password_form = forms.UpdatePasswordForm()
+
+        if password_form.is_valid():
+            if request.user.check_password(password_form.cleaned_data['old']):
+                user = authenticate(
+                    username = request.user.username,
+                    password = password_form.cleaned_data['old']
+                )
+
+            if password_form.cleaned_data['new'] == password_form.cleaned_data['confirm']:
+                user.set_password(password_form.cleaned_data['new'])
+                user.save()
+
+                login(request, user)
+
+                return redirect('index')
+        
+        return redirect('password')

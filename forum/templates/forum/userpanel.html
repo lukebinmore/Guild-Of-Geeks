@@ -1,6 +1,10 @@
 <div class="card rounded-corner">
     <div class="card-header text-end">
+        {% if user.is_authenticated %}
         <p class="card-text">{{ user }}</p>
+        {% else %}
+        <p class="card-text">Not Signed In</p>
+        {% endif %}
     </div>
     <div class="card-body text-end list-group p-0">
         <h5 class="list-group-item mb-0">Help/Info <i class="fa-solid fa-info"></i></h5>
@@ -11,12 +15,12 @@
         {% if user.is_authenticated %}
         {% if user.is_staff %}
         <h5 class="list-group-item mb-0">Admin Controls <i class="fa-solid fa-hammer"></i></h5>
-        <a href="#" class="list-group-item btn-primary text-end">Open Admin Panel <i
+        <a href="/admin" class="list-group-item btn-primary text-end">Open Admin Panel <i
                 class="fa-solid fa-screwdriver"></i></a>
         {% endif %}
 
         <h5 class="list-group-item mb-0">Account Management <i class="fa-solid fa-user-gear"></i></h5>
-        <a href="#" class="list-group-item btn-secondary text-end">Update Password <i
+        <a href="{% url 'password' %}" class="list-group-item btn-secondary text-end">Update Password <i
                 class="fa-regular fa-pen-to-square"></i></a>
         <a href="#" class="list-group-item btn-danger text-end">Delete Account <i
                 class="fa-regular fa-trash-can"></i></a>
