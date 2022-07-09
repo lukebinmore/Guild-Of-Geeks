@@ -195,7 +195,7 @@ class Signup(View):
         profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
-            user = models.User.objects.create(
+            user = models.User.objects.create_user(
                 username = user_form.cleaned_data['username'],
                 password = user_form.cleaned_data['password']
             )
@@ -254,12 +254,12 @@ class UpdatePassword(View):
             request,
             'forum/password.html',
             {
-                'password_form': forms.UpdatePasswordForm(data=request.POST)
+                'password_form': forms.UpdatePasswordForm()
             }
         )
     
     def post(self, request, *args, **kwargs):
-        password_form = forms.UpdatePasswordForm()
+        password_form = forms.UpdatePasswordForm(data=request.POST)
 
         if password_form.is_valid():
             if request.user.check_password(password_form.cleaned_data['old']):
@@ -267,14 +267,13 @@ class UpdatePassword(View):
                     username = request.user.username,
                     password = password_form.cleaned_data['old']
                 )
+                if password_form.cleaned_data['new'] == password_form.cleaned_data['confirm']:
+                    user.set_password(password_form.cleaned_data['new'])
+                    user.save()
 
-            if password_form.cleaned_data['new'] == password_form.cleaned_data['confirm']:
-                user.set_password(password_form.cleaned_data['new'])
-                user.save()
+                    login(request, user)
 
-                login(request, user)
-
-                return redirect('index')
+                    return redirect('index')
         return redirect('password')
 
 class DeleteAccount(View):

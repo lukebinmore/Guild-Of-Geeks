@@ -119,19 +119,19 @@ class FilterForm(forms.Form):
     )
 
 class UpdatePasswordForm(forms.Form):
-    old = forms.CharField(widget=forms.TextInput(
+    old = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
             'placeholder': 'Current Password'
         })
     )
-    new = forms.CharField(widget=forms.TextInput(
+    new = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
             'placeholder': 'New Password'
         })
     )
-    confirm = forms.CharField(widget=forms.TextInput(
+    confirm = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
             'placeholder': 'Confirm Password'
