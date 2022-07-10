@@ -188,6 +188,18 @@ class CommentLike(View):
             comment.likes.add(request.user)
             return HttpResponse('<i class="fas fa-heart"></i> ' + str(comment.likes.count()))
 
+class CategoryFollow(View):
+    def post(self, request, id, *args, **kwargs):
+        queryset = models.Category.objects.all()
+        category = get_object_or_404(queryset, id=id)
+        profile = request.user.profile
+        if profile.followed_categories.filter(id=category.id).exists():
+            profile.followed_categories.remove(category)
+            return HttpResponse(category.title)
+        else:
+            profile.followed_categories.add(category)
+            return HttpResponse('<i class="fa-solid fa-star"></i> ' + category.title)
+
 class Login(View):
     def post(self, request, *args, **kwargs):
         user_form = forms.UserForm(data=request.POST)

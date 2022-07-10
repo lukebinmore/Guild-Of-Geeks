@@ -28,7 +28,14 @@
                 {% if edit_mode %}
                 <p class="mb-2">{{ post_form.category }}</p>
                 {% else %}
-                <p class="list-group-item my-2">{{ post.category }}</p>
+                <a hx-post="{% url 'category-follow' post.category.id %}" hx-target="#category-followed-p">
+                    <p id="category-followed-p" class="list-group-item my-2 btn-primary">
+                        {% if post.category in user.profile.followed_categories.all %}
+                        <i class="fa-solid fa-star"></i>
+                        {% endif %}
+                        {{ post.category }}
+                    </p>
+                </a>
                 {% endif %}
 
                 {% if edit_mode %}
