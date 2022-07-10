@@ -165,6 +165,18 @@ class PostLike(View):
             post.likes.add(request.user)
             return HttpResponse('<i class="fas fa-heart"></i> ' + str(post.likes.count()))
 
+class PostFollow(View):
+    def post(self, request, slug, *args, **kwargs):
+        queryset = models.Post.objects.all()
+        post = get_object_or_404(queryset, slug=slug)
+        profile = request.user.profile
+        if profile.followed_posts.filter(id=post.id).exists():
+            profile.followed_posts.remove(post)
+            return HttpResponse('<i class="fa-regular fa-star"></i>')
+        else:
+            profile.followed_posts.add(post)
+            return HttpResponse('<i class="fa-solid fa-star"></i>')
+
 class CommentLike(View):
     def post(self, request, id, *args, **kwargs):
         queryset = models.Comment.objects.all()
