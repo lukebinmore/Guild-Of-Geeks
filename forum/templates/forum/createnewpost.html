@@ -11,7 +11,6 @@
     {% csrf_token %}
     <h4 class="card-header text-center">Sign In/Sign Up To Create A Post!</h4>
     <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"
-        hx-get="{% url 'login' %}" hx-target="#site-modal-content">Sign
-        In/Sign Up</button>
+        hx-get="{% url 'login' %}" hx-target="#site-modal-content">Login / Signup</button>
 </div>
 {% endif %}
