@@ -34,10 +34,8 @@
                                 class="fa-solid fa-door-open"></i></a></li>
                 </ul>
                 {% else %}
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"
-                    hx-get="{% url 'login' %}" hx-target="#login-signup-content">
-                    Login / Signup
-                </button>
+                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"
+                    hx-get="{% url 'login' %}" hx-target="#site-modal-content">Login / Signup</button>
                 {% endif %}
             </div>
         </div>
