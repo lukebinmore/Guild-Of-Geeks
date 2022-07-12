@@ -17,6 +17,7 @@ class Index(generic.ListView):
         context['filters'] = forms.FilterForm(self.request.GET)
         context['user_form'] = forms.UserForm()
         context['post_count'] = self.object_list.count
+        context['search_query'] = self.request.GET.get('q')
         return context
     
     def get_queryset(self):

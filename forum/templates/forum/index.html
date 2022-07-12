@@ -6,6 +6,17 @@
     </div>
     <div class="col-12 col-sm-6">
         {% include "forum/createnewpost.html" %}
+
+        {% if search_query != None %}
+        <div class="card rounded-corner">
+            <div class="card-header">
+                <div class="text-center">
+                    <p class="card-text">Search: {{ search_query }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         {% include "forum/postlist.html" %}
     </div>
     <div class="col-0 col-sm-3 ps-0">
