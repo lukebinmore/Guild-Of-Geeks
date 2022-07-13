@@ -357,9 +357,17 @@ class Profile(View):
     
     def post(self, request, *args,**kwargs):
         profile_form = forms.ProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
-        if profile_form.is_valid():
-            profile_form.save()
-            return redirect('profile', 'view')
+        try:
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, 'Account updated successfully!')
+                return redirect('profile', 'view')
+            else:
+                for field in profile_form:
+                    if field.error:
+                        raise Exception(f'{field.name.title()} : {field.error}')
+        except Exception as e:
+            messages.error(request, e)
         return redirect(request.path)
 
 class UpdatePassword(View):
