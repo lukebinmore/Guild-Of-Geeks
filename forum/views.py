@@ -1,5 +1,3 @@
-from enum import unique
-from re import L
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
