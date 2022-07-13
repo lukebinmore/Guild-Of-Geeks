@@ -1,3 +1,4 @@
+from re import L
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -247,19 +248,37 @@ class Signup(View):
         profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
-            if user_form.cleaned_data['password'] == request.POST.get('confirm'):
-                user = models.User.objects.create_user(
-                    username = user_form.cleaned_data['username'],
-                    password = user_form.cleaned_data['password']
-                )
+            username = user_form.cleaned_data['username']
+            password = user_form.cleaned_data['password']
+            confirm_password = request.POST.get('confirm')
 
-                profile = profile_form.save(commit=False)
-                profile.user = user
-                profile.save()
+            if not models.User.objects.filter(username=username).exists():
+                if password == confirm_password:
+                    user = models.User.objects.create_user(
+                        username = username,
+                        password = password
+                    )
 
-                login(request, user)
+                    profile = profile_form.save(commit=False)
+                    profile.user = user
+                    profile.save()
 
-                return redirect('index')
+                    login(request, user)
+
+                    return redirect('index')
+                else:
+                    messages.error(request, f'Passwords do not match!')
+            else:
+                messages.error(request, f'Username {username} already exists!')
+        else:
+            messages.error(request, 'Please fix the following issues:')
+            for field in user_form:
+                if field.errors is not None:
+                    messages.error(request, f' - {field.errors}!')
+            
+            for field in profile_form:
+                if field.errors is not None:
+                    messages.error(request, f' - {field.errors}!')
         
         return redirect('index')
 
