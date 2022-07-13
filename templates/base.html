@@ -29,6 +29,15 @@
 
         {% include "navbar.html" %}
 
+        <div class="container fixed-top text-center">
+            {% for message in messages %}
+            <div id="user-alert" class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message | safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+
         {% block content %}
 
         {% endblock %}
@@ -61,6 +70,7 @@
         <script src="{% static 'js/infinite.min.js' %}"></script>
         <script src="{% static 'js/infinite-scroll.js' %}"></script>
         <script src="{% static 'js/select2.js' %}"></script>
+        <script src="{% static 'js/alert-dismiss.js' %}"></script>
     </body>
 
 </html>
