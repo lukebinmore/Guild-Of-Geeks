@@ -33,6 +33,11 @@ class PostForm(forms.ModelForm):
             ),
             'content': SummernoteWidget()
         }
+    
+    def set_category(self, category):
+        data = self.data.copy()
+        data['category'] = category
+        self.data = data
 
 class UserForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(

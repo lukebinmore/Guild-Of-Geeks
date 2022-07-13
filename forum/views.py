@@ -149,6 +149,11 @@ class PostEdit(View):
                 post = get_object_or_404(queryset, slug=slug)
                 post_form = forms.PostForm(data=request.POST, instance=post)
 
+            category_title = post_form.data['category']
+            if not models.Category.objects.filter(title=category_title).exists():
+                category = models.Category.objects.create(title=category_title)
+                post_form.set_category(category)
+
             if post_form.is_valid():
                 post = post_form.save(commit=False)
                 if slug == 'new-post':
