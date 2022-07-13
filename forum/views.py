@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.template.defaultfilters import slugify
 from django.db.models import Q
@@ -212,13 +213,22 @@ class Login(View):
         user_form = forms.UserForm(data=request.POST)
 
         if user_form.is_valid():
-            user = authenticate(
-                username = user_form.cleaned_data['username'],
-                password = user_form.cleaned_data['password']
-            )
-            if user is not None:
-                login(request, user)
-                return redirect('index')
+            username = user_form.cleaned_data['username']
+            password = user_form.cleaned_data['password']
+
+            if models.User.objects.filter(username=username).exists():
+                user = authenticate(
+                    username = username,
+                    password = password
+                )
+                if user is None:
+                    messages.error(request, 'Password is incorrect, please try again.')
+                else:
+                    login(request, user)
+                    messages.success(request, 'Welcome back ' + user.username)
+                    return redirect('index')
+            else:
+                messages.error(request, f'Username {username} not found!')
         
         return redirect('index')
 
