@@ -1,3 +1,4 @@
+from enum import unique
 from re import L
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views import generic, View
@@ -108,10 +109,11 @@ class PostView(View):
 class PostEdit(View):
     def get(self, request, slug, *args, **kwargs):
         if slug == "new-post":
-            post_form = forms.PostForm(
-                initial={'title': request.GET['new-post-title'],}
-            )
-
+            new_post_title = request.GET.get('new-post-title')
+            if new_post_title != None:
+                post_form = forms.PostForm(initial={'title': new_post_title,})
+            else:
+                post_form = forms.PostForm(data=request.POST)
             return render(
                 request,
                 'forum/post.html',
@@ -120,7 +122,6 @@ class PostEdit(View):
                     'post_form': post_form,
                 }
             )
-
         else:
             queryset = models.Post.objects.all()
             post = get_object_or_404(queryset, slug=slug)
@@ -142,32 +143,67 @@ class PostEdit(View):
             )
     
     def post(self, request, slug, *args, **kwargs):
+        try:
+            if slug == 'new-post':
+                post_form = forms.PostForm(data=request.POST)
+            else:
+                queryset = models.Post.objects.all()
+                post = get_object_or_404(queryset, slug=slug)
+                post_form = forms.PostForm(data=request.POST, instance=post)
+
+            if post_form.is_valid():
+                post = post_form.save(commit=False)
+                if slug == 'new-post':
+                    post.slug = slugify(post.title)
+                    post.author = request.user
+                    if models.Post.objects.filter(slug=post.slug):
+                        raise Exception('Post already exists!')
+                    post = post_form.save()
+                else:
+                    post_form.save()
+
+                if 'post-submit-draft' in request.POST:
+                    post.status = 0
+                else:
+                    post.status = 1
+
+                post.save()
+
+                return redirect('post-view', slug=post.slug)
+            else:
+                for field in post_form:
+                    if field.errors:
+                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+        except Exception as e:
+            messages.error(request, e)
+
+        post_form = forms.PostForm(data=request.POST)
         if slug == 'new-post':
-            post_form = forms.PostForm(data=request.POST)
+            return render(
+                request,
+                'forum/post.html',
+                {
+                    'edit_mode': True,
+                    'post_form': post_form,
+                }
+            )
         else:
             queryset = models.Post.objects.all()
             post = get_object_or_404(queryset, slug=slug)
-            post_form = forms.PostForm(data=request.POST, instance=post)
-
-        if post_form.is_valid():
-            post = post_form.save(commit=False)
-            if slug == 'new-post':
-                post.slug = slugify(post.title)
-                post.author = request.user
-                post = post_form.save()
-            else:
-                post_form.save()
-
-            if 'post-submit-draft' in request.POST:
-                post.status = 0
-            else:
-                post.status = 1
-
-            post.save()
-
-            return redirect('post-view', slug=post.slug)
-            
-        return redirect('index')
+            paginator = Paginator(post.post_comments.order_by('created_on'), 5)
+            page = request.GET.get('page')
+            comments = paginator.get_page(page)
+            return render(
+                request,
+                'forum/post.html',
+                {
+                    'post': post,
+                    'comments': comments,
+                    'page_obj': comments,
+                    'edit_mode': True,
+                    'post_form': post_form,
+                },
+            )
 
 class PostLike(View):
     def post(self, request, slug, *args, **kwargs):
