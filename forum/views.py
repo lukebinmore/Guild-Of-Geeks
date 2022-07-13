@@ -98,6 +98,12 @@ class PostView(View):
             comment.post = post
             comment.save()
             return redirect(request.path)
+        else:
+            messages.error(request, f'Please fix the following issues:')
+            for field in new_comment_form:
+                if field.errors is not None:
+                    messages.error(request, f' - {field.errors}')
+        return redirect(request.path)
 
 class PostEdit(View):
     def get(self, request, slug, *args, **kwargs):
