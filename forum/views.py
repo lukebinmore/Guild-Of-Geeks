@@ -375,20 +375,34 @@ class UpdatePassword(View):
     def post(self, request, *args, **kwargs):
         password_form = forms.UpdatePasswordForm(data=request.POST)
 
-        if password_form.is_valid():
-            if request.user.check_password(password_form.cleaned_data['old']):
+        try:
+            if password_form.is_valid():
+                password = password_form.cleaned_data['old']
                 user = authenticate(
                     username = request.user.username,
-                    password = password_form.cleaned_data['old']
+                    password = password
                 )
+                if user is None:
+                    raise Exception('Password Incorrect!')
+                    
                 if password_form.cleaned_data['new'] == password_form.cleaned_data['confirm']:
                     user.set_password(password_form.cleaned_data['new'])
                     user.save()
 
                     login(request, user)
+                    messages.success(request, 'Password updated successfully!')
 
                     return redirect('index')
-        return redirect('password')
+                else:
+                    raise Exception('Passwords do not match!')
+            else:
+                for field in password_form:
+                    if field.errors:
+                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+        except Exception as e:
+            messages.error(request, e)
+        
+        return redirect('index')
 
 class DeleteAccount(View):
     def get(self, request, *args, **kwargs):
