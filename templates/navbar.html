@@ -5,6 +5,11 @@
         <div class="row">
             <div class="col-3 gx-3 d-none d-md-inline px-0">
                 <form method="GET" class="input-group rounded-corner">
+                    {% if request.path != "/" %}
+                    <a href="{% url 'index' %}" class="btn btn-secondary input-group-item">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </a>
+                    {% endif %}
                     <button type="submit" class="btn btn-primary input-group-text">
                         <i class="fas fa-search"></i>
                     </button>
