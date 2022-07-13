@@ -414,8 +414,13 @@ class DeleteAccount(View):
     def post(self, request, *args, **kwargs):
         confirm = request.POST.get('confirm')
 
-        if request.user.check_password(confirm):
-            user = get_object_or_404(models.User.objects.all(), username=request.user.username)
-            user.delete()
+        try:
+            if request.user.check_password(confirm):
+                user = get_object_or_404(models.User.objects.all(), username=request.user.username)
+                user.delete()
+            else:
+                raise Exception('Incorrect password!')
+        except Exception as e:
+            messages.error(request, e)
 
         return redirect('index')
