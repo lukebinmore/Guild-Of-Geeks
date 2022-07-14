@@ -482,6 +482,8 @@ class ContactUs(View):
                 if request.user.is_authenticated:
                     contact_request.user = request.user
                 contact_request.save()
+
+                messages.success(request, 'Request submitted successfully!')
                 
                 return render(
                     request,
