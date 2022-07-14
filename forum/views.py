@@ -452,3 +452,13 @@ class DeleteAccount(View):
             messages.error(request, e)
 
         return redirect('index')
+
+class ContactUs(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'forum/contactus.html',
+            {
+                'contact_form': forms.ContactForm()
+            }
+        )
