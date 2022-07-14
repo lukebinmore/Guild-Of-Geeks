@@ -455,15 +455,21 @@ class DeleteAccount(View):
 
 class ContactUs(View):
     def get(self, request, *args, **kwargs):
-        user_email = ''
         if request.user.is_authenticated:
-            if request.user.profile.email != None:
-                user_email = request.user.profile.email
+            profile = request.user.profile
+            user_dict = {
+                'first_name': profile.first_name,
+                'last_name': profile.last_name,
+                'email': profile.email,
+            }
+        else:
+            user_dict = {}
+
         return render(
             request,
             'forum/contactus.html',
             {
-                'contact_form': forms.ContactForm(initial={'email': user_email})
+                'contact_form': forms.ContactForm(initial=user_dict)
             }
         )
     
@@ -472,6 +478,10 @@ class ContactUs(View):
             contact_form = forms.ContactForm(data=request.POST)
 
             if contact_form.is_valid():
+                contact_request = contact_form.save(commit=False)
+                if request.user.is_authenticated:
+                    contact_request.user = request.user
+                contact_request.save()
                 
                 return render(
                     request,
