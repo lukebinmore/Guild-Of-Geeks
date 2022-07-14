@@ -38,6 +38,11 @@ class PostForm(forms.ModelForm):
         data = self.data.copy()
         data['category'] = category
         self.data = data
+    
+    def set_tags(self, tags):
+        data = self.data.copy()
+        data.setlist('tags', tags)
+        self.data = data
 
 class UserForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(

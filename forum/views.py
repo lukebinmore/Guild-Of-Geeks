@@ -157,6 +157,19 @@ class PostEdit(View):
             else:
                 if not models.Category.objects.filter(id=category_title).exists():
                     raise Exception('Categories may not be just numbers!')
+            
+            tags = post_form.data.getlist('tags')
+            new_tags = []
+            for tag in tags:
+                if not tag.isdigit():
+                    if not models.Tag.objects.filter(title=tag).exists():
+                        new_tags.append(models.Tag.objects.create(title=tag))
+                else:
+                    if not models.Tag.objects.filter(id=tag).exists():
+                        raise Exception('Tags may not be just numbers!')
+                    else:
+                        new_tags.append(tag)
+            post_form.set_tags(new_tags)
 
             if post_form.is_valid():
                 post = post_form.save(commit=False)
@@ -184,7 +197,7 @@ class PostEdit(View):
         except Exception as e:
             messages.error(request, e)
 
-        post_form = forms.PostForm(data=request.POST)
+        post_form = forms.PostForm(data=post_form.data)
         if slug == 'new-post':
             return render(
                 request,
