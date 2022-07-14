@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from psycopg2 import Date
 from . import models
 from django import forms
@@ -171,3 +172,38 @@ class UpdatePasswordForm(forms.Form):
             'placeholder': 'Confirm Password*'
         }
     ))
+
+class ContactForm(forms.Form):
+    reason_options = (
+        ('Compliment', 'Compliment'),
+        ('Complaint', 'Complaint'),
+        ('Issue', 'Issue'),
+        ('Feature Request', 'Feature Request')
+    )
+    first_name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control text-center',
+            'placeholder': 'First Name*'
+        }
+    ))
+    last_name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control text-center',
+            'placeholder': 'Last Name*'
+        }
+    ))
+    reason = forms.MultipleChoiceField(
+        choices=reason_options,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control text-center',
+                'placeholder': 'Reason For Contact*'
+            })
+    )
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control text-center',
+            'placeholder': 'Short Title*'
+        }
+    ))
+    content = forms.CharField(widget=SummernoteWidget())
