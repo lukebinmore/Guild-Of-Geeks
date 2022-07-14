@@ -506,3 +506,10 @@ class ContactUs(View):
                 'contact_form': forms.ContactForm(data=request.POST)
             }
         )
+
+class Help(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'forum/help.html'
+        )
