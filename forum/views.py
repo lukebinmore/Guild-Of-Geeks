@@ -150,9 +150,13 @@ class PostEdit(View):
                 post_form = forms.PostForm(data=request.POST, instance=post)
 
             category_title = post_form.data['category']
-            if not models.Category.objects.filter(title=category_title).exists():
-                category = models.Category.objects.create(title=category_title)
-                post_form.set_category(category)
+            if not category_title.isdigit():
+                if not models.Category.objects.filter(title=category_title).exists():
+                    category = models.Category.objects.create(title=category_title)
+                    post_form.set_category(category)
+            else:
+                if not models.Category.objects.filter(id=category_title).exists():
+                    raise Exception('Categories may not be just numbers!')
 
             if post_form.is_valid():
                 post = post_form.save(commit=False)
