@@ -5,6 +5,26 @@ from dateutil.relativedelta import relativedelta
 from datetime import date
 
 STATE = ((0, 'Draft'), (1, 'Post'))
+CONTACT_REASON = (
+    (0, 'Compliment'),
+    (1, 'Complaint'),
+    (2, 'Issue'),
+    (3, 'Request')
+)
+
+
+class ContactRequests(models.Model):
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
+    reason = models.IntegerField(choices=CONTACT_REASON, default=0)
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    resolved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
 
 
 class Profile(models.Model):

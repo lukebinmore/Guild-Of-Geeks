@@ -173,43 +173,20 @@ class UpdatePasswordForm(forms.Form):
         }
     ))
 
-class ContactForm(forms.Form):
-    reason_options = (
-        ('Compliment', 'Compliment'),
-        ('Complaint', 'Complaint'),
-        ('Issue', 'Issue'),
-        ('Feature Request', 'Feature Request')
-    )
-    first_name = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'class': 'form-control text-center',
-            'placeholder': 'First Name*'
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = models.ContactRequests
+        fields = ['first_name', 'last_name', 'email', 'title', 'reason', 'content']
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={'class': 'form-control text-center', 'placeholder': 'First Name*'}),
+            'last_name': forms.TextInput(
+                attrs={'class': 'form-control text-center', 'placeholder': 'Last Name*'}),
+            'email': forms.EmailInput(
+                attrs={'class': 'form-control text-center', 'placeholder': 'Email Address*'}),
+            'title': forms.TextInput(
+                attrs={'class': 'form-control text-center', 'placeholder': 'Short Title*'}),
+            'reason': forms.Select(
+                attrs={'class': 'form-control text-center'}),
+            'content': SummernoteWidget()
         }
-    ))
-    last_name = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'class': 'form-control text-center',
-            'placeholder': 'Last Name*'
-        }
-    ))
-    email = forms.EmailField(widget=forms.EmailInput(
-        attrs={
-            'class': 'form-control text-center',
-            'placeholder': 'Email Address*'
-        }
-    ))
-    reason = forms.MultipleChoiceField(
-        choices=reason_options,
-        widget=forms.Select(
-            attrs={
-                'class': 'form-control text-center',
-                'placeholder': 'Reason For Contact*'
-            })
-    )
-    title = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'class': 'form-control text-center',
-            'placeholder': 'Short Title*'
-        }
-    ))
-    content = forms.CharField(widget=SummernoteWidget())
