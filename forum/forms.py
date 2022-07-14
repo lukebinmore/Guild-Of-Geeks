@@ -192,6 +192,12 @@ class ContactForm(forms.Form):
             'placeholder': 'Last Name*'
         }
     ))
+    email = forms.EmailField(widget=forms.EmailInput(
+        attrs={
+            'class': 'form-control text-center',
+            'placeholder': 'Email Address*'
+        }
+    ))
     reason = forms.MultipleChoiceField(
         choices=reason_options,
         widget=forms.Select(

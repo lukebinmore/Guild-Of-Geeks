@@ -455,10 +455,42 @@ class DeleteAccount(View):
 
 class ContactUs(View):
     def get(self, request, *args, **kwargs):
+        user_email = ''
+        if request.user.is_authenticated:
+            if request.user.profile.email != None:
+                user_email = request.user.profile.email
         return render(
             request,
             'forum/contactus.html',
             {
-                'contact_form': forms.ContactForm()
+                'contact_form': forms.ContactForm(initial={'email': user_email})
+            }
+        )
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            contact_form = forms.ContactForm(data=request.POST)
+
+            if contact_form.is_valid():
+                
+                return render(
+                    request,
+                    'forum/contactus.html',
+                    {
+                        'contact_form': forms.ContactForm()
+                    }
+                )
+            else:
+                for field in contact_form:
+                    if field.errors:
+                        raise Exception(f'{field.name.title()} : {field.error}')
+        except Exception as e:
+            messages.error(request, e)
+        
+        return render(
+            request,
+            'forum/contactus.html',
+            {
+                'contact_form': forms.ContactForm(data=request.POST)
             }
         )
