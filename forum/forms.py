@@ -188,5 +188,7 @@ class ContactForm(forms.ModelForm):
                 attrs={'class': 'form-control text-center', 'placeholder': 'Short Title*'}),
             'reason': forms.Select(
                 attrs={'class': 'form-control text-center'}),
-            'content': SummernoteWidget()
+            'content': forms.Textarea(
+                attrs={'class': 'form-control text-center', 'placeholder': 'Message*'}
+            )
         }

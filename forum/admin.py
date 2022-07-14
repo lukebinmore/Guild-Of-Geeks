@@ -3,11 +3,10 @@ from . import models
 from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(models.ContactRequests)
-class ContactRequestAdmin(SummernoteModelAdmin):
+class ContactRequestAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'reason', 'resolved',)
     list_filter = ('user', 'reason', 'resolved',)
     search_fields = ('__all__',)
-    summernote_fields = ('content')
 
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
