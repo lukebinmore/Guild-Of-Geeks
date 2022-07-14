@@ -2,6 +2,13 @@ from django.contrib import admin
 from . import models
 from django_summernote.admin import SummernoteModelAdmin
 
+@admin.register(models.ContactRequests)
+class ContactRequestAdmin(SummernoteModelAdmin):
+    list_display = ('user', 'title', 'reason', 'resolved',)
+    list_filter = ('user', 'reason', 'resolved',)
+    search_fields = ('__all__',)
+    summernote_fields = ('content')
+
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name', 'dob', 'dark_mode', 'created_on', 'updated_on',)
