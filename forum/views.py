@@ -275,23 +275,30 @@ class Login(View):
     def post(self, request, *args, **kwargs):
         user_form = forms.UserForm(data=request.POST)
 
-        if user_form.is_valid():
-            username = user_form.cleaned_data['username']
-            password = user_form.cleaned_data['password']
+        try:
+            if user_form.is_valid():
+                username = user_form.cleaned_data['username']
+                password = user_form.cleaned_data['password']
 
-            if models.User.objects.filter(username=username).exists():
-                user = authenticate(
-                    username = username,
-                    password = password
-                )
-                if user is None:
-                    messages.error(request, 'Password is incorrect, please try again.')
+                if models.User.objects.filter(username=username).exists():
+                    user = authenticate(
+                        username = username,
+                        password = password
+                    )
+                    if user is None:
+                        raise Exception('Password is incorrect, please try again.')
+                    else:
+                        login(request, user)
+                        messages.success(request, 'Welcome back ' + user.username)
+                        return redirect('index')
                 else:
-                    login(request, user)
-                    messages.success(request, 'Welcome back ' + user.username)
-                    return redirect('index')
+                    raise Exception(f'Username {username} not found!')
             else:
-                messages.error(request, f'Username {username} not found!')
+                for field in user_form:
+                    if field.errors:
+                         raise Exception(f'{field.name.title()} : {field.errors[0]}')
+        except Exception as e:
+            messages.error(request, e)
         
         return redirect('index')
 
@@ -341,11 +348,11 @@ class Signup(View):
             else:
                 for field in user_form:
                     if field.errors:
-                        raise Exception(f' - {field.errors}!')
+                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
                 
                 for field in profile_form:
                     if field.errors:
-                        raise Exception(f' - {field.errors}!')
+                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
         except Exception as e:
             messages.error(request, e)
         
