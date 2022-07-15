@@ -29,7 +29,7 @@
                 <p class="mb-2">{{ post_form.category }}</p>
                 {% else %}
                 <a hx-post="{% url 'category-follow' post.category.id %}" hx-target="#category-followed-p">
-                    <p id="category-followed-p" class="list-group-item my-2 btn-primary">
+                    <p id="category-followed-p" class="list-group-item my-2 btn-info">
                         {% if post.category in user.profile.followed_categories.all %}
                         <i class="fa-solid fa-star"></i>
                         {% endif %}
@@ -65,7 +65,7 @@
                 </div>
                 {% else %}
                 <div class="btn-group remove-pm">
-                    <div class="btn pe-none">
+                    <div class="btn btn-primary pe-none">
                         <i class="fa-solid fa-comments"></i>
                         {{ post.comments_count }}
                     </div>
