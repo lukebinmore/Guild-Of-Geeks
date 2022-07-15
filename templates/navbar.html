@@ -3,8 +3,8 @@
 <nav class="sticky-top py-2">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 gx-3 d-none d-md-inline px-0">
-                <form method="GET" class="input-group rounded-corner">
+            <div class="col-3 d-flex justify-content-end align-items-end dropdown ps-0 pe-2">
+                <form method="GET" class="input-group">
                     {% if request.path != "/" %}
                     <a href="{% url 'index' %}" class="btn btn-secondary input-group-item">
                         <i class="fa-solid fa-house"></i>
@@ -13,10 +13,10 @@
                     <button type="submit" class="btn btn-primary input-group-text">
                         <i class="fas fa-search"></i>
                     </button>
-                    <input type="text" name="q" placeholder="Search..." class="form-control rounded-corner-end">
+                    <input type="text" name="q" placeholder="Search..." class="form-control">
                 </form>
             </div>
-            <div class="col-6 offset-3 offset-md-0 px-0">
+            <div class="col-6 px-0">
                 <a href="{% url 'index' %}">
                     <img class="d-none d-md-block mx-auto" src="{% static 'images/logo-400x68.png' %}"
                         alt="Guild Of Geeks Logo">
@@ -24,7 +24,7 @@
                         alt="Guild Of Geeks Logo">
                 </a>
             </div>
-            <div class="col-3 d-flex justify-content-end align-items-end dropdown px-0">
+            <div class="col-3 d-flex justify-content-end align-items-end dropdown pe-0 ps-2">
                 {% if user.is_authenticated %}
                 <button type="button" class="btn rounded-circle border h-100 overflow-hidden p-0"
                     data-bs-toggle="dropdown" aria-expanded="false">

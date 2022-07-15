@@ -1,5 +1,5 @@
 {% if user.is_authenticated %}
-<form action="{% url 'post-edit' 'new-post' %}" method="GET" class="card rounded-corner">
+<form action="{% url 'post-edit' 'new-post' %}" method="GET" class="card">
     {% csrf_token %}
     <label class="card-header text-center">Create New Post As: {{ user }}</label>
     <input type="text" placeholder="New Post Title" name="new-post-title" class="card-body text-center p-2 border-0"
@@ -7,7 +7,7 @@
     <button type="submit" class="btn btn-primary">Create New Post</button>
 </form>
 {% else %}
-<div class="card rounded-corner">
+<div class="card">
     {% csrf_token %}
     <h4 class="card-header text-center">Sign In/Sign Up To Create A Post!</h4>
     <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"

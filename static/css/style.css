@@ -8,18 +8,6 @@ a {
 }
 
 /* General Stylings */
-.rounded-corner {
-    border-radius: 1.5vw;
-    margin-top: 0.75vh;
-    overflow: hidden;
-}
-
-.rounded-corner-end {
-    border-top-right-radius: 1.5vw;
-    border-bottom-right-radius: 1.5vw;
-    overflow: hidden;
-}
-
 .remove-pm {
     padding: 0;
     margin: 0;
@@ -27,6 +15,10 @@ a {
 
 .select2-container {
     width: 100% !important;
+}
+
+.card {
+    margin-bottom: 1rem;
 }
 
 /* Navbar Specific Stylings */

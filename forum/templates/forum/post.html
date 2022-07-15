@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-9">
-        <form method="POST" class="card rounded-corner">
+        <form method="POST" class="card">
             {% csrf_token %}
             <div class="card-header post-header px-2">
                 {% if edit_mode %}
@@ -47,7 +47,7 @@
                 <p class="float-end remove-pm py-2">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
                 {% endif %}
             </div>
-            <div class="card-body p-2">
+            <div class="card-body p-0">
                 {% if edit_mode %}
                 <p>
                     {{ post_form.content }}

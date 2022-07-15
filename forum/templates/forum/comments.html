@@ -1,32 +1,28 @@
-<ul class="list-group rounded-corner infinite-container">
+<ul class="list-group infinite-container">
     {% if user.is_authenticated %}
     {% if edit_mode %}
-    <li class="list-group-item text-center">
+    <li class="card text-center">
         <p class="my-auto">New Comments not available in edit mode.</p>
     </li>
     {% else %}
-    <li class="list-group-item">
+    <li class="card">
         <form method="POST">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-2 text-center border-end comment-left p-2">
-                    <img src="{{ user.profile.picture.url }}" alt="{{ comment.author }}'s Profile Picture"
-                        class="w-50 rounded-circle">
-                    <p class="my-1">{{ user }}</p>
-                    <p class="my-0">Member Since {{ user.profile.created_on }}</p>
-                </div>
-                <div class="col-10">
-                    {{ new_comment_form | safe}}
-                </div>
-                <div class="container-fluid border-top pt-2">
-                    <button type="submit" class="btn btn-primary float-end">Post</button>
-                </div>
+            <div class="card-header text-center">
+                <h5 class="m-0">New Comment</h5>
+            </div>
+            <div class="card-body p-0">
+                {{ new_comment_form | safe}}
+            </div>
+            <div class="card-footer btn-group w-100 p-0">
+                <button type="submit" class="btn btn-primary float-end">Post</button>
+            </div>
         </form>
     </li>
     {% endif %}
     {% endif %}
     {% for comment in comments %}
-    <li class="list-group-item infinite-item">
+    <li class="card infinite-item">
         <div class="row">
             <div class="col-2 text-center border-end comment-left p-2">
                 <img src="{{ comment.author.profile.picture.url }}" alt="{{ comment.author }}'s Profile Picture"
@@ -38,7 +34,7 @@
                 {{ comment.content | safe }}
             </div>
         </div>
-        <form class="container-fluid border-top btn-group remove-pm rounded-corner">
+        <form class="container-fluid border-top btn-group remove-pm">
             {% csrf_token %}
             <a hx-post="{% url 'comment-like' comment.id %}" class="btn btn-primary">
                 {% if user in comment.likes.all %}
