@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="row">
-    <div class="col-9">
+    <div class="col-9 pe-0">
         <form method="POST" class="card">
             {% csrf_token %}
-            <div class="card-header post-header px-2">
+            <div class="card-header post-header">
                 {% if edit_mode %}
                 <h1 class="d-inline-block">{{ post_form.title }}</h1>
                 {% else %}
@@ -90,7 +90,7 @@
         </form>
         {% include "forum/comments.html" %}
     </div>
-    <div class="col-3 ps-0">
+    <div class="col-3">
         {% include "forum/userpanel.html" %}
     </div>
 </div>

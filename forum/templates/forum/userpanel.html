@@ -8,9 +8,9 @@
     </div>
     <div class="card-body text-end list-group p-0">
         <h5 class="list-group-item mb-0">Help/Info <i class="fa-solid fa-info"></i></h5>
-        <a href="{% url 'help' %}" class="list-group-item btn-info text-end">Help / Info <i
+        <a href="{% url 'help' %}" class="list-group-item btn-primary text-end">Help / Info <i
                 class="fa-regular fa-circle-question"></i></a>
-        <a href="{% url 'contact-us' %}" class="list-group-item btn-info text-end">Contact Us <i
+        <a href="{% url 'contact-us' %}" class="list-group-item btn-primary text-end">Contact Us <i
                 class="fa-regular fa-envelope-open"></i></a>
 
         {% if user.is_authenticated %}
@@ -21,7 +21,7 @@
         {% endif %}
 
         <h5 class="list-group-item mb-0">Account Management <i class="fa-solid fa-user-gear"></i></h5>
-        <button type="submit" class="list-group-item btn-secondary text-end" data-bs-toggle="modal"
+        <button type="submit" class="list-group-item btn-primary text-end" data-bs-toggle="modal"
             data-bs-target="#site-modal" hx-get="{% url 'password' %}" hx-target="#site-modal-content">Update
             Password <i class="fa-regular fa-pen-to-square"></i></button>
         <button type="submit" class="list-group-item btn-danger text-end" data-bs-toggle="modal"
