@@ -309,38 +309,45 @@ class Signup(View):
         user_form = forms.UserForm(data=request.POST)
         profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            username = user_form.cleaned_data['username']
-            password = user_form.cleaned_data['password']
-            confirm_password = request.POST.get('confirm')
+        try:
+            if user_form.is_valid() and profile_form.is_valid():
+                username = user_form.cleaned_data['username']
+                password = user_form.cleaned_data['password']
+                confirm_password = request.POST.get('confirm')
 
-            if not models.User.objects.filter(username=username).exists():
-                if password == confirm_password:
-                    user = models.User.objects.create_user(
-                        username = username,
-                        password = password
-                    )
+                if " " in username:
+                    raise Exception('Username cannot contain spaces!')
 
-                    profile = profile_form.save(commit=False)
-                    profile.user = user
-                    profile.save()
+                if not models.User.objects.filter(username=username).exists():
+                    if password == confirm_password:
+                        user = models.User.objects.create_user(
+                            username = username,
+                            password = password
+                        )
 
-                    login(request, user)
+                        profile = profile_form.save(commit=False)
+                        profile.user = user
+                        profile.save()
 
-                    return redirect('index')
+                        login(request, user)
+
+                        messages.success(request, f'Welcome {username}!')
+
+                        return redirect('index')
+                    else:
+                        raise Exception(f'Passwords do not match!')
                 else:
-                    messages.error(request, f'Passwords do not match!')
+                    raise Exception(f'Username {username} already exists!')
             else:
-                messages.error(request, f'Username {username} already exists!')
-        else:
-            messages.error(request, 'Please fix the following issues:')
-            for field in user_form:
-                if field.errors is not None:
-                    messages.error(request, f' - {field.errors}!')
-            
-            for field in profile_form:
-                if field.errors is not None:
-                    messages.error(request, f' - {field.errors}!')
+                for field in user_form:
+                    if field.errors:
+                        raise Exception(f' - {field.errors}!')
+                
+                for field in profile_form:
+                    if field.errors:
+                        raise Exception(f' - {field.errors}!')
+        except Exception as e:
+            messages.error(request, e)
         
         return redirect('index')
 
