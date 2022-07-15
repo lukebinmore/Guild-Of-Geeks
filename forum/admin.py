@@ -10,8 +10,8 @@ class ContactRequestAdmin(admin.ModelAdmin):
 
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'dob', 'dark_mode', 'created_on', 'updated_on',)
-    list_filter = ('dob', 'dark_mode', 'created_on', 'updated_on', 'followed_posts', 'followed_categories')
+    list_display = ('user', 'first_name', 'last_name', 'dob', 'theme', 'created_on', 'updated_on',)
+    list_filter = ('dob', 'theme', 'created_on', 'updated_on', 'followed_posts', 'followed_categories')
     search_fields = ('user', 'first_name', 'last_name', 'dob', 'email', 'number', 'created_on', 'updated_on', 'followed_posts', 'followed_categories',)
 
 @admin.register(models.Category)

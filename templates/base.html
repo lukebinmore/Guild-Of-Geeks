@@ -13,6 +13,11 @@
             integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        {% if user.profile.theme == 'dark' %}
+
+        {% else %}
+        <link rel="stylesheet" href="{% static 'css/theme-light.css' %}">
+        {% endif %}
         <title>Guild Of Geeks</title>
     </head>
 

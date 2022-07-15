@@ -4,6 +4,10 @@ from cloudinary.models import CloudinaryField
 from dateutil.relativedelta import relativedelta
 from datetime import date
 
+THEMES = (
+    ('Light', 'Light'),
+    ('Dark', 'Dark')
+)
 STATE = ((0, 'Draft'), (1, 'Post'))
 CONTACT_REASON = (
     (0, 'Compliment'),
@@ -35,7 +39,7 @@ class Profile(models.Model):
     email = models.EmailField(blank=True)
     number = models.CharField(max_length=11, blank=True)
     picture = CloudinaryField('image', default='static/images/profile-placeholder')
-    dark_mode = models.BooleanField(default=False)
+    theme = models.CharField(max_length=25, choices=THEMES, default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     followed_posts = models.ManyToManyField('Post', related_name='followed_posts', blank=True)

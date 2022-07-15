@@ -62,7 +62,7 @@ class UserForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ['first_name', 'last_name', 'email', 'dob', 'number', 'picture', 'dark_mode']
+        fields = ['first_name', 'last_name', 'email', 'dob', 'number', 'picture', 'theme']
         widgets = {
             'first_name': forms.TextInput(
                 attrs={
@@ -101,11 +101,10 @@ class ProfileForm(forms.ModelForm):
                     'placeholder':'Profile Picture'
                 }
             ),
-            'dark_mode': forms.CheckboxInput(
+            'theme': forms.Select(
                 attrs={
-                    'class':'form-check-input',
-                    'placeholder':'Dark Mode',
-                    'id': 'dark-mode-input'
+                    'class':'form-select',
+                    'placeholder':'Theme'
                 }
             ),
         }
