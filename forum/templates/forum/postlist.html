@@ -11,12 +11,12 @@
         <div class="card-body post-list-body">
             {{ post.content | safe}}
         </div>
-        <div class="card-footer btn-group remove-pm">
-            <div class="btn pe-none">
+        <div class="card-footer btn-group remove-pm post-list-footer">
+            <div class="btn pe-none text-main">
                 <i class="fa-solid fa-comments"></i>
                 {{ post.comments_count }}
             </div>
-            <div class="btn pe-none">
+            <div class="btn pe-none text-main">
                 {{ post.likes_count }}
                 {% if user in post.likes.all %}
                 <i class="fas fa-heart"></i>

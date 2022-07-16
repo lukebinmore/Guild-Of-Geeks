@@ -1,0 +1,10 @@
+/* Color Variables */
+:root {
+    --background: #000;
+    --navbar-color: #4d4d4d;
+    --text: #fff;
+    --text-inv: #000;
+    --card-header-footer: #4d4d4d;
+    --dropdown-list: #4d4d4d;
+    --dropdown-highlight: #000;
+}

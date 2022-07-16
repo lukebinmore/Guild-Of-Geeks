@@ -6,6 +6,11 @@
 }
 
 /* Tag Level Stylings */
+body {
+    background-color: var(--background);
+    color: var(--text);
+}
+
 img {
     max-width: 100%;
 }
@@ -15,7 +20,7 @@ a {
 }
 
 nav {
-    background-color: var(--color-2);
+    background-color: var(--navbar-color);
 }
 
 /* General Stylings */
@@ -28,8 +33,35 @@ nav {
     width: 100% !important;
 }
 
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--green-offset-b);
+    color: var(--text);
+}
+
+.select2-selection__rendered {
+    color: #000;
+}
+
+.select2-results {
+    background-color: var(--dropdown-list);
+    color: var(--text);
+}
+
+.select2-results__option[aria-selected=true] {
+    color: #000;
+}
+
 .card {
     margin-bottom: 1rem;
+    background-color: var(---background);
+    color: var(--text);
+    border-color: var(--card-header-footer);
+}
+
+.card-header,
+.card-footer {
+    background-color: var(--card-header-footer);
+    color: var(--text);
 }
 
 .btn-primary {
@@ -49,6 +81,10 @@ nav {
     background-color: var(--green-offset-b);
     border-color: var(--green);
     color: #fff;
+}
+
+.text-main {
+    color: var(--text);
 }
 
 /* Navbar Specific Stylings */
@@ -85,4 +121,10 @@ nav img {
 /* Post Specific Stylings */
 .post-header h1 {
     width: 85%;
+}
+
+/* User Panel Specific Stylings */
+.user-panel-options h5 {
+    background-color: var(--card-header-footer);
+    color: var(--text);
 }
