@@ -34,8 +34,12 @@
                 {{ comment.content | safe }}
             </div>
         </div>
-        <form class="container-fluid border-top btn-group remove-pm">
+        <form method="POST" class="container-fluid border-top btn-group remove-pm">
             {% csrf_token %}
+            {% if comment.author == user or user.is_staff %}
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
+                hx-get="{% url 'comment-delete' comment.id %}" hx-target="#site-modal-content">Delete</button>
+            {% endif %}
             <a hx-post="{% url 'comment-like' comment.id %}" class="btn btn-primary">
                 {% if user in comment.likes.all %}
                 <i class="fas fa-heart text-red"></i>

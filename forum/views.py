@@ -259,6 +259,33 @@ class CommentLike(View):
             comment.likes.add(request.user)
             return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(comment.likes.count()))
 
+class CommentDelete(View):
+    def get(self, request, id, *args, **kwargs):
+        print(request.GET.get('post_slug'))
+        return render(
+            request,
+            'forum/deletecomment.html',
+            {
+                'comment_id': id,
+            }
+        )
+    
+    def post(self, request, id, *args, **kwargs):
+        confirm = request.POST.get('confirm')
+        comment = get_object_or_404(models.Comment.objects.all(), id=id)
+        post = get_object_or_404(models.Post.objects.all(), id=comment.post.id)
+
+        try:
+            if request.user.check_password(confirm):
+                comment.delete()
+                return redirect('post-view', post.slug)
+            else:
+                raise Exception('Incorrect password!')
+        except Exception as e:
+            messages.error(request, e)
+
+        return redirect('post-view', post.slug)
+
 class CategoryFollow(View):
     def post(self, request, id, *args, **kwargs):
         queryset = models.Category.objects.all()
