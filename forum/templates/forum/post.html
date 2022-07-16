@@ -31,7 +31,7 @@
                 <a hx-post="{% url 'category-follow' post.category.id %}" hx-target="#category-followed-p">
                     <p id="category-followed-p" class="list-group-item my-2 btn-info">
                         {% if post.category in user.profile.followed_categories.all %}
-                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star text-red"></i>
                         {% endif %}
                         {{ post.category }}
                     </p>
@@ -47,7 +47,7 @@
                 <p class="float-end remove-pm py-2">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
                 {% endif %}
             </div>
-            <div class="card-body p-0">
+            <div class="card-body py-0">
                 {% if edit_mode %}
                 <p>
                     {{ post_form.content }}
@@ -71,14 +71,14 @@
                     </div>
                     <a hx-post="{% url 'post-follow' post.slug %}" class="btn btn-primary">
                         {% if post in user.profile.followed_posts.all %}
-                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star text-red"></i>
                         {% else %}
                         <i class="fa-regular fa-star"></i>
                         {% endif %}
                     </a>
                     <a hx-post="{% url 'post-like' post.slug %}" class="btn btn-primary">
                         {% if user in post.likes.all %}
-                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart text-red"></i>
                         {% else %}
                         <i class="far fa-heart"></i>
                         {% endif %}

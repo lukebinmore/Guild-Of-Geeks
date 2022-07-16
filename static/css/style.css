@@ -3,6 +3,12 @@
     --green: #7CDC54;
     --green-offset-a: #70c64c;
     --green-offset-b: #63b043;
+    --yellow: #ffc107;
+    --yellow-offset-a: #e6ae06;
+    --yellow-offset-b: #cc9a06;
+    --red: #dc3545;
+    --red-offset-a: #c6303e;
+    --red-offset-b: #b02a37;
 }
 
 /* Tag Level Stylings */
@@ -70,21 +76,54 @@ nav {
     color: #000;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus {
     background-color: var(--green-offset-b);
     border-color: var(--green);
     color: #fff;
-    box-shadow: 0 0 0 0.25rem var(--green-offset-a);
+    box-shadow: 0 0 0 0.15rem var(--green-offset-a);
 }
 
-.btn-info:hover {
+.btn-warning {
+    background-color: var(--yellow);
+    border-color: var(--yellow);
+    color: #000;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+    background-color: var(--yellow-offset-b);
+    border-color: var(--yellow);
+    color: #fff;
+    box-shadow: 0 0 0 0.15rem var(--yellow-offset-a);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background-color: var(--red-offset-b);
+    border-color: var(--red);
+    color: #fff;
+    box-shadow: 0 0 0 0.15rem var(--red-offset-a);
+}
+
+.btn-info:hover,
+.btn-info:focus {
     background-color: var(--green-offset-b);
     border-color: var(--green);
     color: #fff;
+    box-shadow: 0 0 0 0.15rem var(--green-offset-a);
 }
 
 .text-main {
     color: var(--text);
+}
+
+.text-dark {
+    color: #000;
+}
+
+.text-red {
+    color: var(--red);
 }
 
 /* Navbar Specific Stylings */
@@ -128,3 +167,5 @@ nav img {
     background-color: var(--card-header-footer);
     color: var(--text);
 }
+
+/* Update Password / Delete Account Specific Stylings */

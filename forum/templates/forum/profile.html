@@ -84,6 +84,9 @@
             <div class="card-footer remove-pm text-center">
                 {% if edit_mode %}
                 <div class="btn-group remove-pm w-100">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
+                        hx-get="{% url 'delete-account' %}" hx-target="#site-modal-content">Delete
+                        Account</button>
                     <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>

@@ -38,7 +38,7 @@
             {% csrf_token %}
             <a hx-post="{% url 'comment-like' comment.id %}" class="btn btn-primary">
                 {% if user in comment.likes.all %}
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart text-red"></i>
                 {% else %}
                 <i class="far fa-heart"></i>
                 {% endif %}

@@ -19,7 +19,7 @@
             <div class="btn pe-none text-main">
                 {{ post.likes_count }}
                 {% if user in post.likes.all %}
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart text-red"></i>
                 {% else %}
                 <i class="far fa-heart"></i>
                 {% endif %}

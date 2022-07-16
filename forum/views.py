@@ -234,7 +234,7 @@ class PostLike(View):
             return HttpResponse('<i class="far fa-heart"></i> ' + str(post.likes.count()))
         else:
             post.likes.add(request.user)
-            return HttpResponse('<i class="fas fa-heart"></i> ' + str(post.likes.count()))
+            return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(post.likes.count()))
 
 class PostFollow(View):
     def post(self, request, slug, *args, **kwargs):
@@ -246,7 +246,7 @@ class PostFollow(View):
             return HttpResponse('<i class="fa-regular fa-star"></i>')
         else:
             profile.followed_posts.add(post)
-            return HttpResponse('<i class="fa-solid fa-star"></i>')
+            return HttpResponse('<i class="fa-solid fa-star text-red"></i>')
 
 class CommentLike(View):
     def post(self, request, id, *args, **kwargs):
@@ -257,7 +257,7 @@ class CommentLike(View):
             return HttpResponse('<i class="far fa-heart"></i> ' + str(comment.likes.count()))
         else:
             comment.likes.add(request.user)
-            return HttpResponse('<i class="fas fa-heart"></i> ' + str(comment.likes.count()))
+            return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(comment.likes.count()))
 
 class CategoryFollow(View):
     def post(self, request, id, *args, **kwargs):
@@ -269,7 +269,7 @@ class CategoryFollow(View):
             return HttpResponse(category.title)
         else:
             profile.followed_categories.add(category)
-            return HttpResponse('<i class="fa-solid fa-star"></i> ' + category.title)
+            return HttpResponse('<i class="fa-solid fa-star text-red"></i> ' + category.title)
 
 class Login(View):
     def post(self, request, *args, **kwargs):

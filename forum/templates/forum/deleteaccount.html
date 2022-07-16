@@ -1,4 +1,4 @@
-<form action="{% url 'delete-account' %}" method="POST">
+<form action="{% url 'delete-account' %}" method="POST" class="text-dark">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">Delete Account</h5>
@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <h2>WARNING!</h2>
-        <p class="card-text">
+        <p class="card-text text-red">
             This will delete your account, this action is irreversable!
         </p>
         <p class="card-text">Are you sure you wish to proceed?</p>
