@@ -26,7 +26,7 @@
             </div>
             <div class="col-3 d-flex justify-content-end align-items-end dropdown pe-0 ps-2">
                 {% if user.is_authenticated %}
-                <button type="button" class="btn rounded-circle border h-100 overflow-hidden p-0"
+                <button type="button" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ user.profile.picture.url }}" alt="Profile Picture">
                 </button>
