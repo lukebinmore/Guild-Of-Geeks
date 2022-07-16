@@ -39,7 +39,7 @@ class Profile(models.Model):
     email = models.EmailField(blank=True)
     number = models.CharField(max_length=11, blank=True)
     picture = CloudinaryField('image', default='static/images/profile-placeholder')
-    theme = models.CharField(max_length=25, choices=THEMES, default='Dark')
+    theme = models.CharField(max_length=25, choices=THEMES, default='Light')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     followed_posts = models.ManyToManyField('Post', related_name='followed_posts', blank=True)
