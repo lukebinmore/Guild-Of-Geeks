@@ -3,7 +3,7 @@
 <nav class="sticky-top p-2 pt-0">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 d-block d-md-none d-flex justify-content-start  px-0 mt-2">
+            <div class="col-3 d-block d-md-none d-flex justify-content-start px-0 mt-2">
                 {% if request.path != "/" %}
                 <a href="{% url 'index' %}" class="btn btn-secondary btn-sm">
                     <i class="fa-solid fa-house"></i>
@@ -17,9 +17,10 @@
                         <i class="fa-solid fa-house"></i>
                     </a>
                     {% else %}
-                    <a href="{% url 'index' %}" class="btn btn-secondary input-group-item">
+                    <button type="button" id="filter-view-toggle"
+                        class="btn btn-secondary input-group-item d-block d-md-none">
                         <i class="fa-solid fa-caret-down"></i>
-                    </a>
+                    </button>
                     {% endif %}
                     <input type="text" name="q" placeholder="Search..." class="form-control">
                     <button type="submit" class="btn btn-primary input-group-text">

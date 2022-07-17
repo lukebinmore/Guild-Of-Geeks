@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="container_fluid row">
-    <div id="index-col-left" class="col-0 col-md-3">
+    <div id="index-col-left" class="col-12 col-md-3 d-none d-md-block">
         {% include 'forum/filters.html' %}
     </div>
     <div class="col-12 col-md-6 gx-0">
@@ -16,6 +16,14 @@
             </div>
         </div>
         {% endif %}
+
+        <div class="card d-block d-md-none">
+            <div class="card-header">
+                <div class="text-center">
+                    <p class="card-text">Posts Found: {{ post_count }}</p>
+                </div>
+            </div>
+        </div>
 
         {% include "forum/postlist.html" %}
     </div>
