@@ -42,13 +42,50 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ user.profile.picture.url }}" alt="Profile Picture">
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end text-end">
-                    <li><a class="dropdown-item" href="{% url 'profile' 'view' %}">View Profile</a></li>
+                <ul class="dropdown-menu dropdown-menu-end text-end py-0">
                     <li>
-                        <hr class="dropdown-divider">
+                        <a href="{% url 'profile' 'view' %}" class="list-group-item btn-info text-end">My Profile <i
+                                class="fa-solid fa-user"></i></a>
                     </li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout <i
-                                class="fa-solid fa-door-open"></i></a></li>
+                    <li>
+                        <h6 class="dropdown-header">Help / Info <i class="fa-solid fa-info"></i></h6>
+                    </li>
+                    <li>
+                        <a href="{% url 'help' %}" class="list-group-item btn-info text-end">Help / Info <i
+                                class="fa-regular fa-circle-question"></i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact-us' %}" class="list-group-item btn-info text-end">Contact Us <i
+                                class="fa-regular fa-envelope-open"></i></a>
+                    </li>
+                    {% if user.is_staff %}
+                    <li>
+                        <h6 class="dropdown-header">Admin Controls <i class="fa-solid fa-hammer"></i></h6>
+                    </li>
+                    <li>
+                        <a href="/admin" class="list-group-item btn-info text-end">Open Admin Panel <i
+                                class="fa-solid fa-screwdriver"></i></a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <h6 class="dropdown-header">Account Management <i class="fa-solid fa-user-gear"></i></h6>
+                    </li>
+                    <li>
+                        <button type="button" class="list-group-item btn-info text-end w-100" data-bs-toggle="modal"
+                            data-bs-target="#site-modal" hx-get="{% url 'password' %}"
+                            hx-target="#site-modal-content">Update
+                            Password <i class="fa-regular fa-pen-to-square"></i></button>
+                    </li>
+                    <li>
+                        <button type="button" class="list-group-item btn-danger text-end w-100" data-bs-toggle="modal"
+                            data-bs-target="#site-modal" hx-get="{% url 'delete-account' %}"
+                            hx-target="#site-modal-content">Delete
+                            Account <i class="fa-regular fa-trash-can"></i></button>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}" class="btn btn-danger w-100"><i class="fa-solid fa-door-open"></i>
+                            Logout</a>
+                    </li>
                 </ul>
                 {% else %}
                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"

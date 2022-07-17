@@ -131,6 +131,11 @@ nav img {
     height: 2.25rem;
 }
 
+.dropdown-menu .dropdown-header {
+    background-color: var(--card-header-footer);
+    color: var(--text);
+}
+
 /* Post List Specific Stylings */
 .post-list-post p {
     margin-bottom: 0;
