@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="container_fluid row">
-    <div class="col-0 col-sm-3">
+    <div id="index-col-left" class="col-0 col-md-3">
         {% include 'forum/filters.html' %}
     </div>
-    <div class="col-12 col-sm-6 gx-0">
+    <div class="col-12 col-md-6 gx-0">
         {% include "forum/createnewpost.html" %}
 
         {% if search_query != None %}
@@ -19,7 +19,7 @@
 
         {% include "forum/postlist.html" %}
     </div>
-    <div class="col-0 col-sm-3">
+    <div class="col-0 col-md-3">
         {% include "forum/userpanel.html" %}
     </div>
 </div>

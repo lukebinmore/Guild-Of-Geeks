@@ -3,11 +3,22 @@
 <nav class="sticky-top p-2 pt-0">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-3 order-last order-md-first d-flex justify-content-end align-items-end px-0 mt-2">
+            <div class="col-3 d-block d-md-none d-flex justify-content-start  px-0 mt-2">
+                {% if request.path != "/" %}
+                <a href="{% url 'index' %}" class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-3 order-last order-md-first px-0 mt-2">
                 <form id="search-form" method="GET" class="input-group">
                     {% if request.path != "/" %}
-                    <a href="{% url 'index' %}" class="btn btn-secondary input-group-item">
+                    <a href="{% url 'index' %}" class="btn btn-secondary input-group-item d-none d-md-inline">
                         <i class="fa-solid fa-house"></i>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'index' %}" class="btn btn-secondary input-group-item">
+                        <i class="fa-solid fa-caret-down"></i>
                     </a>
                     {% endif %}
                     <input type="text" name="q" placeholder="Search..." class="form-control">
@@ -16,7 +27,7 @@
                     </button>
                 </form>
             </div>
-            <div class="col-6 offset-3 offset-md-0 mt-2">
+            <div class="col-6 mt-2">
                 <a href="{% url 'index' %}">
                     <img class="d-none d-md-block mx-auto" src="{% static 'images/logo-400x68.png' %}"
                         alt="Guild Of Geeks Logo">
@@ -24,7 +35,7 @@
                         alt="Guild Of Geeks Logo">
                 </a>
             </div>
-            <div class="col-3 d-flex justify-content-end align-items-end dropdown px-0 mt-2">
+            <div class="col-3 d-flex justify-content-end dropdown px-0 mt-2">
                 {% if user.is_authenticated %}
                 <button type="button" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
                     data-bs-toggle="dropdown" aria-expanded="false">
