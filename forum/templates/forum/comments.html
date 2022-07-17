@@ -27,15 +27,21 @@
     {% endif %}
     {% for comment in comments %}
     <li class="card infinite-item">
-        <div class="row">
-            <div class="col-2 text-center border-end comment-left p-2">
+        <div class="card-header">
+            <h5 class="mb-0">Posted By: {{ comment.author }}</h5>
+        </div>
+        <div class="row card-body g-0 p-0">
+            <div class="col-2 d-none d-md-block text-center border-end comment-left p-2">
                 <img src="{{ comment.author.profile.picture.url }}" alt="{{ comment.author }}'s Profile Picture"
                     class="w-50 rounded-circle">
                 <p class="my-1">{{ comment.author }}</p>
                 <p class="my-0">Posted {{ comment.created_on | timesince }} ago.</p>
             </div>
-            <div class="col-10">
+            <div class="col-10 p-2">
                 {{ comment.content | safe }}
+            </div>
+            <div class="col-12 text-end py-1">
+                <p class="remove-pm border-top p-1">- Posted On: {{ post.created_on.date }}</p>
             </div>
         </div>
         <form method="POST" class="container-fluid border-top btn-group remove-pm">
