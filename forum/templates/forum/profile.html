@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="row">
-    <div class="col-9 pe-0">
+    <div id="profile-col-left" class="col-12 col-md-9 pe-0">
         <form method="POST" class="card" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card-header px-2">
@@ -85,10 +85,9 @@
                 {% if edit_mode %}
                 <div class="btn-group remove-pm w-100">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
-                        hx-get="{% url 'delete-account' %}" hx-target="#site-modal-content">Delete
-                        Account</button>
+                        hx-get="{% url 'delete-account' %}" hx-target="#site-modal-content">Delete</button>
                     <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
                 {% else %}
                 <p class="remove-pm py-2">Created On: {{ user.profile.created_on  }}</p>
@@ -96,7 +95,7 @@
             </div>
         </form>
     </div>
-    <div class="col-3 text-end">
+    <div class="col-3 text-end d-none d-md-block">
         {% include "forum/userpanel.html" %}
     </div>
 </div>
