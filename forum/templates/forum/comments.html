@@ -11,7 +11,7 @@
             <div class="card-header text-center">
                 <h5 class="m-0">New Comment</h5>
             </div>
-            <div class="card-body p-0">
+            <div id="new-comment-body" class="card-body p-0">
                 {{ new_comment_form | safe}}
             </div>
             <div class="card-footer btn-group w-100 p-0">
@@ -20,6 +20,10 @@
         </form>
     </li>
     {% endif %}
+    {% else %}
+    <li class="card text-center">
+        <p class="my-auto">Login or Signup to post comments.</p>
+    </li>
     {% endif %}
     {% for comment in comments %}
     <li class="card infinite-item">

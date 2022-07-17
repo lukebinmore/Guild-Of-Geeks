@@ -161,6 +161,10 @@ nav img {
     width: 85%;
 }
 
+#new-comment-body textarea {
+    resize: none;
+}
+
 /* User Panel Specific Stylings */
 .user-panel-options h5 {
     background-color: var(--card-header-footer);

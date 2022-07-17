@@ -2,17 +2,25 @@ from logging import PlaceHolder
 from psycopg2 import Date
 from . import models
 from django import forms
-from django_summernote.widgets import SummernoteWidget
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class DatePickerInput(forms.DateInput):
     input_type = 'date'
+
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = models.Comment
         fields = ['content',]
         widgets = {
-            'content': SummernoteWidget()
+            'content': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Your new comment...',
+                    'rows': '4',
+                    'maxlength': '1000'
+                }
+            )
         }
         labels = {
             'content': ''
@@ -32,7 +40,9 @@ class PostForm(forms.ModelForm):
             'tags': forms.SelectMultiple(
                 attrs={'class': 'form-select select2'},
             ),
-            'content': SummernoteWidget()
+            'content': SummernoteWidget(
+                attrs={'summernote': {'height': '500px'}}
+            )
         }
     
     def set_category(self, category):
