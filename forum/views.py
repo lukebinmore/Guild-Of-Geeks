@@ -71,63 +71,12 @@ class Index(generic.ListView):
 
 class PostView(View):
     def get(self, request, slug, *args, **kwargs):
-        queryset = models.Post.objects.all()
-        post = get_object_or_404(queryset, slug=slug)
-        paginator = Paginator(post.post_comments.order_by('created_on'), 5)
-        page = request.GET.get('page')
-        comments = paginator.get_page(page)
-        return render(
-            request,
-            'forum/post.html',
-            {
-                'post': post,
-                'comments': comments,
-                'page_obj': comments,
-                'new_comment_form': forms.NewCommentForm(),
-            },
-        )
-
-    def post(self, request, slug, *args, **kwargs):
-        queryset = models.Post.objects.all()
-        post = get_object_or_404(queryset, slug=slug)
-        new_comment_form = forms.NewCommentForm(data=request.POST)
-        if new_comment_form.is_valid():
-            comment = new_comment_form.save(commit=False)
-            comment.author = request.user
-            comment.post = post
-            comment.save()
-            return redirect(request.path)
-        else:
-            messages.error(request, f'Please fix the following issues:')
-            for field in new_comment_form:
-                if field.errors is not None:
-                    messages.error(request, f' - {field.errors}')
-        return redirect(request.path)
-
-class PostEdit(View):
-    def get(self, request, slug, *args, **kwargs):
-        if slug == "new-post":
-            new_post_title = request.GET.get('new-post-title')
-            if new_post_title != None:
-                post_form = forms.PostForm(initial={'title': new_post_title,})
-            else:
-                post_form = forms.PostForm(data=request.POST)
-            return render(
-                request,
-                'forum/post.html',
-                {
-                    'edit_mode': True,
-                    'post_form': post_form,
-                }
-            )
-        else:
+        try:
             queryset = models.Post.objects.all()
             post = get_object_or_404(queryset, slug=slug)
             paginator = Paginator(post.post_comments.order_by('created_on'), 5)
             page = request.GET.get('page')
             comments = paginator.get_page(page)
-            post_form = forms.PostForm(instance=post)
-
             return render(
                 request,
                 'forum/post.html',
@@ -135,10 +84,72 @@ class PostEdit(View):
                     'post': post,
                     'comments': comments,
                     'page_obj': comments,
-                    'edit_mode': True,
-                    'post_form': post_form,
+                    'new_comment_form': forms.NewCommentForm(),
                 },
             )
+        except Exception as e:
+            messages.error(request, e)
+        
+        return redirect('index')
+
+    def post(self, request, slug, *args, **kwargs):
+        try:
+            queryset = models.Post.objects.all()
+            post = get_object_or_404(queryset, slug=slug)
+            new_comment_form = forms.NewCommentForm(data=request.POST)
+            if new_comment_form.is_valid():
+                comment = new_comment_form.save(commit=False)
+                comment.author = request.user
+                comment.post = post
+                comment.save()
+                messages.success(request, 'Saved new comment!')
+                return redirect(request.path)
+            else:
+                for field in new_comment_form:
+                    if field.errors is not None:
+                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+        except Exception as e:
+            messages.error(request, e)
+        return redirect(request.path)
+
+class PostEdit(View):
+    def get(self, request, slug, *args, **kwargs):
+        try:
+            if slug == "new-post":
+                new_post_title = request.GET.get('new-post-title')
+                if new_post_title != None:
+                    post_form = forms.PostForm(initial={'title': new_post_title,})
+                else:
+                    post_form = forms.PostForm(data=request.POST)
+                return render(
+                    request,
+                    'forum/post.html',
+                    {
+                        'edit_mode': True,
+                        'post_form': post_form,
+                    }
+                )
+            else:
+                queryset = models.Post.objects.all()
+                post = get_object_or_404(queryset, slug=slug)
+                paginator = Paginator(post.post_comments.order_by('created_on'), 5)
+                page = request.GET.get('page')
+                comments = paginator.get_page(page)
+                post_form = forms.PostForm(instance=post)
+
+                return render(
+                    request,
+                    'forum/post.html',
+                    {
+                        'post': post,
+                        'comments': comments,
+                        'page_obj': comments,
+                        'edit_mode': True,
+                        'post_form': post_form,
+                    },
+                )
+        except Exception as e:
+            messages.error(request, e)
     
     def post(self, request, slug, *args, **kwargs):
         try:
@@ -189,6 +200,8 @@ class PostEdit(View):
 
                 post.save()
 
+                messages.success(request, 'Post saved!')
+
                 return redirect('post-view', slug=post.slug)
             else:
                 for field in post_form:
@@ -196,86 +209,106 @@ class PostEdit(View):
                         raise Exception(f'{field.name.title()} : {field.errors[0]}')
         except Exception as e:
             messages.error(request, e)
-
-        post_form = forms.PostForm(data=post_form.data)
-        if slug == 'new-post':
-            return render(
-                request,
-                'forum/post.html',
-                {
-                    'edit_mode': True,
-                    'post_form': post_form,
-                }
-            )
-        else:
-            queryset = models.Post.objects.all()
-            post = get_object_or_404(queryset, slug=slug)
-            paginator = Paginator(post.post_comments.order_by('created_on'), 5)
-            page = request.GET.get('page')
-            comments = paginator.get_page(page)
-            return render(
-                request,
-                'forum/post.html',
-                {
-                    'post': post,
-                    'comments': comments,
-                    'page_obj': comments,
-                    'edit_mode': True,
-                    'post_form': post_form,
-                },
-            )
+        
+        try:
+            post_form = forms.PostForm(data=post_form.data)
+            if slug == 'new-post':
+                return render(
+                    request,
+                    'forum/post.html',
+                    {
+                        'edit_mode': True,
+                        'post_form': post_form,
+                    }
+                )
+            else:
+                queryset = models.Post.objects.all()
+                post = get_object_or_404(queryset, slug=slug)
+                paginator = Paginator(post.post_comments.order_by('created_on'), 5)
+                page = request.GET.get('page')
+                comments = paginator.get_page(page)
+                return render(
+                    request,
+                    'forum/post.html',
+                    {
+                        'post': post,
+                        'comments': comments,
+                        'page_obj': comments,
+                        'edit_mode': True,
+                        'post_form': post_form,
+                    },
+                )
+        except Exception as e:
+            messages.error(request, e)
+        
+        return redirect('index')
 
 class PostLike(View):
     def post(self, request, slug, *args, **kwargs):
-        queryset = models.Post.objects.all()
-        post = get_object_or_404(queryset, slug=slug)
-        if post.likes.filter(id=self.request.user.id).exists():
-            post.likes.remove(request.user)
-            return HttpResponse('<i class="far fa-heart"></i> ' + str(post.likes.count()))
-        else:
-            post.likes.add(request.user)
-            return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(post.likes.count()))
+        try:
+            queryset = models.Post.objects.all()
+            post = get_object_or_404(queryset, slug=slug)
+            if post.likes.filter(id=self.request.user.id).exists():
+                post.likes.remove(request.user)
+                return HttpResponse('<i class="far fa-heart"></i> ' + str(post.likes.count()))
+            else:
+                post.likes.add(request.user)
+                return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(post.likes.count()))
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('index')
 
 class PostFollow(View):
     def post(self, request, slug, *args, **kwargs):
-        queryset = models.Post.objects.all()
-        post = get_object_or_404(queryset, slug=slug)
-        profile = request.user.profile
-        if profile.followed_posts.filter(id=post.id).exists():
-            profile.followed_posts.remove(post)
-            return HttpResponse('<i class="fa-regular fa-star"></i>')
-        else:
-            profile.followed_posts.add(post)
-            return HttpResponse('<i class="fa-solid fa-star text-red"></i>')
+        try:
+            queryset = models.Post.objects.all()
+            post = get_object_or_404(queryset, slug=slug)
+            profile = request.user.profile
+            if profile.followed_posts.filter(id=post.id).exists():
+                profile.followed_posts.remove(post)
+                return HttpResponse('<i class="fa-regular fa-star"></i>')
+            else:
+                profile.followed_posts.add(post)
+                return HttpResponse('<i class="fa-solid fa-star text-red"></i>')
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('index')
 
 class CommentLike(View):
     def post(self, request, id, *args, **kwargs):
-        queryset = models.Comment.objects.all()
-        comment = get_object_or_404(queryset, id=id)
-        if comment.likes.filter(id=self.request.user.id).exists():
-            comment.likes.remove(request.user)
-            return HttpResponse('<i class="far fa-heart"></i> ' + str(comment.likes.count()))
-        else:
-            comment.likes.add(request.user)
-            return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(comment.likes.count()))
+        try:
+            queryset = models.Comment.objects.all()
+            comment = get_object_or_404(queryset, id=id)
+            if comment.likes.filter(id=self.request.user.id).exists():
+                comment.likes.remove(request.user)
+                return HttpResponse('<i class="far fa-heart"></i> ' + str(comment.likes.count()))
+            else:
+                comment.likes.add(request.user)
+                return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(comment.likes.count()))
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('index')
 
 class CommentDelete(View):
     def get(self, request, id, *args, **kwargs):
-        print(request.GET.get('post_slug'))
-        return render(
-            request,
-            'forum/deletecomment.html',
-            {
-                'comment_id': id,
-            }
-        )
+        try:
+            print(request.GET.get('post_slug'))
+            return render(
+                request,
+                'forum/deletecomment.html',
+                {
+                    'comment_id': id,
+                }
+            )
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('index')
     
     def post(self, request, id, *args, **kwargs):
-        confirm = request.POST.get('confirm')
-        comment = get_object_or_404(models.Comment.objects.all(), id=id)
-        post = get_object_or_404(models.Post.objects.all(), id=comment.post.id)
-
         try:
+            confirm = request.POST.get('confirm')
+            comment = get_object_or_404(models.Comment.objects.all(), id=id)
+            post = get_object_or_404(models.Post.objects.all(), id=comment.post.id)
             if request.user.check_password(confirm):
                 comment.delete()
                 return redirect('post-view', post.slug)
@@ -288,21 +321,24 @@ class CommentDelete(View):
 
 class CategoryFollow(View):
     def post(self, request, id, *args, **kwargs):
-        queryset = models.Category.objects.all()
-        category = get_object_or_404(queryset, id=id)
-        profile = request.user.profile
-        if profile.followed_categories.filter(id=category.id).exists():
-            profile.followed_categories.remove(category)
-            return HttpResponse(category.title)
-        else:
-            profile.followed_categories.add(category)
-            return HttpResponse('<i class="fa-solid fa-star text-red"></i> ' + category.title)
+        try:
+            queryset = models.Category.objects.all()
+            category = get_object_or_404(queryset, id=id)
+            profile = request.user.profile
+            if profile.followed_categories.filter(id=category.id).exists():
+                profile.followed_categories.remove(category)
+                return HttpResponse(category.title)
+            else:
+                profile.followed_categories.add(category)
+                return HttpResponse('<i class="fa-solid fa-star text-red"></i> ' + category.title)
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('index')
 
 class Login(View):
     def post(self, request, *args, **kwargs):
-        user_form = forms.UserForm(data=request.POST)
-
         try:
+            user_form = forms.UserForm(data=request.POST)
             if user_form.is_valid():
                 username = user_form.cleaned_data['username']
                 password = user_form.cleaned_data['password']
@@ -340,10 +376,9 @@ class Login(View):
 
 class Signup(View):
     def post(self, request, *args, **kwargs):
-        user_form = forms.UserForm(data=request.POST)
-        profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
-
         try:
+            user_form = forms.UserForm(data=request.POST)
+            profile_form = forms.ProfileForm(data=request.POST, files=request.FILES)
             if user_form.is_valid() and profile_form.is_valid():
                 username = user_form.cleaned_data['username']
                 password = user_form.cleaned_data['password']
@@ -402,23 +437,27 @@ class Logout(View):
 
 class Profile(View):
     def get(self, request, mode, *args, **kwargs):
-        if mode == 'edit':
+        try:
+            if mode == 'edit':
+                return render(
+                    request,
+                    'forum/profile.html',
+                    {
+                        'edit_mode': True,
+                        'profile_form': forms.ProfileForm(instance=request.user.profile)
+                    }
+                )
             return render(
                 request,
                 'forum/profile.html',
-                {
-                    'edit_mode': True,
-                    'profile_form': forms.ProfileForm(instance=request.user.profile)
-                }
             )
-        return render(
-            request,
-            'forum/profile.html',
-        )
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('profile')
     
     def post(self, request, *args,**kwargs):
-        profile_form = forms.ProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
         try:
+            profile_form = forms.ProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
             if profile_form.is_valid():
                 profile_form.save()
                 messages.success(request, 'Account updated successfully!')
@@ -442,9 +481,8 @@ class UpdatePassword(View):
         )
     
     def post(self, request, *args, **kwargs):
-        password_form = forms.UpdatePasswordForm(data=request.POST)
-
         try:
+            password_form = forms.UpdatePasswordForm(data=request.POST)
             if password_form.is_valid():
                 password = password_form.cleaned_data['old']
                 user = authenticate(
@@ -481,9 +519,8 @@ class DeleteAccount(View):
         )
 
     def post(self, request, *args, **kwargs):
-        confirm = request.POST.get('confirm')
-
         try:
+            confirm = request.POST.get('confirm')
             if request.user.check_password(confirm):
                 user = get_object_or_404(models.User.objects.all(), username=request.user.username)
                 user.delete()
@@ -496,23 +533,27 @@ class DeleteAccount(View):
 
 class ContactUs(View):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            profile = request.user.profile
-            user_dict = {
-                'first_name': profile.first_name,
-                'last_name': profile.last_name,
-                'email': profile.email,
-            }
-        else:
-            user_dict = {}
+        try:
+            if request.user.is_authenticated:
+                profile = request.user.profile
+                user_dict = {
+                    'first_name': profile.first_name,
+                    'last_name': profile.last_name,
+                    'email': profile.email,
+                }
+            else:
+                user_dict = {}
 
-        return render(
-            request,
-            'forum/contactus.html',
-            {
-                'contact_form': forms.ContactForm(initial=user_dict)
-            }
-        )
+            return render(
+                request,
+                'forum/contactus.html',
+                {
+                    'contact_form': forms.ContactForm(initial=user_dict)
+                }
+            )
+        except Exception as e:
+            messages.error(request, e)
+        return redirect('index')
     
     def post(self, request, *args, **kwargs):
         try:
