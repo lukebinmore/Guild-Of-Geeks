@@ -88,8 +88,10 @@
                     </li>
                 </ul>
                 {% else %}
-                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"
-                    hx-get="{% url 'login' %}" hx-target="#site-modal-content">Login / Signup</button>
+                <button type="submit" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
+                    data-bs-toggle="modal" data-bs-target="#site-modal" hx-get="{% url 'login' %}"
+                    hx-target="#site-modal-content"><img src="{% static 'images/profile-placeholder.png' %}"
+                        alt="Profile Picture"></button>
                 {% endif %}
             </div>
         </div>
