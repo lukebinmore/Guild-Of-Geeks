@@ -12,11 +12,11 @@
                         <label for="{{ post_form.title.auto_id }}">Title*</label>
                     </div>
                     <div class="mb-2">
-                        <label class="h6 ps-1" for="{{ post_form.category.auto_id }}">Category:</label>
+                        <label class="h6 ps-1 text-main" for="{{ post_form.category.auto_id }}">Category:</label>
                         {{ post_form.category }}
                     </div>
                     <div>
-                        <label class="h6 ps-1" for="{{ post_form.tags.auto_id }}">Tags:</label>
+                        <label class="h6 ps-1 text-main" for="{{ post_form.tags.auto_id }}">Tags:</label>
                         {{ post_form.tags }}
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <label class="h6 ps-1 pt-2" for="{{ post_form.content.auto_id }}">Your post goes here:</label>
+                <label class="h6 ps-1 pt-2 text-main" for="{{ post_form.content.auto_id }}">Your post goes here:</label>
                 {{ post_form.content }}
             </div>
             <div class="card-footer row remove-pm">

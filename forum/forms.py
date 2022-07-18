@@ -2,7 +2,7 @@ from logging import PlaceHolder
 from psycopg2 import Date
 from . import models
 from django import forms
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from django_summernote.widgets import SummernoteWidget
 
 class DatePickerInput(forms.DateInput):
     input_type = 'date'
