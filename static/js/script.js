@@ -22,3 +22,26 @@ $('#filter-view-toggle').on('click', function () {
         indexColLeft.addClass('d-none').removeClass('d-block');
     };
 });
+
+$(document).ready(function () {
+    $('.select2').select2({
+        placeholder: 'Choose an Option*',
+        tags: true
+    });
+});
+
+setTimeout(function () {
+    let alert = new bootstrap.Alert($('#user-alert'));
+    alert.close();
+}, 5000);
+
+var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    offset: 'bottom-in-view',
+    onBeforePageLoad: function () {
+        $('.loading').show();
+    },
+    onAfterPageLoad: function () {
+        $('.loading').hide();
+    }
+});
