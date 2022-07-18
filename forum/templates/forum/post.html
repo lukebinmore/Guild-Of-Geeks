@@ -65,6 +65,11 @@
                 </div>
                 {% else %}
                 <div class="btn-group remove-pm">
+                    {% if post.author == user or user.is_staff %}
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
+                        hx-get="{% url 'post-delete' post.slug %}" hx-target="#site-modal-content">
+                        <i class="fa-solid fa-trash-can"></i></button>
+                    {% endif %}
                     <div class="btn btn-primary pe-none">
                         <i class="fa-solid fa-comments"></i>
                         {{ post.comments_count }}

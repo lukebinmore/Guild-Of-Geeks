@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('<slug:slug>/', views.PostView.as_view(), name='post-view'),
     path('post-edit/<slug:slug>/', views.PostEdit.as_view(), name='post-edit'),
+    path('post-delete/<slug:slug>/', views.PostDelete.as_view(), name='post-delete'),
     path('post-like/<slug:slug>/', views.PostLike.as_view(), name='post-like'),
     path('post-follow/<slug:slug>/', views.PostFollow.as_view(), name='post-follow'),
     path('comment-like/<int:id>/', views.CommentLike.as_view(), name='comment-like'),

@@ -243,6 +243,34 @@ class PostEdit(View):
         
         return redirect('index')
 
+class PostDelete(View):
+    def get(self, request, slug, *args, **kwargs):
+        try:
+            return render(
+                request,
+                'forum/deletepost.html',
+                {
+                    'post_slug': slug
+                }
+            )
+        except Exception as e:
+            messages.error(request, e)
+
+    def post(self, request, slug, *args, **kwargs):
+        try:
+            confirm = request.POST.get('confirm')
+            post = get_object_or_404(models.Post.objects.all(), slug=slug)
+            if request.user.check_password(confirm):
+                post.delete()
+                messages.success(request, 'Post deleted!')
+                return redirect('index')
+            else:
+                raise Exception('Incorrect password!')
+        except Exception as e:
+            messages.error(request, e)
+
+        return redirect('post-view', slug)
+
 class PostLike(View):
     def post(self, request, slug, *args, **kwargs):
         try:
@@ -292,7 +320,6 @@ class CommentLike(View):
 class CommentDelete(View):
     def get(self, request, id, *args, **kwargs):
         try:
-            print(request.GET.get('post_slug'))
             return render(
                 request,
                 'forum/deletecomment.html',
@@ -311,6 +338,7 @@ class CommentDelete(View):
             post = get_object_or_404(models.Post.objects.all(), id=comment.post.id)
             if request.user.check_password(confirm):
                 comment.delete()
+                messages.success(request, 'Comment deleted!')
                 return redirect('post-view', post.slug)
             else:
                 raise Exception('Incorrect password!')
