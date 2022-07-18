@@ -1,8 +1,8 @@
-from logging import PlaceHolder
-from psycopg2 import Date
 from . import models
 from django import forms
 from django_summernote.widgets import SummernoteWidget
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 class DatePickerInput(forms.DateInput):
     input_type = 'date'
@@ -70,6 +70,7 @@ class UserForm(forms.Form):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
+        date_max = datetime.now().date() - relativedelta(years=13)
         model = models.Profile
         fields = ['first_name', 'last_name', 'email', 'dob', 'number', 'picture', 'theme']
         widgets = {
@@ -88,7 +89,7 @@ class ProfileForm(forms.ModelForm):
             'dob': DatePickerInput(
                 attrs={
                     'class':'form-control',
-                    'placeholder':'Date Of Birth*'
+                    'max': date_max
                 }
             ),
             'email': forms.EmailInput(

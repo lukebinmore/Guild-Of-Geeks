@@ -155,8 +155,6 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SUMMERnote_THEME = 'bs5'
-
 SUMMERNOTE_CONFIG = {
     'summernote': {
         # Change editor size
