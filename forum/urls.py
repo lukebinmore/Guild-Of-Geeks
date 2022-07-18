@@ -16,7 +16,7 @@ urlpatterns = [
     path('accounts/logout/', views.Logout.as_view(), name='logout'),
     path('accounts/profile/<str:mode>', views.Profile.as_view(), name='profile'),
     path('accounts/password/', views.UpdatePassword.as_view(), name='password'),
-    path('accounts/delete-account/', views.DeleteAccount.as_view(), name='delete-account'),
+    path('accounts/delete-profile/', views.DeleteProfile.as_view(), name='delete-profile'),
     path('help/contact-us/', views.ContactUs.as_view(), name='contact-us'),
     path('help/information/', views.Help.as_view(), name='help')
 ]

@@ -1,3 +1,5 @@
+{% load static %}
+
 <ul class="list-group infinite-container">
     {% if user.is_authenticated %}
     {% if edit_mode %}
@@ -32,8 +34,13 @@
         </div>
         <div class="row card-body g-0 p-0">
             <div class="col-2 d-none d-md-block text-center border-end comment-left p-2">
+                {% if comment.author.profile %}
                 <img src="{{ comment.author.profile.picture.url }}" alt="{{ comment.author }}'s Profile Picture"
                     class="w-50 rounded-circle">
+                {% else %}
+                <img src="{% static 'images/profile-placeholder.png' %}" alt="Deleted User's Profile Picture"
+                    class="w-50 rounded-circle">
+                {% endif %}
                 <p class="my-1">{{ comment.author }}</p>
                 <p class="my-0">Posted {{ comment.created_on | timesince }} ago.</p>
             </div>

@@ -539,11 +539,11 @@ class UpdatePassword(View):
         
         return redirect('index')
 
-class DeleteAccount(View):
+class DeleteProfile(View):
     def get(self, request, *args, **kwargs):
         return render(
             request,
-            'forum/deleteaccount.html'
+            'forum/deleteprofile.html'
         )
 
     def post(self, request, *args, **kwargs):
@@ -551,7 +551,10 @@ class DeleteAccount(View):
             confirm = request.POST.get('confirm')
             if request.user.check_password(confirm):
                 user = get_object_or_404(models.User.objects.all(), username=request.user.username)
-                user.delete()
+                user.profile.delete()
+                user.is_active = False
+                user.save()
+                messages.success(request, 'Profile deleted!')
             else:
                 raise Exception('Incorrect password!')
         except Exception as e:
