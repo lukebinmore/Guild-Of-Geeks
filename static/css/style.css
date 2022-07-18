@@ -132,6 +132,7 @@ label {
 
 .input-group-text {
     background-color: var(--input-group-text);
+    color: var(--text);
 }
 
 /* Navbar Specific Stylings */

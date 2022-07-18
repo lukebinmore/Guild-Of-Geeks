@@ -13,17 +13,16 @@
             <div class="col-12 col-md-3 order-last order-md-first px-0 mt-2">
                 <form id="search-form" method="GET" class="input-group">
                     {% if request.path != "/" %}
-                    <a href="{% url 'index' %}" class="btn btn-secondary input-group-item d-none d-md-inline">
+                    <a href="{% url 'index' %}" class="btn btn-secondary d-none d-md-inline">
                         <i class="fa-solid fa-house"></i>
                     </a>
                     {% else %}
-                    <button type="button" id="filter-view-toggle"
-                        class="btn btn-secondary input-group-item d-block d-md-none">
+                    <button type="button" id="filter-view-toggle" class="btn btn-secondary d-block d-md-none">
                         <i class="fa-solid fa-caret-down"></i>
                     </button>
                     {% endif %}
                     <input type="text" name="q" placeholder="Search..." class="form-control">
-                    <button type="submit" class="btn btn-primary input-group-text">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
