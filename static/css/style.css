@@ -29,6 +29,10 @@ nav {
     background-color: var(--navbar-color);
 }
 
+label {
+    color: #000;
+}
+
 /* General Stylings */
 .remove-pm {
     padding: 0;
@@ -126,6 +130,10 @@ nav {
     color: var(--red);
 }
 
+.input-group-text {
+    background-color: var(--input-group-text);
+}
+
 /* Navbar Specific Stylings */
 nav img {
     height: 2.25rem;
@@ -163,6 +171,7 @@ nav img {
 
 #new-comment-body textarea {
     resize: none;
+    height: 8rem;
 }
 
 /* User Panel Specific Stylings */

@@ -14,7 +14,10 @@
                 <h5 class="m-0">New Comment</h5>
             </div>
             <div id="new-comment-body" class="card-body p-0">
-                {{ new_comment_form | safe}}
+                <div class="form-floating">
+                    {{ new_comment_form | safe}}
+                    <label for="{{ new_comment_form.content.auto_id }}">What are your thoughts?</label>
+                </div>
             </div>
             <div class="card-footer btn-group w-100 p-0">
                 <button type="submit" class="btn btn-primary float-end">Post</button>

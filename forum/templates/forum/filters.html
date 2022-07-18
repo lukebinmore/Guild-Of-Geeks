@@ -9,31 +9,37 @@
         <button type="submit" class="btn btn-primary w-100">Filter Results</button>
     </div>
     <div class="card-body">
-        <h5>Categories:</h5>
+        <label for="{{ filters.categories.auto_id }}" class="h5">Categories:</label>
         {{ filters.categories }}
     </div>
     <div class="card-body">
-        <h5>Tags:</h5>
+        <label for="{{ filters.tags.auto_id }}" class="h5">Tags:</label>
         {{ filters.tags }}
     </div>
     {% if user.is_authenticated %}
     <div class="card-body">
         <h5>My Posts</h5>
-        <div class="form-check">
-            {{ filters.user_posts }}
-            <label class="form-check-label" for="filter-user-posts">
+        <div class="input-group flex-nowrap">
+            <div class="input-group-text">
+                {{ filters.user_posts }}
+            </div>
+            <label class="input-group-text w-75" for="{{ filters.user_posts.auto_id }}">
                 My Posts
             </label>
         </div>
-        <div class="form-check">
-            {{ filters.followed_posts }}
-            <label class="form-check-label" for="filter-followed-posts">
+        <div class="input-group flex-nowrap">
+            <div class="input-group-text">
+                {{ filters.followed_posts }}
+            </div>
+            <label class="input-group-text w-75" for="{{ filters.followed_posts.auto_id }}">
                 My Followed Posts
             </label>
         </div>
-        <div class="form-check">
-            {{ filters.followed_categories }}
-            <label class="form-check-label" for="filter-followed-categories">
+        <div class="input-group flex-nowrap">
+            <div class="input-group-text">
+                {{ filters.followed_categories }}
+            </div>
+            <label class="input-group-text w-75" for="{{ filters.followed_categories.auto_id }}">
                 My Followed Categories
             </label>
         </div>

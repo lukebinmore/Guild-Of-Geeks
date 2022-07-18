@@ -2,8 +2,11 @@
 <form action="{% url 'post-edit' 'new-post' %}" method="GET" class="card">
     {% csrf_token %}
     <label class="card-header text-center">Create New Post As: {{ user }}</label>
-    <input type="text" placeholder="New Post Title" name="new-post-title" class="card-body text-center p-2 border-0"
-        required />
+    <div class="form-floating text-center">
+        <input type="text" id="new-post-title" name="new-post-title" class="form-control" required
+            placeholder="New Post Title">
+        <label for="new-post-title">New Post Title*</label>
+    </div>
     <button type="submit" class="btn btn-primary">Create New Post</button>
 </form>
 {% else %}

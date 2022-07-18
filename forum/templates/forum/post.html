@@ -4,66 +4,76 @@
     <div id="post-col-left" class="col-12 col-md-9 pe-0">
         <form method="POST" class="card">
             {% csrf_token %}
-            <div class="card-header post-header">
-                {% if edit_mode %}
-                <h1 class="d-inline-block">{{ post_form.title }}</h1>
-                {% else %}
-                <h1 class="d-inline-block">{{ post.title }}</h1>
-                {% endif %}
-
-                {% if post.author == user %}
-                {% if post.slug != "new-post" %}
-                {% if edit_mode %}
-                <h2 class="d-inline-block float-end">
-                    <a href="{% url 'post-view' post.slug %}"><i class="fa-solid fa-xmark"></i></i></a>
-                </h2>
-                {% else %}
-                <h2 class="d-inline-block float-end">
-                    <a href="{% url 'post-edit' post.slug %}"><i class="fa-solid fa-pen-to-square"></i></a>
-                </h2>
-                {% endif %}
-                {% endif %}
-                {% endif %}
-
-                {% if edit_mode %}
-                <p class="mb-2">{{ post_form.category }}</p>
-                {% else %}
-                <a hx-post="{% url 'category-follow' post.category.id %}" hx-target="#category-followed-p">
-                    <p id="category-followed-p" class="list-group-item my-2 btn-info">
-                        {% if post.category in user.profile.followed_categories.all %}
-                        <i class="fa-solid fa-star text-red"></i>
-                        {% endif %}
-                        {{ post.category }}
-                    </p>
-                </a>
-                {% endif %}
-
-                {% if edit_mode %}
-                <p class="mb-0">{{ post_form.tags }}</p>
-                {% else %}
-                {% for tag in post.tags.all %}
-                <p class="list-group-item d-inline-block mb-1">{{ tag }}</p>
-                {% endfor %}
-                <p class="float-end remove-pm py-2">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
-                {% endif %}
+            {% if edit_mode %}
+            <div class="card-header post-header row g-0 px-2">
+                <div class="col-10 col-md-11">
+                    <div class="form-floating mb-2">
+                        {{ post_form.title}}
+                        <label for="{{ post_form.title.auto_id }}">Title*</label>
+                    </div>
+                    <div class="mb-2">
+                        <label class="h6 ps-1" for="{{ post_form.category.auto_id }}">Category:</label>
+                        {{ post_form.category }}
+                    </div>
+                    <div>
+                        <label class="h6 ps-1" for="{{ post_form.tags.auto_id }}">Tags:</label>
+                        {{ post_form.tags }}
+                    </div>
+                </div>
+                <div class="col-2 col-md-1">
+                    {% if post.author == user %}
+                    {% if post.slug != "new-post" %}
+                    <h2 class="d-inline-block float-end">
+                        <a href="{% url 'post-view' post.slug %}"><i class="fa-solid fa-xmark"></i></i></a>
+                    </h2>
+                    {% endif %}
+                    {% endif %}
+                </div>
             </div>
             <div class="card-body p-0">
-                {% if edit_mode %}
+                <label class="h6 ps-1 pt-2" for="{{ post_form.content.auto_id }}">Your post goes here:</label>
                 {{ post_form.content }}
-                {% else %}
-                <div class="px-2">
-                    <p class="card-text">{{ post.content | safe }}</p>
-                </div>
-                {% endif %}
             </div>
             <div class="card-footer row remove-pm">
-                {% if edit_mode %}
                 <div class="btn-group remove-pm">
                     <button type="submit" name="post-submit-draft" class="btn btn-primary">Draft</button>
                     <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Discard</a>
                     <button type="submit" name="post-submit-post" class="btn btn-primary">Post</button>
                 </div>
-                {% else %}
+            </div>
+            {% else %}
+            <div class="card-header post-header row g-0 px-2">
+                <div class="col-10 col-md-11">
+                    <h1 class="d-inline-block">{{ post.title }}</h1>
+
+                    <a hx-post="{% url 'category-follow' post.category.id %}" hx-target="#category-followed-p">
+                        <p id="category-followed-p" class="list-group-item my-2 btn-info">
+                            {% if post.category in user.profile.followed_categories.all %}
+                            <i class="fa-solid fa-star text-red"></i>
+                            {% endif %}
+                            {{ post.category }}
+                        </p>
+                    </a>
+
+                    {% for tag in post.tags.all %}
+                    <p class="list-group-item d-inline-block mb-1">{{ tag }}</p>
+                    {% endfor %}
+
+                    <p class="float-end remove-pm py-2">- Posted by: {{ post.author }} on: {{ post.created_on.date }}
+                    </p>
+                </div>
+                <div class="col-2 col-md-1">
+                    <h2 class="d-inline-block float-end">
+                        <a href="{% url 'post-edit' post.slug %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    </h2>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="px-2">
+                    <p class="card-text">{{ post.content | safe }}</p>
+                </div>
+            </div>
+            <div class="card-footer row remove-pm">
                 <div class="btn-group remove-pm">
                     {% if post.author == user or user.is_staff %}
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
@@ -90,8 +100,8 @@
                         {{ post.likes_count }}
                     </a>
                 </div>
-                {% endif %}
             </div>
+            {% endif %}
         </form>
         {% include "forum/comments.html" %}
     </div>

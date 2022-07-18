@@ -22,59 +22,84 @@
             <div class="card-body p-2">
                 {% if edit_mode %}
                 <div class="row">
-                    <div class="col-12 text-center py-2">
+                    <div class="col-12 text-center mb-2">
                         <h4>Profile Picture</h4>
                         {{ profile_form.picture }}
+                        <hr>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
-                        {{ profile_form.first_name }}
+                    <div class="col-12 col-md-6 mb-2">
+                        <div class="form-floating">
+                            {{ profile_form.first_name }}
+                            <label for="{{ profile_form.first_name.auto_id }}">First Name</label>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
-                        {{ profile_form.last_name }}
+                    <div class="col-12 col-md-6 mb-2">
+                        <div class="form-floating">
+                            {{ profile_form.last_name }}
+                            <label for="{{ profile_form.last_name.auto_id }}">Last Name</label>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
-                        {{ profile_form.email }}
+                    <div class="col-12 col-md-6 mb-2">
+                        <div class="form-floating">
+                            {{ profile_form.email }}
+                            <label for="{{ profile_form.email.auto_id }}">Email</label>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
-                        {{ profile_form.number }}
+                    <div class="col-12 col-md-6 mb-2">
+                        <div class="form-floating">
+                            {{ profile_form.number }}
+                            <label for="{{ profile_form.number.auto_id }}">Phone Number</label>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
-                        {{ profile_form.dob }}
+                    <div class="col-12 col-md-6 mb-2">
+                        <div class="form-floating">
+                            {{ profile_form.dob }}
+                            <label for="{{ profile_form.dob.auto_id }}">Date of Birth*</label>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
-                        {{ profile_form.theme }}
+                    <div class="col-12 col-md-6">
+                        <div class="form-floating">
+                            {{ profile_form.theme }}
+                            <label for="{{ profile_form.theme.auto_id }}">Theme</label>
+                        </div>
                     </div>
                 </div>
                 {% else %}
                 <div class="row">
-                    <div class="col-12 text-center py-2">
+                    <div class="col-12 text-center">
                         <img src="{{ user.profile.picture.url }}" alt="Profile Picture"
                             class="rounded-circle border w-25">
                     </div>
-                    <hr>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center">
                         <h4>First Name</h4>
                         <p class="card-text">{{ user.profile.first_name }}</p>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
+                    <div class="col-12 col-md-6 text-center">
                         <h4>Last Name</h4>
                         <p class="card-text">{{ user.profile.last_name }}</p>
                     </div>
-                    <hr>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center">
                         <h4>Email</h4>
                         <p class="card-text">{{ user.profile.email }}</p>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
+                    <div class="col-12 col-md-6 text-center">
                         <h4>Phone Number</h4>
                         <p class="card-text">{{ user.profile.number }}</p>
                     </div>
-                    <hr>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center">
                         <h4>Date Of Birth</h4>
                         <p class="card-text">{{ user.profile.dob }}</p>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center py-2">
+                    <div class="col-12 col-md-6 text-center">
                         <h4>Theme</h4>
                         <p class="card-text">{{ user.profile.theme }}</p>
                     </div>

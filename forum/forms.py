@@ -7,7 +7,6 @@ from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 class DatePickerInput(forms.DateInput):
     input_type = 'date'
 
-
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = models.Comment
@@ -41,7 +40,7 @@ class PostForm(forms.ModelForm):
                 attrs={'class': 'form-select select2'},
             ),
             'content': SummernoteWidget(
-                attrs={'summernote': {'height': '500px'}}
+                attrs={'summernote': {'height': '500px'}, 'placeholder': 'Test'}
             )
         }
     
@@ -141,24 +140,21 @@ class FilterForm(forms.Form):
         required=False,
         widget=forms.CheckboxInput(
             attrs={
-                'class': 'form-check-input',
-                'id': 'filters-user-posts'
+                'class': 'form-check-input mt-0'
         })
     )
     followed_posts = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(
             attrs={
-                'class': 'form-check-input',
-                'id': 'filters-followed-posts'
+                'class': 'form-check-input mt-0'
         })
     )
     followed_categories = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(
             attrs={
-                'class': 'form-check-input',
-                'id': 'filters-followed-categories'
+                'class': 'form-check-input mt-0'
         })
     )
 
@@ -194,10 +190,9 @@ class ContactForm(forms.ModelForm):
             'email': forms.EmailInput(
                 attrs={'class': 'form-control text-center', 'placeholder': 'Email Address*'}),
             'title': forms.TextInput(
-                attrs={'class': 'form-control text-center', 'placeholder': 'Short Title*'}),
+                attrs={'class': 'form-control text-center'}),
             'reason': forms.Select(
                 attrs={'class': 'form-control text-center'}),
             'content': forms.Textarea(
-                attrs={'class': 'form-control text-center', 'placeholder': 'Message*'}
-            )
+                attrs={'class': 'form-control text-center'})
         }

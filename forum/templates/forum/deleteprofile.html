@@ -16,7 +16,11 @@
         <p class="card-text">Are you sure you wish to proceed?</p>
         <hr>
         <p class="card-text">Please enter your current password to continue.</p>
-        <input type="password" name="confirm" class="form-control" placeholder="Current Password*" required>
+        <div class="form-floating">
+            <input type="password" id="confirm-password" name="confirm" class="form-control"
+                placeholder="Confirm Password*" required>
+            <label for="confirm-password">Confirm Password*</label>
+        </div>
     </div>
     <div class="modal-footer btn-group p-0">
         <button type="button" class="btn btn-warning m-0" data-bs-dismiss="modal">Cancel</button>

@@ -5,18 +5,50 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <p>{{ user_form.username }}</p>
-        <p>{{ user_form.password }}</p>
-        <p><input type="password" name="confirm" class="form-control" placeholder="Confirm Password*" required></p>
+        <div class="form-floating mb-2">
+            {{ user_form.username }}
+            <label for="{{ user_form.username.auto_id }}">Username*</label>
+        </div>
+        <div class="form-floating mb-2">
+            {{ user_form.password }}
+            <label for="{{ user_form.password.auto_id }}">Password*</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" id="password-confirm" name="confirm" class="form-control"
+                placeholder="Confirm Password*" required>
+            <label for="password-confim">Confirm Password*</label>
+        </div>
         <hr>
-        <p>{{ profile_form.first_name }}</p>
-        <p>{{ profile_form.last_name }}</p>
-        <p>{{ profile_form.dob }}</p>
+        <div class="form-floating mb-2">
+            {{ profile_form.first_name }}
+            <label for="{{ profile_form.first_name.auto_id }}">First Name</label>
+        </div>
+        <div class="form-floating mb-2">
+            {{ profile_form.last_name }}
+            <label for="{{ profile_form.last_name.auto_id }}">Last Name</label>
+        </div>
+        <div class="form-floating">
+            {{ profile_form.dob }}
+            <label for="{{ profile_form.dob.auto_id }}">Date of Birth*</label>
+        </div>
         <hr>
-        <p>{{ profile_form.email }}</p>
-        <p>{{ profile_form.number }}</p>
-        <p>{{ profile_form.picture }}</p>
-        {{ profile_form.theme }}
+        <div class="form-floating mb-2">
+            {{ profile_form.email }}
+            <label for="{{ profile_form.email.auto_id }}">Email</label>
+        </div>
+        <div class="form-floating mb-2">
+            {{ profile_form.number }}
+            <label for="{{ profile_form.number.auto_id }}">Phone Number</label>
+        </div>
+        <hr>
+        <div class="mb-2">
+            <label for="{{ profile_form.picture.auto_id }}">Profile Picture</label>
+            {{ profile_form.picture }}
+        </div>
+        <div class="form-floating mb-2">
+            {{ profile_form.theme }}
+            <label for="{{ profile_form.theme.auto_id }}">Theme</label>
+        </div>
     </div>
     <div class="modal-footer">
         <div class="btn-group w-100">
