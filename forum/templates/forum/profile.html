@@ -85,7 +85,7 @@
                 {% if edit_mode %}
                 <div class="btn-group remove-pm w-100">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
-                        hx-get="{% url 'delete-account' %}" hx-target="#site-modal-content">Delete</button>
+                        hx-get="{% url 'delete-profile' %}" hx-target="#site-modal-content">Delete</button>
                     <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
