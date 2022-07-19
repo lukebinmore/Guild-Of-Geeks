@@ -107,7 +107,7 @@ class ProfileForm(forms.ModelForm):
             ),
             'picture': forms.FileInput(
                 attrs={
-                    'class':'form-control',
+                    'class':'form-control profile-picture-upload',
                     'placeholder':'Profile Picture'
                 }
             ),

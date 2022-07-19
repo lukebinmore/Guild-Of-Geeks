@@ -1,3 +1,5 @@
+{% load static %}
+
 <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="modal-header">
@@ -49,8 +51,12 @@
         <div class="mb-2">
             <label for="{{ profile_form.picture.auto_id }}">Profile Picture</label>
             {{ profile_form.picture }}
+            <div class="w-25 mt-2 mx-auto">
+                <img class="profile-picture-preview rounded-circle border w-100"
+                    src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture">
+            </div>
         </div>
-        <div class="form-floating mb-2">
+        <div class=" form-floating mb-2">
             {{ profile_form.theme }}
             <label for="{{ profile_form.theme.auto_id }}">Theme</label>
         </div>

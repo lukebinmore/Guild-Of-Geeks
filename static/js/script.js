@@ -1,9 +1,10 @@
 let searchForm = $('#search-form');
+let profilePicturePreview = $('.profile-picture-preview');
 let profileColLeft = $('#profile-col-left');
 let postColLeft = $('#post-col-left');
 let indexColLeft = $('#index-col-left');
 
-$(window).on('load resize', function () {
+$(window).on('load resize change', function () {
     if ($(window).width() < 768) {
         searchForm.addClass('input-group-sm');
         profileColLeft.removeClass('pe-0');
@@ -13,6 +14,8 @@ $(window).on('load resize', function () {
         profileColLeft.addClass('pe-0');
         postColLeft.addClass('pe-0');
     };
+
+    $('.profile-picture-preview').attr('height', $('.profile-picture-preview').width());
 });
 
 $('#filter-view-toggle').on('click', function () {
@@ -28,6 +31,17 @@ $(document).ready(function () {
         placeholder: 'Choose an Option*',
         tags: true
     });
+});
+
+$(document).on('load change', '.profile-picture-upload', function () {
+    const file = this.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $('.profile-picture-preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
 });
 
 setTimeout(function () {
