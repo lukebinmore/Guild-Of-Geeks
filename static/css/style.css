@@ -141,6 +141,17 @@ label {
     object-fit: cover;
 }
 
+.errorlist {
+    margin-bottom: 0.25rem;
+    background-color: var(--background);
+    border-radius: 1rem;
+}
+
+.errorlist li {
+    color: var(--red);
+    text-decoration: none;
+}
+
 /* Navbar Specific Stylings */
 nav img {
     height: 2.25rem;

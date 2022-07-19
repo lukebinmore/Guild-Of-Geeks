@@ -211,7 +211,7 @@ class PostEdit(View):
             messages.error(request, e)
         
         try:
-            post_form = forms.PostForm(data=post_form.data)
+            post_form = forms.PostForm(data=request.POST)
             if slug == 'new-post':
                 return render(
                     request,
