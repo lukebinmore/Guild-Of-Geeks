@@ -7,6 +7,11 @@
         <p class="my-auto">New Comments not available in edit mode.</p>
     </li>
     {% else %}
+    {% if post.status == 0 %}
+    <li class="card text-center">
+        <p class="my-auto">New Comments not available for Drafts.</p>
+    </li>
+    {% else %}
     <li class="card">
         <form method="POST">
             {% csrf_token %}
@@ -24,6 +29,7 @@
             </div>
         </form>
     </li>
+    {% endif %}
     {% endif %}
     {% else %}
     <li class="card text-center">
