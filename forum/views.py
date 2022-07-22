@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from django.urls import reverse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -8,6 +7,7 @@ from django.template.defaultfilters import slugify
 from django.db.models import Q
 from . import models
 from . import forms
+from . import functions as f
 
 class Index(generic.ListView):
     model = models.Post
@@ -91,7 +91,7 @@ class PostView(View):
         except Exception as e:
             messages.error(request, e)
         
-        return redirect('index')
+        return redirect(request.path)
 
     def post(self, request, slug, *args, **kwargs):
         try:
@@ -106,9 +106,7 @@ class PostView(View):
                 messages.success(request, 'Saved new comment!')
                 return redirect(request.path)
             else:
-                for field in new_comment_form:
-                    if field.errors is not None:
-                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+                raise Exception(f.form_field_errors(new_comment_form))
         except Exception as e:
             messages.error(request, e)
         return redirect(request.path)
@@ -122,35 +120,16 @@ class PostEdit(View):
                     post_form = forms.PostForm(initial={'title': new_post_title,})
                 else:
                     post_form = forms.PostForm(data=request.POST)
-                return render(
-                    request,
-                    'forum/post.html',
-                    {
-                        'edit_mode': True,
-                        'post_form': post_form,
-                    }
-                )
+                return self.new_post_render(request, post_form)
             else:
                 queryset = models.Post.objects.all()
                 post = get_object_or_404(queryset, slug=slug)
-                paginator = Paginator(post.post_comments.order_by('created_on'), 5)
-                page = request.GET.get('page')
-                comments = paginator.get_page(page)
                 post_form = forms.PostForm(instance=post)
-
-                return render(
-                    request,
-                    'forum/post.html',
-                    {
-                        'post': post,
-                        'comments': comments,
-                        'page_obj': comments,
-                        'edit_mode': True,
-                        'post_form': post_form,
-                    },
-                )
+            return self.post_render(request, slug, post_form)
         except Exception as e:
             messages.error(request, e)
+
+        return redirect('index')
     
     def post(self, request, slug, *args, **kwargs):
         try:
@@ -205,44 +184,47 @@ class PostEdit(View):
 
                 return redirect('post-view', slug=post.slug)
             else:
-                for field in post_form:
-                    if field.errors:
-                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+                raise Exception(f.form_field_errors(post_form))
         except Exception as e:
             messages.error(request, e)
         
         try:
-            post_form = forms.PostForm(data=request.POST)
             if slug == 'new-post':
-                return render(
-                    request,
-                    'forum/post.html',
-                    {
-                        'edit_mode': True,
-                        'post_form': post_form,
-                    }
-                )
+                return self.new_post_render(request, post_form)
             else:
-                queryset = models.Post.objects.all()
-                post = get_object_or_404(queryset, slug=slug)
-                paginator = Paginator(post.post_comments.order_by('created_on'), 5)
-                page = request.GET.get('page')
-                comments = paginator.get_page(page)
-                return render(
-                    request,
-                    'forum/post.html',
-                    {
-                        'post': post,
-                        'comments': comments,
-                        'page_obj': comments,
-                        'edit_mode': True,
-                        'post_form': post_form,
-                    },
-                )
+                return self.post_render(request, slug, post_form)
         except Exception as e:
             messages.error(request, e)
         
         return redirect('index')
+
+    def new_post_render(self, request, post_form):
+        return render(
+            request,
+            'forum/post.html',
+            {
+                'edit_mode': True,
+                'post_form': post_form,
+            }
+        )
+    
+    def post_render(self, request, slug, post_form, **kwargs):
+        queryset = models.Post.objects.all()
+        post = get_object_or_404(queryset, slug=slug)
+        paginator = Paginator(post.post_comments.order_by('created_on'), 5)
+        page = request.GET.get('page')
+        comments = paginator.get_page(page)
+        return render(
+            request,
+            'forum/post.html',
+            {
+                'post': post,
+                'comments': comments,
+                'page_obj': comments,
+                'edit_mode': True,
+                'post_form': post_form,
+            },
+        )
 
 class PostDelete(View):
     def get(self, request, slug, *args, **kwargs):
@@ -415,7 +397,7 @@ class Login(View):
                     else:
                         login(request, user)
                         messages.success(request, 'Welcome back ' + user.username)
-                        return redirect('index')
+                        return f.previous_page(request)
                 else:
                     raise Exception(f'Username {username} not found!')
             else:
