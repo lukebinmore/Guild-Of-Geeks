@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
+from django.urls import reverse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -274,6 +275,8 @@ class PostDelete(View):
 class PostLike(View):
     def post(self, request, slug, *args, **kwargs):
         try:
+            if not request.user.is_authenticated:
+                raise Exception('Please login to Like posts!')
             queryset = models.Post.objects.all()
             post = get_object_or_404(queryset, slug=slug)
             if post.likes.filter(id=self.request.user.id).exists():
@@ -284,11 +287,19 @@ class PostLike(View):
                 return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(post.likes.count()))
         except Exception as e:
             messages.error(request, e)
-        return redirect('index')
+        return render(
+            request,
+            'forum/redirect.html',
+            {
+                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
+            }
+        )
 
 class PostFollow(View):
     def post(self, request, slug, *args, **kwargs):
         try:
+            if not request.user.is_authenticated:
+                raise Exception('Please login to Follow posts!')
             queryset = models.Post.objects.all()
             post = get_object_or_404(queryset, slug=slug)
             profile = request.user.profile
@@ -300,11 +311,19 @@ class PostFollow(View):
                 return HttpResponse('<i class="fa-solid fa-star text-red"></i>')
         except Exception as e:
             messages.error(request, e)
-        return redirect('index')
+        return render(
+            request,
+            'forum/redirect.html',
+            {
+                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
+            }
+        )
 
 class CommentLike(View):
     def post(self, request, id, *args, **kwargs):
         try:
+            if not request.user.is_authenticated:
+                raise Exception('Please login to Like comments!')
             queryset = models.Comment.objects.all()
             comment = get_object_or_404(queryset, id=id)
             if comment.likes.filter(id=self.request.user.id).exists():
@@ -315,7 +334,13 @@ class CommentLike(View):
                 return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(comment.likes.count()))
         except Exception as e:
             messages.error(request, e)
-        return redirect('index')
+        return render(
+            request,
+            'forum/redirect.html',
+            {
+                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
+            }
+        )
 
 class CommentDelete(View):
     def get(self, request, id, *args, **kwargs):
@@ -350,6 +375,8 @@ class CommentDelete(View):
 class CategoryFollow(View):
     def post(self, request, id, *args, **kwargs):
         try:
+            if not request.user.is_authenticated:
+                raise Exception('Please login to Follow categories!')
             queryset = models.Category.objects.all()
             category = get_object_or_404(queryset, id=id)
             profile = request.user.profile
@@ -361,7 +388,14 @@ class CategoryFollow(View):
                 return HttpResponse('<i class="fa-solid fa-star text-red"></i> ' + category.title)
         except Exception as e:
             messages.error(request, e)
-        return redirect('index')
+            print(request.META['HTTP_HX_CURRENT_URL'])
+        return render(
+            request,
+            'forum/redirect.html',
+            {
+                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
+            }
+        )
 
 class Login(View):
     def post(self, request, *args, **kwargs):
