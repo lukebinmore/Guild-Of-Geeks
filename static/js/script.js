@@ -47,7 +47,7 @@ $(document).on('load change', '.profile-picture-upload', function () {
 setTimeout(function () {
     let alert = new bootstrap.Alert($('#user-alert'));
     alert.close();
-}, 5000);
+}, 3000);
 
 var infinite = new Waypoint.Infinite({
     element: $('.infinite-container')[0],
