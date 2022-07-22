@@ -6,7 +6,14 @@
         <div class="card-header">
             <h4 class="mb-1">{{ post.title }}</h4>
             <p>Category: {{ post.category }}</p>
-            <p class="float-end">- Posted by: {{ post.author }} on: {{ post.created_on.date }}</p>
+            <p class="float-end">
+                {% if post.status == 0 %}
+                - Draft
+                {% else %}
+                - Posted
+                {% endif %}
+                by: {{ post.author }} on: {{ post.created_on.date }}
+            </p>
         </div>
         <div class="card-body post-list-body">
             {{ post.content | safe}}

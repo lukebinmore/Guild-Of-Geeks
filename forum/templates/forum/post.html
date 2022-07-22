@@ -48,7 +48,12 @@
             {% else %}
             <div class="card-header post-header row g-0 px-2">
                 <div class="col-10 col-md-11">
-                    <h1 class="d-inline-block">{{ post.title }}</h1>
+                    <h1 class="d-inline-block">
+                        {{ post.title }}
+                        {% if post.status == 0 %}
+                        *(DRAFT)
+                        {% endif %}
+                    </h1>
 
                     <a hx-post="{% url 'category-follow' post.category.id %}" hx-target="#category-followed-p">
                         <p id="category-followed-p" class="list-group-item my-2 btn-info">
@@ -63,7 +68,13 @@
                     <p class="list-group-item d-inline-block mb-1">{{ tag }}</p>
                     {% endfor %}
 
-                    <p class="float-end remove-pm py-2">- Posted by: {{ post.author }} on: {{ post.created_on.date }}
+                    <p class="float-end remove-pm py-2">
+                        {% if post.status == 0 %}
+                        - Draft
+                        {% else %}
+                        - Posted
+                        {% endif %}
+                        by: {{ post.author }} on: {{ post.created_on.date }}
                     </p>
                 </div>
                 <div class="col-2 col-md-1">
