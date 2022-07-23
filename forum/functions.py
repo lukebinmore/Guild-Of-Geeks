@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 def previous_page(request):
@@ -24,3 +24,7 @@ def form_field_errors(*args):
         for field in form:
             if field.errors:
                 return f'{field.name.title()} : {field.errors[0]}'
+
+def get_object(model, **kwargs):
+    queryset = model.objects.all()
+    return get_object_or_404(queryset, **kwargs)
