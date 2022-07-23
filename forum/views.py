@@ -366,6 +366,9 @@ class Login(View):
         )
 
 class Signup(View):
+    def get(self, request, *args, **kwargs):
+        return self.return_render(request, forms.UserForm, forms.ProfileForm)
+
     def post(self, request, *args, **kwargs):
         try:
             user_form = forms.UserForm(data=request.POST)
@@ -376,42 +379,42 @@ class Signup(View):
                 confirm_password = request.POST.get('confirm')
 
                 if " " in username:
-                    raise Exception('Username cannot contain spaces!')
-
-                if not models.User.objects.filter(username=username).exists():
-                    if password == confirm_password:
-                        user = models.User.objects.create_user(
-                            username = username,
-                            password = password
-                        )
-
-                        profile = profile_form.save(commit=False)
-                        profile.user = user
-                        profile.save()
-
-                        login(request, user)
-
-                        messages.success(request, f'Welcome {username}!')
-
-                        return redirect('index')
-                    else:
-                        raise Exception(f'Passwords do not match!')
+                    user_form.add_error('username', 'Username cannot contain spaces!')
                 else:
-                    raise Exception(f'Username {username} already exists!')
+                    if not models.User.objects.filter(username=username).exists():
+                        if password == confirm_password:
+                            user = models.User.objects.create_user(
+                                username = username,
+                                password = password
+                            )
+
+                            profile = profile_form.save(commit=False)
+                            profile.user = user
+                            profile.save()
+
+                            login(request, user)
+
+                            messages.success(request, f'Welcome {username}!')
+
+                            return f.previous_page(request)
+                        else:
+                            user_form.add_error('password', 'Passwords do not match!')
+                    else:
+                        user_form.add_error('username', 'Username already exists!')
             else:
                 raise Exception(f.form_field_errors(user_form, profile_form))
         except Exception as e:
             messages.error(request, e)
         
-        return redirect('index')
-
-    def get(self, request, *args, **kwargs):
+        return self.return_render(request, user_form, profile_form)
+    
+    def return_render(self, request, user_form, profile_form):
         return render(
             request,
             'forum/signup.html',
             {
-                'profile_form': forms.ProfileForm(),
-                'user_form': forms.UserForm()
+                'user_form': user_form,
+                'profile_form': profile_form
             }
         )
 

@@ -11,6 +11,7 @@
             {{ user_form.username }}
             <label for="{{ user_form.username.auto_id }}">Username*</label>
         </div>
+        {{ user_form.username.errors }}
         <div class="form-floating mb-2">
             {{ user_form.password }}
             <label for="{{ user_form.password.auto_id }}">Password*</label>
@@ -20,15 +21,18 @@
                 placeholder="Confirm Password*" required>
             <label for="password-confim">Confirm Password*</label>
         </div>
+        {{ user_form.password.errors }}
         <hr>
         <div class="form-floating mb-2">
             {{ profile_form.first_name }}
             <label for="{{ profile_form.first_name.auto_id }}">First Name</label>
         </div>
+        {{ profile_form.first_name.errors }}
         <div class="form-floating mb-2">
             {{ profile_form.last_name }}
             <label for="{{ profile_form.last_name.auto_id }}">Last Name</label>
         </div>
+        {{ profile_form.last_name.errors }}
         <div class="form-floating">
             {{ profile_form.dob }}
             <label for="{{ profile_form.dob.auto_id }}">Date of Birth*</label>
@@ -38,15 +42,18 @@
                 You must be at least 13 years of age to sign up.
             </p>
         </div>
+        {{ profile_form.dob.errors }}
         <hr>
         <div class="form-floating mb-2">
             {{ profile_form.email }}
             <label for="{{ profile_form.email.auto_id }}">Email</label>
         </div>
+        {{ profile_form.email.errors }}
         <div class="form-floating mb-2">
             {{ profile_form.number }}
             <label for="{{ profile_form.number.auto_id }}">Phone Number</label>
         </div>
+        {{ profile_form.number.errors }}
         <hr>
         <div class="mb-2">
             <label for="{{ profile_form.picture.auto_id }}">Profile Picture</label>
@@ -56,14 +63,17 @@
                     src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture">
             </div>
         </div>
+        {{ profile_form.picture.errors }}
         <div class=" form-floating mb-2">
             {{ profile_form.theme }}
             <label for="{{ profile_form.theme.auto_id }}">Theme</label>
         </div>
+        {{ profile_form.theme.errors }}
     </div>
     <div class="modal-footer">
         <div class="btn-group w-100">
-            <button type="submit" name="submit-signup" class="btn btn-primary">Signup</button>
+            <button type="submit" name="submit-signup" class="btn btn-primary" hx-post="{% url 'signup' %}"
+                hx-target="#site-modal-content">Signup</button>
             <button type="button" hx-get="{% url 'login' %}" hx-target="#site-modal-content"
                 class="btn btn-primary">Login</button>
         </div>
