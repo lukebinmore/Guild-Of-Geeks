@@ -241,13 +241,7 @@ class PostLike(View):
                 return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(post.likes.count()))
         except Exception as e:
             messages.error(request, e)
-        return render(
-            request,
-            'forum/redirect.html',
-            {
-                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
-            }
-        )
+        return f.previous_page(request)
 
 class PostFollow(View):
     def post(self, request, slug, *args, **kwargs):
@@ -264,13 +258,7 @@ class PostFollow(View):
                 return HttpResponse('<i class="fa-solid fa-star text-red"></i>')
         except Exception as e:
             messages.error(request, e)
-        return render(
-            request,
-            'forum/redirect.html',
-            {
-                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
-            }
-        )
+        return f.previous_page(request)
 
 class CommentLike(View):
     def post(self, request, id, *args, **kwargs):
@@ -286,13 +274,7 @@ class CommentLike(View):
                 return HttpResponse('<i class="fas fa-heart text-red"></i> ' + str(comment.likes.count()))
         except Exception as e:
             messages.error(request, e)
-        return render(
-            request,
-            'forum/redirect.html',
-            {
-                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
-            }
-        )
+        return f.previous_page(request)
 
 class CommentDelete(View):
     def get(self, request, id, *args, **kwargs):
@@ -306,7 +288,7 @@ class CommentDelete(View):
             )
         except Exception as e:
             messages.error(request, e)
-        return redirect('index')
+        return f.previous_page(request)
     
     def post(self, request, id, *args, **kwargs):
         try:
@@ -339,14 +321,7 @@ class CategoryFollow(View):
                 return HttpResponse('<i class="fa-solid fa-star text-red"></i> ' + category.title)
         except Exception as e:
             messages.error(request, e)
-            print(request.META['HTTP_HX_CURRENT_URL'])
-        return render(
-            request,
-            'forum/redirect.html',
-            {
-                'redirect_url': request.META['HTTP_HX_CURRENT_URL']
-            }
-        )
+        return f.previous_page(request)
 
 class Login(View):
     def post(self, request, *args, **kwargs):
