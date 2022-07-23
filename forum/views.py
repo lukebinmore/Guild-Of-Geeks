@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import generic, View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -73,8 +73,7 @@ class Index(generic.ListView):
 class PostView(View):
     def get(self, request, slug, *args, **kwargs):
         try:
-            queryset = models.Post.objects.all()
-            post = get_object_or_404(queryset, slug=slug)
+            post = f.get_object(models.Post, slug=slug)
             paginator = Paginator(post.post_comments.order_by('created_on'), 5)
             page = request.GET.get('page')
             comments = paginator.get_page(page)
@@ -95,8 +94,7 @@ class PostView(View):
 
     def post(self, request, slug, *args, **kwargs):
         try:
-            queryset = models.Post.objects.all()
-            post = get_object_or_404(queryset, slug=slug)
+            post = f.get_object(models.Post, slug=slug)
             new_comment_form = forms.NewCommentForm(data=request.POST)
             if new_comment_form.is_valid():
                 comment = new_comment_form.save(commit=False)
@@ -122,8 +120,7 @@ class PostEdit(View):
                     post_form = forms.PostForm(data=request.POST)
                 return self.new_post_render(request, post_form)
             else:
-                queryset = models.Post.objects.all()
-                post = get_object_or_404(queryset, slug=slug)
+                post = f.get_object(models.Post, slug=slug)
                 post_form = forms.PostForm(instance=post)
             return self.post_render(request, slug, post_form)
         except Exception as e:
@@ -136,31 +133,17 @@ class PostEdit(View):
             if slug == 'new-post':
                 post_form = forms.PostForm(data=request.POST)
             else:
-                queryset = models.Post.objects.all()
-                post = get_object_or_404(queryset, slug=slug)
+                post = f.get_object(models.Post, slug=slug)
                 post_form = forms.PostForm(data=request.POST, instance=post)
 
             category_title = post_form.data['category']
-            if not category_title.isdigit():
-                if not models.Category.objects.filter(title=category_title).exists():
-                    category = models.Category.objects.create(title=category_title)
-                    post_form.set_category(category)
-            else:
-                if not models.Category.objects.filter(id=category_title).exists():
-                    raise Exception('Categories may not be just numbers!')
+            post_form = f.validate_category(post_form, category_title)
             
             tags = post_form.data.getlist('tags')
-            new_tags = []
-            for tag in tags:
-                if not tag.isdigit():
-                    if not models.Tag.objects.filter(title=tag).exists():
-                        new_tags.append(models.Tag.objects.create(title=tag))
-                else:
-                    if not models.Tag.objects.filter(id=tag).exists():
-                        raise Exception('Tags may not be just numbers!')
-                    else:
-                        new_tags.append(tag)
-            post_form.set_tags(new_tags)
+            post_form = f.validate_tags(post_form, tags)
+
+            if post_form.has_error('category') or post_form.has_error('tags'):
+                return self.return_render(request, slug, post_form)
 
             if post_form.is_valid():
                 post = post_form.save(commit=False)
@@ -242,11 +225,11 @@ class PostDelete(View):
     def post(self, request, slug, *args, **kwargs):
         try:
             confirm = request.POST.get('confirm')
-            post = get_object_or_404(models.Post.objects.all(), slug=slug)
             if request.user.check_password(confirm):
                 post.delete()
                 messages.success(request, 'Post deleted!')
                 return redirect('index')
+            post = f.get_object(models.Post, slug=slug)
             else:
                 raise Exception('Incorrect password!')
         except Exception as e:
@@ -259,8 +242,7 @@ class PostLike(View):
         try:
             if not request.user.is_authenticated:
                 raise Exception('Please login to Like posts!')
-            queryset = models.Post.objects.all()
-            post = get_object_or_404(queryset, slug=slug)
+            post = f.get_object(models.Post, slug=slug)
             if post.likes.filter(id=self.request.user.id).exists():
                 post.likes.remove(request.user)
                 return HttpResponse('<i class="far fa-heart"></i> ' + str(post.likes.count()))
@@ -282,8 +264,7 @@ class PostFollow(View):
         try:
             if not request.user.is_authenticated:
                 raise Exception('Please login to Follow posts!')
-            queryset = models.Post.objects.all()
-            post = get_object_or_404(queryset, slug=slug)
+            post = f.get_object(models.Post, slug=slug)
             profile = request.user.profile
             if profile.followed_posts.filter(id=post.id).exists():
                 profile.followed_posts.remove(post)
@@ -306,8 +287,7 @@ class CommentLike(View):
         try:
             if not request.user.is_authenticated:
                 raise Exception('Please login to Like comments!')
-            queryset = models.Comment.objects.all()
-            comment = get_object_or_404(queryset, id=id)
+            comment = f.get_object(models.Comment, id=id)
             if comment.likes.filter(id=self.request.user.id).exists():
                 comment.likes.remove(request.user)
                 return HttpResponse('<i class="far fa-heart"></i> ' + str(comment.likes.count()))
@@ -341,9 +321,9 @@ class CommentDelete(View):
     def post(self, request, id, *args, **kwargs):
         try:
             confirm = request.POST.get('confirm')
-            comment = get_object_or_404(models.Comment.objects.all(), id=id)
-            post = get_object_or_404(models.Post.objects.all(), id=comment.post.id)
             if request.user.check_password(confirm):
+            comment = f.get_object(models.Comment, id=id)
+            post = f.get_object(models.Post, id=comment.post.id)
                 comment.delete()
                 messages.success(request, 'Comment deleted!')
                 return redirect('post-view', post.slug)
@@ -359,8 +339,7 @@ class CategoryFollow(View):
         try:
             if not request.user.is_authenticated:
                 raise Exception('Please login to Follow categories!')
-            queryset = models.Category.objects.all()
-            category = get_object_or_404(queryset, id=id)
+            category = f.get_object(models.Category, id=id)
             profile = request.user.profile
             if profile.followed_categories.filter(id=category.id).exists():
                 profile.followed_categories.remove(category)
