@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from . import models
 
 def previous_page(request):
     return render(
@@ -28,3 +29,15 @@ def form_field_errors(*args):
 def get_object(model, **kwargs):
     queryset = model.objects.all()
     return get_object_or_404(queryset, **kwargs)
+
+def validate_category(form, title):
+    if not title.isdigit():
+        if not models.Category.objects.filter(title=title).exists():
+            category = models.Category.objects.create(title=title)
+            form.set_category(category)
+    else:
+        if not models.Category.objects.filter(id=title).exists():
+            del form.errors['category'][0]
+            form.add_error('category', 'Category can not be numbers only!')
+    return form
+
