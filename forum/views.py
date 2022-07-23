@@ -195,30 +195,37 @@ class PostEdit(View):
 class PostDelete(View):
     def get(self, request, slug, *args, **kwargs):
         try:
-            return render(
-                request,
-                'forum/deletepost.html',
-                {
-                    'post_slug': slug
-                }
-            )
+            return self.return_render(request, slug, forms.ConfirmPassword)
         except Exception as e:
             messages.error(request, e)
+        return f.previous_page(request)
 
     def post(self, request, slug, *args, **kwargs):
         try:
-            confirm = request.POST.get('confirm')
-            if request.user.check_password(confirm):
-                post.delete()
-                messages.success(request, 'Post deleted!')
-                return redirect('index')
+            confirm_form = forms.ConfirmPassword(data=request.POST)
             post = f.get_object(models.Post, slug=slug)
+            if confirm_form.is_valid():
+                if confirm_form.confirm_password(request.user):
+                    post.delete()
+                    messages.success(request, 'Post deleted!')
+                    return f.redirect_page(request, 'index')
             else:
-                raise Exception('Incorrect password!')
+                raise Exception(f.form_field_errors(confirm_form))
         except Exception as e:
             messages.error(request, e)
+            return f.previous_page(request)
 
-        return redirect('post-view', slug)
+        return self.return_render(request, slug, confirm_form)
+    
+    def return_render(self, request, slug, form):
+        return render(
+            request,
+            'forum/deletepost.html',
+            {
+                'post_slug': slug,
+                'confirm_form': form
+            }
+        )
 
 class PostLike(View):
     def post(self, request, slug, *args, **kwargs):
