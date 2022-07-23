@@ -326,6 +326,9 @@ class CategoryFollow(View):
         return f.previous_page(request)
 
 class Login(View):
+    def get(self, request, *args, **kwargs):
+        return self.return_render(request, forms.UserForm)
+
     def post(self, request, *args, **kwargs):
         try:
             user_form = forms.UserForm(data=request.POST)
@@ -339,26 +342,26 @@ class Login(View):
                         password = password
                     )
                     if user is None:
-                        raise Exception('Password is incorrect, please try again.')
+                        user_form.add_error('password', 'Password incorrect!')
                     else:
                         login(request, user)
                         messages.success(request, 'Welcome back ' + user.username)
                         return f.previous_page(request)
                 else:
-                    raise Exception(f'Username {username} not found!')
+                    user_form.add_error('username', 'Username not found!')
             else:
                 raise Exception(f.form_field_errors(user_form))
         except Exception as e:
             messages.error(request, e)
         
-        return redirect('index')
-
-    def get(self, request, *args, **kwargs):
+        return self.return_render(request, user_form)
+    
+    def return_render(self, request, form):
         return render(
             request,
             'forum/login.html',
             {
-                'user_form': forms.UserForm()
+                'user_form': form
             }
         )
 

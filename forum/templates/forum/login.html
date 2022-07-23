@@ -9,16 +9,19 @@
             {{ user_form.username }}
             <label for="{{ user_form.username.auto_id }}">Username*</label>
         </div>
+        {{ user_form.username.errors }}
         <div class="form-floating">
             {{ user_form.password }}
             <label for="{{ user_form.password.auto_id }}">Password*</label>
         </div>
+        {{ user_form.password.errors }}
     </div>
     <div class=" modal-footer">
         <div class="btn-group w-100">
             <button type="button" hx-get="{% url 'signup' %}" hx-target="#site-modal-content"
                 class="btn btn-primary">Signup</button>
-            <button type="submit" name="submit-login" class="btn btn-primary">Login</button>
+            <button type="submit" name="submit-login" class="btn btn-primary" hx-post="{% url 'login' %}"
+                hx-target="#site-modal-content">Login</button>
         </div>
     </div>
 </form>
