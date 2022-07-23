@@ -427,21 +427,11 @@ class Profile(View):
     def get(self, request, mode, *args, **kwargs):
         try:
             if mode == 'edit':
-                return render(
-                    request,
-                    'forum/profile.html',
-                    {
-                        'edit_mode': True,
-                        'profile_form': forms.ProfileForm(instance=request.user.profile)
-                    }
-                )
-            return render(
-                request,
-                'forum/profile.html',
-            )
+                return self.return_render(request, forms.ProfileForm(instance=request.user.profile))
+            return render(request, 'forum/profile.html')
         except Exception as e:
             messages.error(request, e)
-        return redirect('profile')
+        return redirect(request.path)
     
     def post(self, request, *args,**kwargs):
         try:
@@ -454,6 +444,7 @@ class Profile(View):
                 raise Exception(f.form_field_errors(profile_form))
         except Exception as e:
             messages.error(request, e)
+        
         return redirect(request.path)
 
 class UpdatePassword(View):
