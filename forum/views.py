@@ -446,48 +446,55 @@ class Profile(View):
             messages.error(request, e)
         
         return redirect(request.path)
+    
+    def return_render(self, request, form):
+        return render(
+            request,
+            'forum/profile.html',
+            {
+                'edit_mode': True,
+                'profile_form': form
+            }
+        )
 
 class UpdatePassword(View):
     def get(self, request, *args, **kwargs):
-        return render(
-            request,
-            'forum/password.html',
-            {
-                'password_form': forms.UpdatePasswordForm()
-            }
-        )
+        return self.render_page(request, forms.UpdatePasswordForm)
     
     def post(self, request, *args, **kwargs):
         try:
             password_form = forms.UpdatePasswordForm(data=request.POST)
             if password_form.is_valid():
                 password = password_form.cleaned_data['old']
+                password_new = password_form.cleaned_data['new']
+                password_confirm = password_form.cleaned_data['confirm']
                 user = authenticate(
                     username = request.user.username,
                     password = password
                 )
-                if user is None:
-                    raise Exception('Password Incorrect!')
-                    
-                if password_form.cleaned_data['new'] == password_form.cleaned_data['confirm']:
-                    user.set_password(password_form.cleaned_data['new'])
-                    user.save()
+                if user:
+                    if password_new == password_confirm:
+                        user.set_password(password_new)
+                        user.save()
 
-                    login(request, user)
-                    messages.success(request, 'Password updated successfully!')
+                        login(request, user)
+                        messages.success(request, 'Password updated successfully!')
 
-                    return redirect('index')
+                        return f.previous_page(request)
+                    else:
+                        password_form.add_error('confirm', 'Passwords do not match!')
                 else:
-                    raise Exception('Passwords do not match!')
+                    password_form.add_error('old', 'Incorrect password!')
             else:
                 raise Exception(f.form_field_errors(password_form))
         except Exception as e:
             messages.error(request, e)
+            return f.previous_page(request)
         
-        return redirect('index')
-
 class DeleteProfile(View):
     def get(self, request, *args, **kwargs):
+        return self.render_page(request, password_form)
+    
         return render(
             request,
             'forum/deleteprofile.html'
