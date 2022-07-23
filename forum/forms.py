@@ -197,3 +197,18 @@ class ContactForm(forms.ModelForm):
             'content': forms.Textarea(
                 attrs={'class': 'form-control text-center'})
         }
+
+class ConfirmPassword(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Confirm Password*'
+        }
+    ))
+
+    def confirm_password(self, user):
+        if user.check_password(self.data['password']):
+            return True
+        else:
+            self.add_error('password', 'Invalid password!')
+            return False
