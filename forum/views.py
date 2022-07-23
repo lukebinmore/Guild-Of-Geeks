@@ -279,32 +279,34 @@ class CommentLike(View):
 class CommentDelete(View):
     def get(self, request, id, *args, **kwargs):
         try:
-            return render(
-                request,
-                'forum/deletecomment.html',
-                {
-                    'comment_id': id,
-                }
-            )
+            return self.return_render(request, id, forms.ConfirmPassword)
         except Exception as e:
             messages.error(request, e)
         return f.previous_page(request)
     
     def post(self, request, id, *args, **kwargs):
         try:
-            confirm = request.POST.get('confirm')
-            if request.user.check_password(confirm):
+            confirm_form = forms.ConfirmPassword(data=request.POST)
             comment = f.get_object(models.Comment, id=id)
             post = f.get_object(models.Post, id=comment.post.id)
+            if confirm_form.confirm_password(request.user):
                 comment.delete()
                 messages.success(request, 'Comment deleted!')
-                return redirect('post-view', post.slug)
-            else:
-                raise Exception('Incorrect password!')
+                return f.redirect_page(request, 'post-view', slug=comment.post.slug)
         except Exception as e:
             messages.error(request, e)
 
-        return redirect('post-view', post.slug)
+        return self.return_render(request, id, confirm_form)
+
+    def return_render(self, request, id, form):
+        return render(
+            request,
+            'forum/deletecomment.html',
+            {
+                'comment_id': id,
+                'confirm_form': form
+            }
+        )
 
 class CategoryFollow(View):
     def post(self, request, id, *args, **kwargs):
