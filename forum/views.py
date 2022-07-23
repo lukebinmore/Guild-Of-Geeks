@@ -113,20 +113,14 @@ class PostEdit(View):
     def get(self, request, slug, *args, **kwargs):
         try:
             if slug == "new-post":
-                new_post_title = request.GET.get('new-post-title')
-                if new_post_title != None:
-                    post_form = forms.PostForm(initial={'title': new_post_title,})
-                else:
-                    post_form = forms.PostForm(data=request.POST)
-                return self.new_post_render(request, post_form)
+                post_form = forms.PostForm()
             else:
                 post = f.get_object(models.Post, slug=slug)
                 post_form = forms.PostForm(instance=post)
-            return self.post_render(request, slug, post_form)
+            return self.return_render(request, slug, post_form)
         except Exception as e:
             messages.error(request, e)
-
-        return redirect('index')
+        return redirect(request.path)
     
     def post(self, request, slug, *args, **kwargs):
         try:
@@ -150,8 +144,9 @@ class PostEdit(View):
                 if slug == 'new-post':
                     post.slug = slugify(post.title)
                     post.author = request.user
-                    if models.Post.objects.filter(slug=post.slug):
-                        raise Exception('Post already exists!')
+                    if models.Post.objects.filter(slug=post.slug).exists():
+                        post_form.add_error('title', 'Post with this title already exists!')
+                        return self.return_render(request, slug, post_form)
                     post = post_form.save()
                 else:
                     post_form.save()
@@ -171,42 +166,30 @@ class PostEdit(View):
         except Exception as e:
             messages.error(request, e)
         
-        try:
-            if slug == 'new-post':
-                return self.new_post_render(request, post_form)
-            else:
-                return self.post_render(request, slug, post_form)
-        except Exception as e:
-            messages.error(request, e)
-        
-        return redirect('index')
-
-    def new_post_render(self, request, post_form):
-        return render(
-            request,
-            'forum/post.html',
-            {
-                'edit_mode': True,
-                'post_form': post_form,
-            }
-        )
+        return self.return_render(request, slug, post_form)
     
-    def post_render(self, request, slug, post_form, **kwargs):
-        queryset = models.Post.objects.all()
-        post = get_object_or_404(queryset, slug=slug)
-        paginator = Paginator(post.post_comments.order_by('created_on'), 5)
-        page = request.GET.get('page')
-        comments = paginator.get_page(page)
-        return render(
-            request,
-            'forum/post.html',
-            {
+    def return_render(self, request, slug, form):
+        if slug == 'new-post':
+            render_dict = {
+                'edit_mode': True,
+                'post_form': form
+            }
+        else:
+            post = f.get_object(models.Post, slug=slug)
+            paginator = Paginator(post.post_comments.order_by('created_on'), 5)
+            page = request.GET.get('page')
+            comments = paginator.get_page(page)
+            render_dict = {
                 'post': post,
                 'comments': comments,
                 'page_obj': comments,
                 'edit_mode': True,
-                'post_form': post_form,
-            },
+                'post_form': form,
+            }
+        return render(
+            request,
+            'forum/post.html',
+            render_dict
         )
 
 class PostDelete(View):
