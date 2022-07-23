@@ -537,25 +537,18 @@ class ContactUs(View):
     def get(self, request, *args, **kwargs):
         try:
             if request.user.is_authenticated:
-                profile = request.user.profile
                 user_dict = {
-                    'first_name': profile.first_name,
-                    'last_name': profile.last_name,
-                    'email': profile.email,
+                    'first_name': request.user.profile.first_name,
+                    'last_name': request.user.profile.last_name,
+                    'email':request.user.profile.email,
                 }
             else:
                 user_dict = {}
-
-            return render(
-                request,
-                'forum/contactus.html',
-                {
-                    'contact_form': forms.ContactForm(initial=user_dict)
-                }
-            )
+            
+            return self.return_render(request, forms.ContactForm(initial=user_dict))
         except Exception as e:
             messages.error(request, e)
-        return redirect('index')
+        return redirect(request.path)
     
     def post(self, request, *args, **kwargs):
         try:
@@ -565,27 +558,26 @@ class ContactUs(View):
                 contact_request = contact_form.save(commit=False)
                 if request.user.is_authenticated:
                     contact_request.user = request.user
+
                 contact_request.save()
 
                 messages.success(request, 'Request submitted successfully!')
                 
-                return render(
-                    request,
-                    'forum/contactus.html',
-                    {
-                        'contact_form': forms.ContactForm()
-                    }
-                )
+                return redirect('index')
             else:
                 raise Exception(f.form_field_errors(contact_form))
         except Exception as e:
             messages.error(request, e)
+            return f.previous_page(request)
         
+        return self.return_render(request, contact_form)
+
+    def return_render(self, request, form):
         return render(
             request,
             'forum/contactus.html',
             {
-                'contact_form': forms.ContactForm(data=request.POST)
+                'contact_form': form
             }
         )
 
