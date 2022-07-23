@@ -491,30 +491,47 @@ class UpdatePassword(View):
             messages.error(request, e)
             return f.previous_page(request)
         
-class DeleteProfile(View):
-    def get(self, request, *args, **kwargs):
         return self.render_page(request, password_form)
     
+    def render_page(self, request, form):
         return render(
             request,
-            'forum/deleteprofile.html'
+            'forum/password.html',
+            {
+                'password_form': form
+            }
         )
+
+class DeleteProfile(View):
+    def get(self, request, *args, **kwargs):
+        return self.return_render(request, forms.ConfirmPassword)
 
     def post(self, request, *args, **kwargs):
         try:
-            confirm = request.POST.get('confirm')
-            if request.user.check_password(confirm):
-                user = get_object_or_404(models.User.objects.all(), username=request.user.username)
-                user.profile.delete()
-                user.is_active = False
-                user.save()
-                messages.success(request, 'Profile deleted!')
+            confirm_form = forms.ConfirmPassword(data=request.POST)
+            if confirm_form.is_valid():
+                if confirm_form.confirm_password(request.user):
+                    request.user.profile.delete()
+                    request.user.is_active = False
+                    request.user.save()
+                    messages.success(request, 'Profile deleted!')
+                    return f.redirect_page(request, 'index')
             else:
-                raise Exception('Incorrect password!')
+                raise Exception(f.form_field_errors(confirm_form))
         except Exception as e:
             messages.error(request, e)
-
-        return redirect('index')
+            return f.previous_page(request)
+        
+        return self.return_render(request, confirm_form)
+    
+    def return_render(self, request, form):
+        return render(
+            request,
+            'forum/deleteprofile.html',
+            {
+                'confirm_form': form
+            }
+        )
 
 class ContactUs(View):
     def get(self, request, *args, **kwargs):
