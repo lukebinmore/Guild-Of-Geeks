@@ -41,3 +41,17 @@ def validate_category(form, title):
             form.add_error('category', 'Category can not be numbers only!')
     return form
 
+def validate_tags(form, tags):
+    new_tags = []
+    for tag in tags:
+        if not tag.isdigit():
+            if not models.Tag.objects.filter(title=tag).exists():
+                new_tags.append(models.Tag.objects.create(title=tag))
+        else:
+            if not models.Tag.objects.filter(id=tag).exists():
+                del form.errors['tags'][0]
+                form.add_error('tags', 'Tags may not be just numbers!')
+            else:
+                new_tags.append(tag)
+    form.set_tags(new_tags)
+    return form
