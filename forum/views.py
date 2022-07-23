@@ -380,9 +380,7 @@ class Login(View):
                 else:
                     raise Exception(f'Username {username} not found!')
             else:
-                for field in user_form:
-                    if field.errors:
-                         raise Exception(f'{field.name.title()} : {field.errors[0]}')
+                raise Exception(f.form_field_errors(user_form))
         except Exception as e:
             messages.error(request, e)
         
@@ -431,13 +429,7 @@ class Signup(View):
                 else:
                     raise Exception(f'Username {username} already exists!')
             else:
-                for field in user_form:
-                    if field.errors:
-                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
-                
-                for field in profile_form:
-                    if field.errors:
-                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+                raise Exception(f.form_field_errors(user_form, profile_form))
         except Exception as e:
             messages.error(request, e)
         
@@ -486,9 +478,7 @@ class Profile(View):
                 messages.success(request, 'Account updated successfully!')
                 return redirect('profile', 'view')
             else:
-                for field in profile_form:
-                    if field.error:
-                        raise Exception(f'{field.name.title()} : {field.error}')
+                raise Exception(f.form_field_errors(profile_form))
         except Exception as e:
             messages.error(request, e)
         return redirect(request.path)
@@ -526,9 +516,7 @@ class UpdatePassword(View):
                 else:
                     raise Exception('Passwords do not match!')
             else:
-                for field in password_form:
-                    if field.errors:
-                        raise Exception(f'{field.name.title()} : {field.errors[0]}')
+                raise Exception(f.form_field_errors(password_form))
         except Exception as e:
             messages.error(request, e)
         
@@ -601,9 +589,7 @@ class ContactUs(View):
                     }
                 )
             else:
-                for field in contact_form:
-                    if field.errors:
-                        raise Exception(f'{field.name.title()} : {field.error}')
+                raise Exception(f.form_field_errors(contact_form))
         except Exception as e:
             messages.error(request, e)
         
