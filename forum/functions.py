@@ -10,10 +10,8 @@ def previous_page(request):
         }
     )
 
-def form_field_errors(form):
-    for field in form:
-        if field.errors:
-            return f'{field.name.title()} : {field.errors[0]}'    return render(
+def redirect_page(request, page, **kwargs):
+    return render(
         request,
         'redirect.html',
         {
@@ -22,3 +20,7 @@ def form_field_errors(form):
     )
 
 def form_field_errors(*args):
+    for form in args:
+        for field in form:
+            if field.errors:
+                return f'{field.name.title()} : {field.errors[0]}'
