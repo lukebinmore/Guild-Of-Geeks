@@ -59,3 +59,7 @@ var infinite = new Waypoint.Infinite({
         $('.loading').hide();
     }
 });
+
+$('#filter-form').submit(function () {
+    $('#search-form :input').not(':submit').clone().hide().appendTo('#filter-form');
+});

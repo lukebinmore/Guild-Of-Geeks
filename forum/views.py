@@ -19,17 +19,17 @@ class Index(generic.ListView):
         context['filters'] = forms.FilterForm(self.request.GET)
         context['user_form'] = forms.UserForm()
         context['post_count'] = self.object_list.count
-        context['search_query'] = self.request.GET.get('q')
         return context
     
     def get_queryset(self):
-        query = self.request.GET.get('q')
-        categories = self.request.GET.get('categories')
-        tags = self.request.GET.get('tags')
-        user_posts = self.request.GET.get('user_posts')
-        followed_posts = self.request.GET.get('followed_posts')
-        followed_categories = self.request.GET.get('followed_categories')
+        filter_form = forms.FilterForm(data=self.request.GET)
         object_list = models.Post.objects.all()
+        query = filter_form.data.get('search', None)
+        categories = filter_form.data.getlist('categories')
+        tags = filter_form.data.getlist('tags')
+        user_posts = filter_form.data.get('user_posts', False)
+        followed_posts = filter_form.data.get('followed_posts', False)
+        followed_categories = filter_form.data.get('followed_categories', False)
 
         if self.request.user.is_authenticated:
             object_list = object_list.filter(
@@ -38,18 +38,18 @@ class Index(generic.ListView):
         else:
             object_list = object_list.filter(status=1)
 
-        if query != None:
+        if query:
             object_list = object_list.filter(
                 Q(title__icontains=query) |
                 Q(author__username__icontains=query)
             )
         
-        if categories != None:
+        if categories:
             object_list = object_list.filter(
                 Q(category__id__in=categories)
             )
         
-        if tags != None:
+        if tags:
             object_list = object_list.filter(
                 Q(tags__id__in=tags)
             )

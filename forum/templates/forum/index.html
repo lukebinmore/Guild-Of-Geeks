@@ -7,14 +7,16 @@
     <div class="col-12 col-md-6 gx-0">
         {% include "forum/createnewpost.html" %}
 
-        {% if search_query != None %}
+        {% if filters.search.value != "" %}
+        {% if filters.search.value %}
         <div class="card">
             <div class="card-header">
                 <div class="text-center">
-                    <p class="card-text">Search: {{ search_query }}</p>
+                    <p class="card-text">Search: {{ filters.search.value }}</p>
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endif %}
 
         <div class="card d-block d-md-none">

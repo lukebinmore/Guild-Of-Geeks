@@ -120,6 +120,14 @@ class ProfileForm(forms.ModelForm):
         }
 
 class FilterForm(forms.Form):
+    search = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Search...'
+            }
+    ))
     categories = forms.ModelChoiceField(
         required=False,
         queryset=models.Category.objects.all(),
@@ -128,7 +136,6 @@ class FilterForm(forms.Form):
                 'class': 'form-select select2 w-100'
         })
     )
-
     tags = forms.ModelChoiceField(
         required=False,
         queryset=models.Tag.objects.all(),
