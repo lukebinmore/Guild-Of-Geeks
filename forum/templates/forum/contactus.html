@@ -1,58 +1,65 @@
 {% extends "base.html" %} {% block content %}
 
-<form method="POST" class="col-12 col-md-6 mx-auto text-center card">
-    {% csrf_token %}
-    <div class="card-header">
-        <h1>Contact Us</h1>
+<div class="row">
+    <form method="POST" class="col-12 col-md-9 pe-0">
+        {% csrf_token %}
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>Contact Us</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating">
+                            {{ contact_form.first_name }}
+                            <label for="{{ contact_form.first_name.auto_id }}">First Name*</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            {{ contact_form.last_name }}
+                            <label for="{{ contact_form.last_name.auto_id">Last Name*</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col">
+                    <div class="form-floating">
+                    {{ contact_form.title }}
+                        <label for=" {{ contact_form.title.auto_id">Short Title*</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating">
+                        {{ contact_form.email }} <label for=" {{ contact_form.email.auto_id">Email Address*</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col">
+                    <div class="form-floating">
+                        {{ contact_form.reason }} <label for=" {{ contact_form.reason.auto_id">Reason for Contact*</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating">
+                        {{ contact_form.content }} <label for=" {{ contact_form.content.auto_id">Your message*</label>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="card-footer btn-group remove-pm">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+    <div class="col-3 col-md-0">
+        {% include "forum/userpanel.html" %}
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                <div class="form-floating">
-                    {{ contact_form.first_name }}
-                    <label for="{{ contact_form.first_name.auto_id }}">First Name*</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating">
-                    {{ contact_form.last_name }}
-                    <label for="{{ contact_form.last_name.auto_id">Last Name*</label>
-                </div>
-            </div>
-        </div>
-        <div class="row my-4">
-            <div class="col">
-                <div class="form-floating">
-                {{ contact_form.title }}
-                    <label for=" {{ contact_form.title.auto_id">Short Title*</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-floating">
-                    {{ contact_form.email }} <label for=" {{ contact_form.email.auto_id">Email Address*</label>
-                </div>
-            </div>
-        </div>
-        <div class="row my-4">
-            <div class="col">
-                <div class="form-floating">
-                    {{ contact_form.reason }} <label for=" {{ contact_form.reason.auto_id">Reason for Contact*</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-floating">
-                    {{ contact_form.content }} <label for=" {{ contact_form.content.auto_id">Your message*</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-footer btn-group remove-pm">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
+</div>
 
 {% endblock %}
