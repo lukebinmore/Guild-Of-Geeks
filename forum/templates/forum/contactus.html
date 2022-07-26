@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="row">
-    <form method="POST" class="col-12 col-md-9 pe-0">
+    <form id="contact-col-left" method="POST" class="col-12 col-md-9 pe-0">
         {% csrf_token %}
         <div class="card text-center">
             <div class="card-header">
@@ -57,7 +57,7 @@
             </div>
         </div>
     </form>
-    <div class="col-3 col-md-0">
+    <div class="col-3 d-none d-md-block">
         {% include "forum/userpanel.html" %}
     </div>
 </div>

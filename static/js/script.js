@@ -2,16 +2,22 @@ let searchForm = $('#search-form');
 let profileColLeft = $('#profile-col-left');
 let postColLeft = $('#post-col-left');
 let indexColLeft = $('#index-col-left');
+let contactColLeft = $('#contact-col-left');
+let helpColLeft = $('#help-col-left');
 
 $(window).on('load resize change', function () {
     if ($(window).width() < 768) {
         searchForm.addClass('input-group-sm');
         profileColLeft.removeClass('pe-0');
         postColLeft.removeClass('pe-0');
+        contactColLeft.removeClass('pe-0');
+        helpColLeft.removeClass('pe-0');
     } else if ($(window).width() > 768) {
         searchForm.removeClass('input-group-sm');
         profileColLeft.addClass('pe-0');
         postColLeft.addClass('pe-0');
+        contactColLeft.addClass('pe-0');
+        helpColLeft.addClass('pe-0');
     };
 
     $('.profile-picture-preview').attr('height', $('.profile-picture-preview').width());
