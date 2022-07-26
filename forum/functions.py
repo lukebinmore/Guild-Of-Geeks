@@ -20,6 +20,11 @@ def redirect_page(request, page, **kwargs):
         }
     )
 
+def check_if_ajax_request(request):
+    if hasattr(request.META, 'HTTP_HX_URRENT_URL'):
+        return True
+    return False
+
 def form_field_errors(*args):
     for form in args:
         for field in form:
