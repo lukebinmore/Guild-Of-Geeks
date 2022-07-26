@@ -60,3 +60,29 @@ def validate_tags(form, tags):
                 new_tags.append(tag)
     form.set_tags(new_tags)
     return form
+
+def validate_username(form):
+    username = form.data['username']
+
+    if ' ' in username:
+        form.add_error('username', 'Username cannot contain spaces.')
+    if len(username) < 6:
+        form.add_error('username', 'Username must be a minimum of 6 characters.')
+    if len(username) > 14:
+        form.add_error('username', 'Username must be a maximum of 14 characters.')
+    if any(not c.isalnum() for c in username):
+        form.add_error('username', 'Username must not contain special characters.')
+    return form
+
+def validate_password(form, form_field):
+    password = form.data[form_field]
+
+    if ' ' in password:
+        form.add_error(form_field, 'Password cannot contain spaces.')
+    if len(password) < 8:
+        form.add_error(form_field, 'Password must be a minimum of 8 characters.')
+    if len(password) > 25:
+        form.add_error(form_field, 'Password must be a maximum of 25 characters.')
+    if not any(not c.isalnum() for c in password):
+        form.add_error(form_field, 'Password must contain at least one special character. (E.G. @)')
+    return form
