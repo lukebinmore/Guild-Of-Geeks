@@ -1,5 +1,4 @@
 let searchForm = $('#search-form');
-let profilePicturePreview = $('.profile-picture-preview');
 let profileColLeft = $('#profile-col-left');
 let postColLeft = $('#post-col-left');
 let indexColLeft = $('#index-col-left');
