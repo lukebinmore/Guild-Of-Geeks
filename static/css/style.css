@@ -74,6 +74,15 @@ label {
     color: var(--text);
 }
 
+.modal-content {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.modal-header button {
+    background-color: var(--red);
+}
+
 .btn-primary {
     background-color: var(--green);
     border-color: var(--green);

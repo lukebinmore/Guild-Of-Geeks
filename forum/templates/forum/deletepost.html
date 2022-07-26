@@ -1,4 +1,4 @@
-<form action="{% url 'post-delete' post_slug %}" method="POST" class="text-dark">
+<form action="{% url 'post-delete' post_slug %}" method="POST">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">Delete Post</h5>
