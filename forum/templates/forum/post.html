@@ -8,7 +8,7 @@
             <div class="card-header post-header row g-0 px-2">
                 <div class="col-10 col-md-11">
                     {{ post_form.title.errors }}
-                    <div class="form-floating mb-2">
+                    <div class="form-floating mb-2 focus">
                         {{ post_form.title}}
                         <label for="{{ post_form.title.auto_id }}">Title*</label>
                     </div>
@@ -126,5 +126,9 @@
         {% include "forum/userpanel.html" %}
     </div>
 </div>
+
+<script>
+    $('.focus').focus();
+</script>
 
 {% endblock %}
