@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <div class="form-floating mb-2 focus">
+        <div class="form-floating mb-2">
             {{ user_form.username }}
             <label for="{{ user_form.username.auto_id }}">Username*</label>
         </div>
@@ -79,6 +79,3 @@
         </div>
     </div>
 </form>
-<script>
-    $('.focus').focus();
-</script>
