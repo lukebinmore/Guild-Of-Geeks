@@ -18,6 +18,7 @@ def check_post_author(function):
     def wrap(request, *args, **kwargs):
         slug = kwargs['slug']
         post = f.get_object(models.Post, slug=slug)
+
         if post.author == request.user or request.user.is_staff:
             return function(request, *args, **kwargs)
         
@@ -34,5 +35,14 @@ def check_comment_author(function):
             return function(request, *args, **kwargs)
         
         messages.error(request, 'This item does not belong to you!')
+        return f.redirect_page(request, 'index')
+    return wrap
+
+def check_ajax(function):
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        if f.check_if_ajax_request(request):
+            return function(request, *args, **kwargs)
+        messages.error(request, 'This action is not allowed in this way!')
         return f.redirect_page(request, 'index')
     return wrap
