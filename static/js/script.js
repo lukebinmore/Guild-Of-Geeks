@@ -56,6 +56,7 @@ var infinite = new Waypoint.Infinite({
     },
     onAfterPageLoad: function () {
         $('.loading').hide();
+        htmx.process(document.body);
     }
 });
 
