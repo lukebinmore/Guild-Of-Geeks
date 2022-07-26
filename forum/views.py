@@ -378,9 +378,10 @@ class Signup(View):
                 password = user_form.cleaned_data['password']
                 confirm_password = request.POST.get('confirm')
 
-                if " " in username:
-                    user_form.add_error('username', 'Username cannot contain spaces!')
-                else:
+                user_form = f.validate_username(user_form)
+                user_form = f.validate_password(user_form, 'password')
+
+                if not user_form.errors:
                     if not models.User.objects.filter(username=username).exists():
                         if password == confirm_password:
                             user = models.User.objects.create_user(
@@ -468,21 +469,24 @@ class UpdatePassword(View):
                 password = password_form.cleaned_data['old']
                 password_new = password_form.cleaned_data['new']
                 password_confirm = password_form.cleaned_data['confirm']
+                password_form = f.validate_password(password_form, 'new')
+                print(password_form.errors)
                 user = authenticate(
                     username = request.user.username,
                     password = password
                 )
                 if user:
-                    if password_new == password_confirm:
-                        user.set_password(password_new)
-                        user.save()
+                    if not password_form.errors:
+                        if password_new == password_confirm:
+                            user.set_password(password_new)
+                            user.save()
 
-                        login(request, user)
-                        messages.success(request, 'Password updated successfully!')
+                            login(request, user)
+                            messages.success(request, 'Password updated successfully!')
 
-                        return f.previous_page(request)
-                    else:
-                        password_form.add_error('confirm', 'Passwords do not match!')
+                            return f.previous_page(request)
+                        else:
+                            password_form.add_error('confirm', 'Passwords do not match!')
                 else:
                     password_form.add_error('old', 'Incorrect password!')
             else:
