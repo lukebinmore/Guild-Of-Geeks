@@ -5,7 +5,18 @@
         {% include 'forum/filters.html' %}
     </div>
     <div class="col-12 col-md-6 gx-0">
-        {% include "forum/createnewpost.html" %}
+        {% if user.is_authenticated %}
+        <div class="card">
+            <a href="{% url 'post-edit' 'new-post' %}" class="btn btn-primary">Create New Post As: {{ user }}</a>
+        </div>
+        {% else %}
+        <div class="card">
+            {% csrf_token %}
+            <h4 class="card-header text-center">Sign In/Sign Up To Create A Post!</h4>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#site-modal"
+                hx-get="{% url 'login' %}" hx-target="#site-modal-content">Login / Signup</button>
+        </div>
+        {% endif %}
 
         {% if filters.search.value != "" %}
         {% if filters.search.value %}
