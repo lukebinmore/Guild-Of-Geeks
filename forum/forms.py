@@ -31,7 +31,10 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'content', 'category', 'tags']
         widgets = {
             'title': forms.TextInput(
-                attrs={'class': 'form-control'},
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Title*'
+                },
             ),
             'category': forms.Select(
                 attrs={'class': 'form-select select2'},
