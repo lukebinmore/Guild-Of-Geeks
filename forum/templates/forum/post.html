@@ -78,9 +78,11 @@
                     </p>
                 </div>
                 <div class="col-2 col-md-1">
+                    {% if post.author == user %}
                     <h2 class="d-inline-block float-end">
                         <a href="{% url 'post-edit' post.slug %}"><i class="fa-solid fa-pen-to-square"></i></a>
                     </h2>
+                    {% endif %}
                 </div>
             </div>
             <div class="card-body p-0">
