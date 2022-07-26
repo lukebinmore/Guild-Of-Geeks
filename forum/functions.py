@@ -21,7 +21,7 @@ def redirect_page(request, page, **kwargs):
     )
 
 def check_if_ajax_request(request):
-    if hasattr(request.META, 'HTTP_HX_URRENT_URL'):
+    if request.META['HTTP_ACCEPT'] == '*/*':
         return True
     return False
 
