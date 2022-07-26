@@ -1,6 +1,6 @@
 {% load static %}
 
-<form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+<form hx-post="{% url 'signup' %}" hx-target="#site-modal-content" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">Signup</h5>
@@ -72,8 +72,7 @@
     </div>
     <div class="modal-footer">
         <div class="btn-group w-100">
-            <button type="submit" name="submit-signup" class="btn btn-primary" hx-post="{% url 'signup' %}"
-                hx-target="#site-modal-content">Signup</button>
+            <button type="submit" name="submit-signup" class="btn btn-primary">Signup</button>
             <button type="button" hx-get="{% url 'login' %}" hx-target="#site-modal-content"
                 class="btn btn-primary">Login</button>
         </div>
