@@ -11,7 +11,7 @@
                 {% endif %}
             </div>
             <div class="col-12 col-md-3 order-last order-md-first px-0 mt-2">
-                <form id="search-form" method="GET" class="input-group">
+                <form id="search-form" method="GET" class="input-group" action="{% url 'index' %}">
                     {% if request.path != "/" %}
                     <a href="{% url 'index' %}" class="btn btn-secondary d-none d-md-inline">
                         <i class="fa-solid fa-house"></i>
