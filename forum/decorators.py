@@ -17,6 +17,9 @@ def check_post_author(function):
     @wraps(function)
     def wrap(request, *args, **kwargs):
         slug = kwargs['slug']
+        if slug == 'new-post':
+            return function(request, *args, **kwargs)
+            
         post = f.get_object(models.Post, slug=slug)
 
         if post.author == request.user or request.user.is_staff:
