@@ -29,8 +29,13 @@
             </div>
             <div class="col-6 mt-2">
                 <a href="{% url 'index' %}">
+                    {% if user.profile.theme == "Light" %}
                     <img class="d-none d-md-block mx-auto" src="{% static 'images/logo-400x68.png' %}"
                         alt="Guild Of Geeks Logo">
+                    {% else %}
+                    <img class="d-none d-md-block mx-auto" src="{% static 'images/logo-400x68-inverted.png' %}"
+                        alt="Guild Of Geeks Logo">
+                    {% endif %}
                     <img class="d-block d-md-none mx-auto" src="{% static 'images/logo-98x68.png' %}"
                         alt="Guild Of Geeks Logo">
                 </a>
