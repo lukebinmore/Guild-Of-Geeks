@@ -1,6 +1,5 @@
 from . import forms
 
+
 def filters(request):
-    return {
-        'filters': forms.FilterForm()
-    }
+    return {"filters": forms.FilterForm()}

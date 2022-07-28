@@ -4,21 +4,20 @@ from cloudinary.models import CloudinaryField
 from dateutil.relativedelta import relativedelta
 from datetime import date
 
-THEMES = (
-    ('Light', 'Light'),
-    ('Dark', 'Dark')
-)
-STATE = ((0, 'Draft'), (1, 'Post'))
+THEMES = (("Light", "Light"), ("Dark", "Dark"))
+STATE = ((0, "Draft"), (1, "Post"))
 CONTACT_REASON = (
-    (0, 'Compliment'),
-    (1, 'Complaint'),
-    (2, 'Issue'),
-    (3, 'Request')
+    (0, "Compliment"),
+    (1, "Complaint"),
+    (2, "Issue"),
+    (3, "Request"),
 )
 
 
 class ContactRequests(models.Model):
-    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.SET_NULL
+    )
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
@@ -38,16 +37,22 @@ class Profile(models.Model):
     dob = models.DateField(max_length=8)
     email = models.EmailField(blank=True)
     number = models.CharField(max_length=11, blank=True)
-    picture = CloudinaryField('image', default='static/images/profile-placeholder')
-    theme = models.CharField(max_length=25, choices=THEMES, default='Light')
+    picture = CloudinaryField(
+        "image", default="static/images/profile-placeholder"
+    )
+    theme = models.CharField(max_length=25, choices=THEMES, default="Light")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    followed_posts = models.ManyToManyField('Post', related_name='followed_posts', blank=True)
-    followed_categories = models.ManyToManyField('Category', related_name='followed_categories', blank=True)
+    followed_posts = models.ManyToManyField(
+        "Post", related_name="followed_posts", blank=True
+    )
+    followed_categories = models.ManyToManyField(
+        "Category", related_name="followed_categories", blank=True
+    )
 
     def __str__(self):
         return self.user.username
-    
+
     def get_age(self):
         return relativedelta(date.today(), self.dob).years
 
@@ -57,7 +62,7 @@ class Category(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -68,7 +73,7 @@ class Tag(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -77,17 +82,21 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="blog_posts"
+    )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     status = models.IntegerField(choices=STATE, default=0)
-    likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='blog_categories')
-    tags = models.ManyToManyField(Tag, related_name='blog_tags')
+    likes = models.ManyToManyField(User, related_name="blog_likes", blank=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="blog_categories"
+    )
+    tags = models.ManyToManyField(Tag, related_name="blog_tags")
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ["-created_on"]
 
     def __str__(self):
         return self.title
@@ -100,15 +109,23 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comments')
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_comments"
+    )
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="post_comments"
+    )
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    reply_to = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
-    likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
+    reply_to = models.ForeignKey(
+        "self", on_delete=models.CASCADE, blank=True, null=True
+    )
+    likes = models.ManyToManyField(
+        User, related_name="comment_likes", blank=True
+    )
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ["created_on"]
 
     def __str__(self):
         return f"{self.content} - (Posted By: {self.author})"
