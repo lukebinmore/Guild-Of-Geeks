@@ -30,7 +30,8 @@ class Index(generic.ListView):
         """
         It returns a list of objects that match the given lookup parameters.
         """
-        profile = self.request.user.profile
+        if self.request.user.is_authenticated:
+            profile = self.request.user.profile
         filter_form = forms.FilterForm(data=self.request.GET)
         object_list = models.Post.objects.all()
         query = filter_form.data.get("search", None)
