@@ -1,28 +1,37 @@
 {% load static %}
-
+<!-- Main Template Container -->
+<!-- Signup ajax form -->
 <form hx-post="{% url 'signup' %}" hx-target="#site-modal-content" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    <!-- Form header -->
     <div class="modal-header">
         <h5 class="modal-title">Signup</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
+    <!-- Form body - Inputs -->
     <div class="modal-body">
+        <!-- Username -->
         <div class="form-floating mb-2">
             {{ user_form.username }}
             <label for="{{ user_form.username.auto_id }}">Username*</label>
         </div>
+        <!-- Username errors -->
         {{ user_form.username.errors }}
+        <!-- Password -->
         <div class="form-floating mb-2">
             {{ user_form.password }}
             <label for="{{ user_form.password.auto_id }}">Password*</label>
         </div>
+        <!-- Confirm password -->
         <div class="form-floating">
             <input type="password" id="password-confirm" name="confirm" class="form-control"
                 placeholder="Confirm Password*" required>
             <label for="password-confim">Confirm Password*</label>
         </div>
+        <!-- Password errors -->
         {{ user_form.password.errors }}
         <hr>
+        <!-- Name details and errors -->
         <div class="form-floating mb-2">
             {{ profile_form.first_name }}
             <label for="{{ profile_form.first_name.auto_id }}">First Name</label>
@@ -33,6 +42,7 @@
             <label for="{{ profile_form.last_name.auto_id }}">Last Name</label>
         </div>
         {{ profile_form.last_name.errors }}
+        <!-- DOB -->
         <div class="form-floating">
             {{ profile_form.dob }}
             <label for="{{ profile_form.dob.auto_id }}">Date of Birth*</label>
@@ -42,8 +52,10 @@
                 You must be at least 13 years of age to sign up.
             </p>
         </div>
+        <!-- DOB errors -->
         {{ profile_form.dob.errors }}
         <hr>
+        <!-- Contact details and errors -->
         <div class="form-floating mb-2">
             {{ profile_form.email }}
             <label for="{{ profile_form.email.auto_id }}">Email</label>
@@ -55,6 +67,7 @@
         </div>
         {{ profile_form.number.errors }}
         <hr>
+        <!-- Profile picture -->
         <div class="mb-2">
             <label for="{{ profile_form.picture.auto_id }}">Profile Picture</label>
             {{ profile_form.picture }}
@@ -63,13 +76,17 @@
                     src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture">
             </div>
         </div>
+        <!-- Profile picture errors -->
         {{ profile_form.picture.errors }}
+        <!-- Theme -->
         <div class=" form-floating mb-2">
             {{ profile_form.theme }}
             <label for="{{ profile_form.theme.auto_id }}">Theme</label>
         </div>
+        <!-- Theme errors -->
         {{ profile_form.theme.errors }}
     </div>
+    <!-- Form footer - Cancel and submit buttons -->
     <div class="modal-footer">
         <div class="btn-group w-100">
             <button type="submit" name="submit-signup" class="btn btn-primary">Signup</button>

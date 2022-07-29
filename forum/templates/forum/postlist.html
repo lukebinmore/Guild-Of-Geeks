@@ -1,8 +1,11 @@
 {% load static %}
 
+<!-- Main Template Container -->
 <div class="infinite-container">
+    <!-- Container for each post in list -->
     {% for post in post_list %}
     <div class="card post-list-post infinite-item">
+        <!-- Post header - Post details -->
         <div class="card-header">
             <h4 class="mb-1">{{ post.title }}</h4>
             <p>Category: {{ post.category }}</p>
@@ -15,9 +18,11 @@
                 by: {{ post.author }} on: {{ post.created_on.date }}
             </p>
         </div>
+        <!-- Post content -->
         <div class="card-body post-list-body">
             {{ post.content | safe}}
         </div>
+        <!-- Post footer - Comment count and liked display -->
         <div class="card-footer btn-group remove-pm post-list-footer">
             <div class="btn pe-none text-main">
                 <i class="fa-solid fa-comments"></i>
@@ -32,6 +37,7 @@
                 {% endif %}
             </div>
         </div>
+        <!-- Link to post, stretched to surround post card -->
         <a href="{% url 'post-view' post.slug %}" class="stretched-link"></a>
     </div>
     {% endfor %}

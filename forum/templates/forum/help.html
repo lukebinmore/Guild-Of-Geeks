@@ -1,20 +1,27 @@
 {% extends "base.html" %} {% block content %}
 
+<!-- Main Template Container -->
 <div class="row">
+    <!-- Left column on large screens, only column on small screens -->
     <div id="help-col-left" class="col-12 col-md-9 pe-0">
         <div class="card text-center">
+            <!-- Help page header -->
             <div class="card-header">
                 <h1>Help / Info</h1>
             </div>
+            <!-- Help page body -->
             <div class="card-body p-0 text-dark">
                 <div class="accordion accordion-flush" id="help-info-accordion">
+                    <!-- Site rules -->
                     <div class="accordion-item">
+                        <!-- Site rules header -->
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#help-info-rules">
                                 Site Rules
                             </button>
                         </h2>
+                        <!-- Site rules content -->
                         <div id="help-info-rules" class="accordion-collapse collapse"
                             data-bs-parent="#help-info-accordion">
                             <div class="accordion-body">
@@ -43,13 +50,16 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Help -->
                     <div class="accordion-item">
+                        <!-- Help header -->
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#help-info-help">
                                 Help
                             </button>
                         </h2>
+                        <!-- Help content -->
                         <div id="help-info-help" class="accordion-collapse collapse"
                             data-bs-parent="#help-info-accordion">
                             <div class="accordion-body">
@@ -65,6 +75,7 @@
             </div>
         </div>
     </div>
+    <!-- Include forum/userpanel.html Template -->
     <div class="col-3 d-none d-md-block">
         {% include "forum/userpanel.html" %}
     </div>

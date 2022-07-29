@@ -1,9 +1,13 @@
+<!-- Main Template Container -->
+<!-- Password confirm ajax form -->
 <form hx-post="{% url 'comment-delete' comment_id %}" hx-target="#site-modal-content" method="POST" class="text-main">
     {% csrf_token %}
+    <!-- Form header -->
     <div class="modal-header text-main">
         <h5 class="modal-title">Delete Comment</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
+    <!-- Form body -->
     <div class="modal-body">
         <h2>WARNING!</h2>
         <p class="card-text text-red">
@@ -12,12 +16,15 @@
         <p class="card-text">Are you sure you wish to proceed?</p>
         <hr>
         <p class="card-text">Please enter your current password to continue.</p>
+        <!-- Password confirm input -->
         <div class="form-floating">
             {{ confirm_form.password }}
             <label for="confirm-password">Confirm Password*</label>
         </div>
+        <!-- Password errors -->
         {{ confirm_form.password.errors }}
     </div>
+    <!-- Form footer - Submi and cancel buttons -->
     <div class="modal-footer btn-group p-0">
         <button type="button" class="btn btn-warning m-0" data-bs-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-danger m-0">Delete</button>

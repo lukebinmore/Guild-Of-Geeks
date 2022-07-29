@@ -1,8 +1,10 @@
 {% load static %}
 
+<!-- Main Navbar container -->
 <nav class="sticky-top p-2 pt-0">
     <div class="container-fluid">
         <div class="row">
+            <!-- Home button displayed on any page other than index -->
             <div class="col-3 d-block d-md-none d-flex justify-content-start px-0 mt-2">
                 {% if request.path != "/" %}
                 <a href="{% url 'index' %}" class="btn btn-secondary btn-sm">
@@ -10,23 +12,28 @@
                 </a>
                 {% endif %}
             </div>
+            <!-- Search bar container -->
             <div class="col-12 col-md-3 order-last order-md-first px-0 mt-2">
                 <form id="search-form" method="GET" class="input-group" action="{% url 'index' %}">
+                    <!-- Home button -->
                     {% if request.path != "/" %}
                     <a href="{% url 'index' %}" class="btn btn-secondary d-none d-md-inline">
                         <i class="fa-solid fa-house"></i>
                     </a>
                     {% else %}
+                    <!-- Index page filter button, displayed on small screens -->
                     <button type="button" id="filter-view-toggle" class="btn btn-secondary d-block d-md-none">
                         <i class="fa-solid fa-caret-down"></i>
                     </button>
                     {% endif %}
+                    <!-- Search bar and search button -->
                     {{ filters.search }}
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
+            <!-- Logo display, depending on user theme and window size -->
             <div class="col-6 mt-2">
                 <a href="{% url 'index' %}">
                     {% if user.profile.theme == "Light" %}
@@ -40,12 +47,14 @@
                         alt="Guild Of Geeks Logo">
                 </a>
             </div>
+            <!-- Profile icon, displaying user picture, or placeholder -->
             <div class="col-3 d-flex justify-content-end dropdown px-0 mt-2">
                 {% if user.is_authenticated %}
                 <button type="button" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ user.profile.picture.url }}" alt="Profile Picture">
                 </button>
+                <!-- User Panel dropdown for logged in users -->
                 <ul class="dropdown-menu dropdown-menu-end text-end py-0">
                     <li>
                         <a href="{% url 'profile' 'view' %}" class="list-group-item btn-info text-end">My Profile <i
@@ -92,6 +101,7 @@
                     </li>
                 </ul>
                 {% else %}
+                <!-- Login / Signup Button -->
                 <button type="submit" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
                     data-bs-toggle="modal" data-bs-target="#site-modal" hx-get="{% url 'login' %}"
                     hx-target="#site-modal-content"><img src="{% static 'images/profile-placeholder.png' %}"

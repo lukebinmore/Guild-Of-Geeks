@@ -1,6 +1,8 @@
 {% load static %}
 
+<!-- Main template container -->
 <ul class="list-group infinite-container">
+    <!-- No new comments display if edit mode or draft -->
     {% if user.is_authenticated %}
     {% if edit_mode %}
     <li class="card text-center">
@@ -12,6 +14,7 @@
         <p class="my-auto">New Comments not available for Drafts.</p>
     </li>
     {% else %}
+    <!-- New comment container and form -->
     <li class="card">
         <form method="POST">
             {% csrf_token %}
@@ -32,15 +35,19 @@
     {% endif %}
     {% endif %}
     {% else %}
+    <!-- Login required for new comments display -->
     <li class="card text-center">
         <p class="my-auto">Login or Signup to post comments.</p>
     </li>
     {% endif %}
+    <!-- Comment display loop, displays coments provided in context data -->
     {% for comment in comments %}
     <li class="card infinite-item">
+        <!-- Comment title -->
         <div class="card-header">
             <h5 class="mb-0">Posted By: {{ comment.author }}</h5>
         </div>
+        <!-- Comment body -->
         <div class="row card-body g-0 p-0">
             <div class="col-2 d-none d-md-block text-center border-end comment-left p-2">
                 {% if comment.author.profile %}
@@ -60,6 +67,7 @@
                 <p class="remove-pm border-top p-1">- Posted On: {{ post.created_on.date }}</p>
             </div>
         </div>
+        <!-- Comment footer, contains like and delete buttons -->
         <form method="POST" class="container-fluid border-top btn-group remove-pm">
             {% csrf_token %}
             {% if comment.author == user or user.is_staff %}

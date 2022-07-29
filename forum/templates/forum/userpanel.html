@@ -1,4 +1,6 @@
+<!-- Main Template Container -->
 <div class="card">
+    <!-- Panel header -->
     <div class="card-header text-end">
         {% if user.is_authenticated %}
         <p class="card-text">{{ user }}</p>
@@ -6,17 +8,21 @@
         <p class="card-text">Not Signed In</p>
         {% endif %}
     </div>
+    <!-- Panel body -->
     <div class="card-body text-end list-group p-0 user-panel-options">
+        <!-- Profile options -->
         {% if user.is_authenticated %}
         <a href="{% url 'profile' 'view' %}" class="list-group-item btn-info text-end">My Profile <i
                 class="fa-solid fa-user"></i></a>
         {% endif %}
+        <!-- Contact/help options -->
         <h5 class="list-group-item mb-0">Help / Info <i class="fa-solid fa-info"></i></h5>
         <a href="{% url 'help' %}" class="list-group-item btn-info text-end">Help / Info <i
                 class="fa-regular fa-circle-question"></i></a>
         <a href="{% url 'contact-us' %}" class="list-group-item btn-info text-end">Contact Us <i
                 class="fa-regular fa-envelope-open"></i></a>
 
+        <!-- Admin options -->
         {% if user.is_authenticated %}
         {% if user.is_staff %}
         <h5 class="list-group-item mb-0">Admin Controls <i class="fa-solid fa-hammer"></i></h5>
@@ -24,6 +30,7 @@
                 class="fa-solid fa-screwdriver"></i></a>
         {% endif %}
 
+        <!-- Account Management options -->
         <h5 class="list-group-item mb-0">Account Management <i class="fa-solid fa-user-gear"></i></h5>
         <button type="button" class="list-group-item btn-info text-end" data-bs-toggle="modal"
             data-bs-target="#site-modal" hx-get="{% url 'password' %}" hx-target="#site-modal-content">Update
@@ -33,10 +40,13 @@
             Profile <i class="fa-regular fa-trash-can"></i></button>
         {% endif %}
     </div>
+    <!-- Panel footer -->
     <div class="card-footer text-end p-0">
+        <!-- Logout button -->
         {% if user.is_authenticated %}
         <a href="{% url 'logout' %}" class="btn btn-danger w-100"><i class="fa-solid fa-door-open"></i> Logout</a>
         {% else %}
+        <!-- Login / Signup Button -->
         <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#site-modal"
             hx-get="{% url 'login' %}" hx-target="#site-modal-content">Login / Signup</button>
         {% endif %}

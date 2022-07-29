@@ -1,23 +1,30 @@
+<!-- Main Template Container and form -->
 <form method="GET" class="card" id="filter-form">
     {% csrf_token %}
+    <!-- Form header -->
     <div class="card-header">
         <div class="text-center">
             <p class="card-text">Posts Found: {{ post_count }}</p>
         </div>
     </div>
+    <!-- Form body - Submit filters button -->
     <div class="card-body">
         <button type="submit" class="btn btn-primary w-100">Filter Results</button>
     </div>
+    <!-- Form body - Category filter -->
     <div class="card-body">
         <label for="{{ filters.categories.auto_id }}" class="h5 text-main">Categories:</label>
         {{ filters.categories }}
     </div>
+    <!-- Form body - Tags filter -->
     <div class="card-body">
         <label for="{{ filters.tags.auto_id }}" class="h5 text-main">Tags:</label>
         {{ filters.tags }}
     </div>
+    <!-- Form body - User's selections filters -->
     {% if user.is_authenticated %}
     <div class="card-body">
+        <!-- Users posts/drafts -->
         <h5>My Posts</h5>
         <div class="input-group mb-1">
             <div class="input-group-text">
@@ -27,6 +34,7 @@
                 My Posts
             </label>
         </div>
+        <!-- Users followed posts -->
         <div class="input-group mb-1">
             <div class="input-group-text">
                 {{ filters.followed_posts }}
@@ -35,6 +43,7 @@
                 Followed Posts
             </label>
         </div>
+        <!-- Users followed categories -->
         <div class="input-group">
             <div class="input-group-text">
                 {{ filters.followed_categories }}
@@ -45,6 +54,7 @@
         </div>
     </div>
     {% endif %}
+    <!-- Form footer - Clear selected button -->
     <div class="card-footer p-0">
         <a href="{% url 'index' %}" class="btn btn-danger w-100">Clear Filters</a>
     </div>

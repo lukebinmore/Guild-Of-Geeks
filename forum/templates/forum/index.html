@@ -1,14 +1,19 @@
 {% extends "base.html" %} {% block content %}
 
+<!-- Main Template Container -->
 <div class="container_fluid row">
+    <!-- Include forum/filters.html Template, only displayed on large screens -->
     <div id="index-col-left" class="col-12 col-md-3 d-none d-md-block">
         {% include 'forum/filters.html' %}
     </div>
+    <!-- Main post list column, centered on large screens, only column on small screens -->
     <div class="col-12 col-md-6 gx-0">
+        <!-- New post button -->
         {% if user.is_authenticated %}
         <div class="card">
             <a href="{% url 'post-edit' 'new-post' %}" class="btn btn-primary">Create New Post As: {{ user }}</a>
         </div>
+        <!-- Login / Signup button -->
         {% else %}
         <div class="card">
             {% csrf_token %}
@@ -18,6 +23,7 @@
         </div>
         {% endif %}
 
+        <!-- Existing search display -->
         {% if filters.search.value != "" %}
         {% if filters.search.value %}
         <div class="card">
@@ -30,6 +36,7 @@
         {% endif %}
         {% endif %}
 
+        <!-- Post count display -->
         <div class="card d-block d-md-none">
             <div class="card-header">
                 <div class="text-center">
@@ -38,8 +45,10 @@
             </div>
         </div>
 
+        <!-- Include forum/postlist.html Temaplate -->
         {% include "forum/postlist.html" %}
     </div>
+    <!-- Include forum/userpanel.html Temaplte, only visable on large screens -->
     <div class="col-3 d-none d-md-block">
         {% include "forum/userpanel.html" %}
     </div>

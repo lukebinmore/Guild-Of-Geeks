@@ -1,21 +1,30 @@
+<!-- Main Template Container -->
+<!-- Login ajax form -->
 <form hx-post="{% url 'login' %}" hx-target="#site-modal-content" method="POST">
     {% csrf_token %}
+    <!-- Form header -->
     <div class="modal-header">
         <h5 class="modal-title">Login</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
+    <!-- Form bdy -->
     <div class="modal-body">
+        <!-- Username -->
         <div class="form-floating mb-2">
             {{ user_form.username }}
             <label for="{{ user_form.username.auto_id }}">Username*</label>
         </div>
+        <!-- Username errors -->
         {{ user_form.username.errors }}
+        <!-- Password -->
         <div class="form-floating">
             {{ user_form.password }}
             <label for="{{ user_form.password.auto_id }}">Password*</label>
         </div>
+        <!-- Password errors -->
         {{ user_form.password.errors }}
     </div>
+    <!-- Form footer - Signup and Login buttons -->
     <div class=" modal-footer">
         <div class="btn-group w-100">
             <button type="button" hx-get="{% url 'signup' %}" hx-target="#site-modal-content"

@@ -1,12 +1,17 @@
 {% extends "base.html" %} {% block content %}
 
+<!-- Main template container -->
 <div class="row">
+    <!-- Left column on large screens, visable column on small screens -->
     <form id="contact-col-left" method="POST" class="col-12 col-md-9 pe-0">
         {% csrf_token %}
+        <!-- Contact Us form -->
         <div class="card text-center">
+            <!-- Form header -->
             <div class="card-header">
                 <h1>Contact Us</h1>
             </div>
+            <!-- Form body - Name -->
             <div class="card-body">
                 <div class="row">
                     <div class="col">
@@ -22,6 +27,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Form body - message title -->
             <div class="row my-4">
                 <div class="col">
                     <div class="form-floating">
@@ -30,6 +36,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Form body - email address -->
             <div class="row">
                 <div class="col">
                     <div class="form-floating">
@@ -37,6 +44,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Form body - contact reason -->
             <div class="row my-4">
                 <div class="col">
                     <div class="form-floating">
@@ -44,6 +52,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Form body - message content -->
             <div class="row">
                 <div class="col">
                     <div class="form-floating">
@@ -52,12 +61,15 @@
                 </div>
             </div>
             </div>
+            <!-- Form footer - Submit button -->
             <div class="card-footer btn-group remove-pm">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
+    <!-- Right column on large screens only -->
     <div class="col-3 d-none d-md-block">
+        <!-- Include forum/userpanel.html template -->
         {% include "forum/userpanel.html" %}
     </div>
 </div>
