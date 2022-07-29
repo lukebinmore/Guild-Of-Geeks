@@ -39,6 +39,7 @@ label {
     margin: 0;
 }
 
+/* Select2 Input Stylings */
 .select2-container {
     width: 100% !important;
 }
@@ -61,6 +62,7 @@ label {
     color: #000;
 }
 
+/* Bootstrap Card Stylings */
 .card {
     margin-bottom: 1rem;
     background-color: var(---background);
@@ -74,6 +76,7 @@ label {
     color: var(--text);
 }
 
+/* Bootstrap Modal Styligns */
 .modal-content {
     background-color: var(--background);
     color: var(--text);
@@ -83,6 +86,7 @@ label {
     background-color: var(--red);
 }
 
+/* Bootstrap Button Styling Overrides */
 .btn-primary {
     background-color: var(--green);
     border-color: var(--green);
@@ -127,6 +131,7 @@ label {
     box-shadow: 0 0 0 0.15rem var(--green-offset-a);
 }
 
+/* Custo Text Color Stylings */
 .text-main {
     color: var(--text);
 }
@@ -139,17 +144,20 @@ label {
     color: var(--red);
 }
 
+/* Bootstrap Input Group Text Styling Overrides */
 .input-group-text {
     background-color: var(--input-group-text);
     color: var(--text);
 }
 
+/* Profile Picture Preview Stylings */
 .profile-picture-preview {
     background-position: center center;
     background-repeat: no-repeat;
     object-fit: cover;
 }
 
+/* Form Error List Stylings */
 .errorlist {
     margin-bottom: 0.25rem;
     background-color: var(--background);
