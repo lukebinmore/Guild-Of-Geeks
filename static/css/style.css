@@ -65,7 +65,7 @@ label {
 /* Bootstrap Card Stylings */
 .card {
     margin-bottom: 1rem;
-    background-color: var(---background);
+    background-color: var(--background);
     color: var(--text);
     border-color: var(--card-header-footer);
 }
