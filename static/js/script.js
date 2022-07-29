@@ -1,3 +1,4 @@
+/* Declaring variables. */
 let searchForm = $('#search-form');
 let profileColLeft = $('#profile-col-left');
 let postColLeft = $('#post-col-left');
@@ -6,6 +7,7 @@ let contactColLeft = $('#contact-col-left');
 let helpColLeft = $('#help-col-left');
 
 $(window).on('load resize change', function () {
+    /* Checks the windows width, and adds/removes classes to match size. */
     if ($(window).width() < 768) {
         searchForm.addClass('input-group-sm');
         profileColLeft.removeClass('pe-0');
@@ -20,9 +22,11 @@ $(window).on('load resize change', function () {
         helpColLeft.addClass('pe-0');
     };
 
+    /* Alters the hight attribute of profile picture preview to match width. */
     $('.profile-picture-preview').attr('height', $('.profile-picture-preview').width());
 });
 
+/* Displays or hides the filters on smaller screens */
 $('#filter-view-toggle').on('click', function () {
     if (indexColLeft.hasClass('d-none')) {
         indexColLeft.addClass('d-block').removeClass('d-none');
@@ -31,6 +35,7 @@ $('#filter-view-toggle').on('click', function () {
     };
 });
 
+/* Specifics the class and attributes for Select2 elements. */
 $(document).ready(function () {
     $('.select2').select2({
         placeholder: 'Choose an Option*',
@@ -38,6 +43,7 @@ $(document).ready(function () {
     });
 });
 
+/* Sets the img source for the profile picture preview */
 $(document).on('load change', '.profile-picture-upload', function () {
     const file = this.files[0];
     if (file) {
@@ -49,11 +55,13 @@ $(document).on('load change', '.profile-picture-upload', function () {
     }
 });
 
+/* Sets the timeout for the alert messages */
 setTimeout(function () {
     let alert = new bootstrap.Alert($('#user-alert'));
     alert.close();
 }, 3000);
 
+/* Sets the waypoints for ifinite scroll pages */
 var infinite = new Waypoint.Infinite({
     element: $('.infinite-container')[0],
     offset: 'bottom-in-view',
@@ -66,6 +74,7 @@ var infinite = new Waypoint.Infinite({
     }
 });
 
+/* Combines the search field into the filters form */
 $('#filter-form').submit(function () {
     $('#search-form :input').not(':submit').clone().hide().appendTo('#filter-form');
 });
