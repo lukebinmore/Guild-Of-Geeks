@@ -29,10 +29,14 @@
 - [Heroku - Deployment](https://heroku.com)
 - [Cloudinary - Media Storage Service](https://cloudinary.com/)
 - [Canva - Logo Creation Tool](https://www.canva.com/)
-- [Google Fonts - Modern Fonts](https://fonts.google.com/)
 - [Font Awesome - Icons](https://fontawesome.com/)
 - [Bootstrap CDN - Bootsrap CSS and JavaScript](https://www.bootstrapcdn.com/)
 - [CDNJS - JQuery CDN Provider](https://cdnjs.com/libraries/jquery)
+- [PEP8 Validator - Online Python Validator](http://pep8online.com/)
+- [Beautify Tools Javascript Validator - Validating JavaScrit Files](https://beautifytools.com/javascript-validator.php)
+- [JigSaw CSS Validator - Validating CSS Files](https://jigsaw.w3.org/css-validator/)
+- [W3C HTML Validator - Validating HTML Files](https://validator.w3.org/#validate_by_input)
+- [Chrome DevTools - Testing And Bug Detection](https://developer.chrome.com/docs/devtools/)
 
 ***
 
@@ -44,5 +48,6 @@
 - [Waypoints - Infinite Scrolling](http://imakewebthings.com/waypoints/)
 - [Select2 - Searchable Select Form Fields](https://select2.org/)
 - [HTMX - Attribute Based AJAX](https://htmx.org/)
+- [Flake8 - Python Linting](https://flake8.pycqa.org/en/latest/)
 
 ***
