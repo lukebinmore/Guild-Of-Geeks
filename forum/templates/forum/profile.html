@@ -34,7 +34,7 @@
                         <img class="profile-picture-preview rounded-circle border w-25 mb-2"
                             src="{{ user.profile.picture.url }}" alt="Profile Picture">
                         <div>
-                            <label class="text-main" for="{{ profile_form.picture.auto_id">Profile Picture</label>
+                            <label class="text-main" for="{{ profile_form.picture.auto_id }}">Profile Picture</label>
                             {{ profile_form.picture.errors }}
                             {{ profile_form.picture }}
                         </div>
@@ -43,116 +43,115 @@
                 </div>
                 <!-- Name -->
                 <div class=" row">
-                                <div class="col-12 col-md-6 mb-2">
-                                    {{ profile_form.first_name.errors }}
-                                    <div class="form-floating">
-                                        {{ profile_form.first_name }}
-                                        <label for=" {{ profile_form.first_name.auto_id }}">First Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6 mb-2">
-                                    {{ profile_form.last_name.errors }}
-                                    <div class="form-floating">
-                                        {{ profile_form.last_name }}
-                                        <label for="{{ profile_form.last_name.auto_id }}">Last Name</label>
-                                    </div>
-                                </div>
+                    <div class="col-12 col-md-6 mb-2">
+                        {{ profile_form.first_name.errors }}
+                        <div class="form-floating">
+                            {{ profile_form.first_name }}
+                            <label for=" {{ profile_form.first_name.auto_id }}">First Name</label>
                         </div>
-                        <!-- Contact details -->
-                        <div class="row">
-                            <div class="col-12 col-md-6 mb-2">
-                                {{ profile_form.email.errors }}
-                                <div class="form-floating">
-                                    {{ profile_form.email }}
-                                    <label for="{{ profile_form.email.auto_id }}">Email</label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 mb-2">
-                                {{ profile_form.number.errors }}
-                                <div class="form-floating">
-                                    {{ profile_form.number }}
-                                    <label for="{{ profile_form.number.auto_id }}">Phone Number</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Dob and theme -->
-                        <div class="row">
-                            <div class="col-12 col-md-6 mb-2">
-                                {{ profile_form.dob.errors }}
-                                <div class="form-floating">
-                                    {{ profile_form.dob }}
-                                    <label for="{{ profile_form.dob.auto_id }}">Date of Birth*</label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {{ profile_form.theme.errors }}
-                                <div class="form-floating">
-                                    {{ profile_form.theme }}
-                                    <label for="{{ profile_form.theme.auto_id }}">Theme</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- If not edit mode, show details -->
-                        {% else %}
-                        <!-- Profile Picture -->
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <img src="{{ user.profile.picture.url }}" alt="Profile Picture"
-                                    class="rounded-circle border w-25">
-                            </div>
-                        </div>
-                        <hr>
-                        <!-- Name -->
-                        <div class="row">
-                            <div class="col-12 col-md-6 text-center">
-                                <h4>First Name</h4>
-                                <p class="card-text">{{ user.profile.first_name }}</p>
-                            </div>
-                            <div class="col-12 col-md-6 text-center">
-                                <h4>Last Name</h4>
-                                <p class="card-text">{{ user.profile.last_name }}</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <!-- Contact Detials -->
-                        <div class="row">
-                            <div class="col-12 col-md-6 text-center">
-                                <h4>Email</h4>
-                                <p class="card-text">{{ user.profile.email }}</p>
-                            </div>
-                            <div class="col-12 col-md-6 text-center">
-                                <h4>Phone Number</h4>
-                                <p class="card-text">{{ user.profile.number }}</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <!-- Dob and theme -->
-                        <div class="row">
-                            <div class="col-12 col-md-6 text-center">
-                                <h4>Date Of Birth</h4>
-                                <p class="card-text">{{ user.profile.dob }}</p>
-                            </div>
-                            <div class="col-12 col-md-6 text-center">
-                                <h4>Theme</h4>
-                                <p class="card-text">{{ user.profile.theme }}</p>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
-                    <!-- Form footer - Edit mode only - Delete profile, discard changes and save buttons -->
-                    <div class="card-footer remove-pm text-center">
-                        {% if edit_mode %}
-                        <div class="btn-group remove-pm w-100">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#site-modal" hx-get="{% url 'delete-profile' %}"
-                                hx-target="#site-modal-content">Delete</button>
-                            <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="col-12 col-md-6 mb-2">
+                        {{ profile_form.last_name.errors }}
+                        <div class="form-floating">
+                            {{ profile_form.last_name }}
+                            <label for="{{ profile_form.last_name.auto_id }}">Last Name</label>
                         </div>
-                        {% else %}
-                        <p class="remove-pm py-2">Created On: {{ user.profile.created_on }}</p>
-                        {% endif %}
                     </div>
+                </div>
+                <!-- Contact details -->
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-2">
+                        {{ profile_form.email.errors }}
+                        <div class="form-floating">
+                            {{ profile_form.email }}
+                            <label for="{{ profile_form.email.auto_id }}">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-2">
+                        {{ profile_form.number.errors }}
+                        <div class="form-floating">
+                            {{ profile_form.number }}
+                            <label for="{{ profile_form.number.auto_id }}">Phone Number</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dob and theme -->
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-2">
+                        {{ profile_form.dob.errors }}
+                        <div class="form-floating">
+                            {{ profile_form.dob }}
+                            <label for="{{ profile_form.dob.auto_id }}">Date of Birth*</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        {{ profile_form.theme.errors }}
+                        <div class="form-floating">
+                            {{ profile_form.theme }}
+                            <label for="{{ profile_form.theme.auto_id }}">Theme</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- If not edit mode, show details -->
+                {% else %}
+                <!-- Profile Picture -->
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img src="{{ user.profile.picture.url }}" alt="Profile Picture"
+                            class="rounded-circle border w-25">
+                    </div>
+                </div>
+                <hr>
+                <!-- Name -->
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center">
+                        <h4>First Name</h4>
+                        <p class="card-text">{{ user.profile.first_name }}</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center">
+                        <h4>Last Name</h4>
+                        <p class="card-text">{{ user.profile.last_name }}</p>
+                    </div>
+                </div>
+                <hr>
+                <!-- Contact Detials -->
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center">
+                        <h4>Email</h4>
+                        <p class="card-text">{{ user.profile.email }}</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center">
+                        <h4>Phone Number</h4>
+                        <p class="card-text">{{ user.profile.number }}</p>
+                    </div>
+                </div>
+                <hr>
+                <!-- Dob and theme -->
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center">
+                        <h4>Date Of Birth</h4>
+                        <p class="card-text">{{ user.profile.dob }}</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center">
+                        <h4>Theme</h4>
+                        <p class="card-text">{{ user.profile.theme }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <!-- Form footer - Edit mode only - Delete profile, discard changes and save buttons -->
+            <div class="card-footer remove-pm text-center">
+                {% if edit_mode %}
+                <div class="btn-group remove-pm w-100">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
+                        hx-get="{% url 'delete-profile' %}" hx-target="#site-modal-content">Delete</button>
+                    <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                {% else %}
+                <p class="remove-pm py-2">Created On: {{ user.profile.created_on }}</p>
+                {% endif %}
+            </div>
         </form>
     </div>
     <!-- Include forum/userpanel.html Template -->
