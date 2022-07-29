@@ -3,7 +3,8 @@ from . import forms
 
 
 class TestNewCommentForm(TestCase):
-    form = forms.NewCommentForm({"content": ""})
+    def setUp(self):
+        self.form = forms.NewCommentForm({"content": ""})
 
     def test_content_is_requied(self):
         self.assertFalse(self.form.is_valid())
@@ -17,9 +18,11 @@ class TestNewCommentForm(TestCase):
 
 
 class TestPostForm(TestCase):
-    form = forms.PostForm(
-        {"title": "", "content": "", "category": "", "tags": ""}
-    )
+    
+    def setUp(self):
+        self.form = forms.PostForm(
+            {"title": "", "content": "", "category": "", "tags": ""}
+        )
 
     def test_title_is_required(self):
         self.assertFalse(self.form.is_valid())
@@ -56,7 +59,9 @@ class TestPostForm(TestCase):
 
 
 class TestUserForm(TestCase):
-    form = forms.UserForm({"username": "", "password": ""})
+
+    def setUp(self):
+        self.form = forms.UserForm({"username": "", "password": ""})
 
     def test_username_is_required(self):
         self.assertFalse(self.form.is_valid())
@@ -74,17 +79,19 @@ class TestUserForm(TestCase):
 
 
 class TestProfileForm(TestCase):
-    form = forms.ProfileForm(
-        {
-            "first_name": "",
-            "last_name": "",
-            "email": "",
-            "dob": "",
-            "number": "",
-            "picture": "",
-            "theme": "",
-        }
-    )
+
+    def setUp(self):
+        self.form = forms.ProfileForm(
+            {
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "dob": "",
+                "number": "",
+                "picture": "",
+                "theme": "",
+            }
+        )
 
     def test_dob_is_required(self):
         self.assertFalse(self.form.is_valid())
@@ -107,7 +114,9 @@ class TestProfileForm(TestCase):
 
 
 class TestUpdatePasswordForm(TestCase):
-    form = forms.UpdatePasswordForm({"old": "", "new": "", "confirm": ""})
+
+    def setUp(self):
+        self.form = forms.UpdatePasswordForm({"old": "", "new": "", "confirm": ""})
 
     def test_old_is_required(self):
         self.assertFalse(self.form.is_valid())
@@ -123,16 +132,18 @@ class TestUpdatePasswordForm(TestCase):
 
 
 class TestContactForm(TestCase):
-    form = forms.ContactForm(
-        {
-            "first_name": "",
-            "last_name": "",
-            "email": "",
-            "title": "",
-            "reason": "",
-            "content": "",
-        }
-    )
+
+    def setUp(self):
+        self.form = forms.ContactForm(
+            {
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "title": "",
+                "reason": "",
+                "content": "",
+            }
+        )
 
     def test_first_name_is_required(self):
         self.assertFalse(self.form.is_valid())
@@ -184,7 +195,9 @@ class TestContactForm(TestCase):
 
 
 class TestConfirmPassword(TestCase):
-    form = forms.ConfirmPassword({"password": ""})
+
+    def setUp(self):
+        self.form = forms.ConfirmPassword({"password": ""})
 
     def test_password_is_required(self):
         self.assertFalse(self.form.is_valid())
