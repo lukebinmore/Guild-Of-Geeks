@@ -18,7 +18,6 @@ class TestNewCommentForm(TestCase):
 
 
 class TestPostForm(TestCase):
-    
     def setUp(self):
         self.form = forms.PostForm(
             {"title": "", "content": "", "category": "", "tags": ""}
@@ -59,7 +58,6 @@ class TestPostForm(TestCase):
 
 
 class TestUserForm(TestCase):
-
     def setUp(self):
         self.form = forms.UserForm({"username": "", "password": ""})
 
@@ -79,7 +77,6 @@ class TestUserForm(TestCase):
 
 
 class TestProfileForm(TestCase):
-
     def setUp(self):
         self.form = forms.ProfileForm(
             {
@@ -114,9 +111,10 @@ class TestProfileForm(TestCase):
 
 
 class TestUpdatePasswordForm(TestCase):
-
     def setUp(self):
-        self.form = forms.UpdatePasswordForm({"old": "", "new": "", "confirm": ""})
+        self.form = forms.UpdatePasswordForm(
+            {"old": "", "new": "", "confirm": ""}
+        )
 
     def test_old_is_required(self):
         self.assertFalse(self.form.is_valid())
@@ -132,7 +130,6 @@ class TestUpdatePasswordForm(TestCase):
 
 
 class TestContactForm(TestCase):
-
     def setUp(self):
         self.form = forms.ContactForm(
             {
@@ -195,7 +192,6 @@ class TestContactForm(TestCase):
 
 
 class TestConfirmPassword(TestCase):
-
     def setUp(self):
         self.form = forms.ConfirmPassword({"password": ""})
 
