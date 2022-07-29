@@ -49,8 +49,20 @@ These include:
     - FontAweomse Style error - Fontawesome applies style element as child of body.
     - FontAwesome aniamtion error - Fontawesome applies variable to animation-delay and transform, which is not detected as a correct value.
     - Profile edit button - h2 detected as empty due to use of link and icon only.
-- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) - To ensure that no runtime errors occur when loading or displaying content.
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) - To ensure that no runtime errors occur when loading or displaying content. Additionally to provide metrics on performance, accessibility E.T.C.
   - Issue found with script.js - Bootstrap Alert function causing TypeError.
+  - Performance
+    - Desktop - 100%
+    - Mobile - 98%
+  - Accessibility
+    - Desktop - 98%
+    - Mobile - 97%
+  - Best Practice - Low score caused by bootstrap error.
+    - Desktop - 89%
+    - mobile - 88%
+  - SEO
+    - Desktop - 94%
+    - Mobile - 92%
 
 ## **Manual Testing**
 
