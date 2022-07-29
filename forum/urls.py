@@ -7,6 +7,7 @@ from .decorators import (
 )
 from django.urls import path
 
+# A list of url patterns.
 urlpatterns = [
     path("", views.Index.as_view(), name="index"),
     path("<slug:slug>/", views.PostView.as_view(), name="post-view"),

@@ -3,6 +3,7 @@ from . import models
 from django_summernote.admin import SummernoteModelAdmin
 
 
+# Registering the model ContactRequests to the admin page.
 @admin.register(models.ContactRequests)
 class ContactRequestAdmin(admin.ModelAdmin):
     list_display = (
@@ -19,6 +20,7 @@ class ContactRequestAdmin(admin.ModelAdmin):
     search_fields = ("__all__",)
 
 
+# Registering the model Profile to the admin page.
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
@@ -52,6 +54,7 @@ class ProfileAdmin(admin.ModelAdmin):
     )
 
 
+# Registering the model Category to the admin page.
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
@@ -62,6 +65,7 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
 
+# Registering the model Tag to the admin page.
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ("title", "created_on")
@@ -69,6 +73,7 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
 
+# Registering the model Post to the admin page.
 @admin.register(models.Post)
 class PostAdmin(SummernoteModelAdmin):
     list_display = (
@@ -101,6 +106,7 @@ class PostAdmin(SummernoteModelAdmin):
     summernote_fields = "content"
 
 
+# Registering the model Comment to the admin page.
 @admin.register(models.Comment)
 class CommentAdmin(SummernoteModelAdmin):
     list_display = (

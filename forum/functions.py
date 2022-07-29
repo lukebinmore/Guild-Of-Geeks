@@ -4,6 +4,12 @@ from . import models
 
 
 def previous_page(request):
+    """
+    It renders a template that redirects to the URL that was requested
+
+    :param request: The request object
+    :return: The previous page.
+    """
     return render(
         request,
         "redirect.html",
@@ -12,6 +18,15 @@ def previous_page(request):
 
 
 def redirect_page(request, page, **kwargs):
+    """
+    It renders a template that contains a meta refresh tag that redirects to
+    the page specified by the page parameter.
+
+    :param request: The request object
+    :param page: The name of the page you want to redirect to
+    :return: A function that takes a request and a page and
+    returns a render function.
+    """
     return render(
         request,
         "redirect.html",
@@ -20,12 +35,20 @@ def redirect_page(request, page, **kwargs):
 
 
 def check_if_ajax_request(request):
+    """
+    It checks if the request is an AJAX request.
+
+    :param request: The request object
+    """
     if request.META["HTTP_ACCEPT"] == "*/*":
         return True
     return False
 
 
 def form_field_errors(*args):
+    """
+    A decorator function.
+    """
     for form in args:
         for field in form:
             if field.errors:
@@ -33,11 +56,22 @@ def form_field_errors(*args):
 
 
 def get_object(model, **kwargs):
+    """
+    It returns an object from the database.
+
+    :param model: The model class
+    """
     queryset = model.objects.all()
     return get_object_or_404(queryset, **kwargs)
 
 
 def validate_category(form, title):
+    """
+    It validates the category.
+
+    :param form: The form that is being validated
+    :param title: The title of the category
+    """
     if not title.isdigit():
         if not models.Category.objects.filter(title=title).exists():
             category = models.Category.objects.create(title=title)
@@ -50,6 +84,12 @@ def validate_category(form, title):
 
 
 def validate_tags(form, tags):
+    """
+    It validates the tags.
+
+    :param form: The form object
+    :param tags: a list of strings
+    """
     new_tags = []
     for tag in tags:
         if not tag.isdigit():
@@ -66,6 +106,11 @@ def validate_tags(form, tags):
 
 
 def validate_username(form):
+    """
+    It validates the username.
+
+    :param form: The form object that is being validated
+    """
     username = form.data["username"]
 
     if " " in username:
@@ -86,6 +131,12 @@ def validate_username(form):
 
 
 def validate_password(form, form_field):
+    """
+    It validates the password.
+
+    :param form: The form object
+    :param form_field: The field that is being validated
+    """
     password = form.data[form_field]
 
     if " " in password:

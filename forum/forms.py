@@ -5,10 +5,12 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 
+# A class that is used to create a date picker in the form.
 class DatePickerInput(forms.DateInput):
     input_type = "date"
 
 
+# It creates a form for the user to fill out.
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = models.Comment
@@ -28,6 +30,10 @@ class NewCommentForm(forms.ModelForm):
         labels = {"content": ""}
 
 
+# The class Meta is a nested class that tells Django which model should be
+# used to create this form
+# (model = Post) and which fields should be used
+# (fields = ['title', 'content', 'category', 'tags'])
 class PostForm(forms.ModelForm):
     class Meta:
         model = models.Post
@@ -51,16 +57,28 @@ class PostForm(forms.ModelForm):
         }
 
     def set_category(self, category):
+        """
+        It takes a dataframe and a category, and returns a dataframe with the
+        category added as a column
+
+        :param category: The category of the data
+        """
         data = self.data.copy()
         data["category"] = category
         self.data = data
 
     def set_tags(self, tags):
+        """
+        It takes a list of tags, and sets the data to the list of tags
+
+        :param tags: a list of strings
+        """
         data = self.data.copy()
         data.setlist("tags", tags)
         self.data = data
 
 
+# It creates a form with two fields, username and password.
 class UserForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
@@ -74,6 +92,8 @@ class UserForm(forms.Form):
     )
 
 
+# I'm trying to make a form that allows the user to
+# edit their profile information.
 class ProfileForm(forms.ModelForm):
     class Meta:
         date_max = datetime.now().date() - relativedelta(years=13)
@@ -119,6 +139,9 @@ class ProfileForm(forms.ModelForm):
         }
 
 
+# It creates a form with the fields:
+# search, categories, tags, user_posts, followed_posts,
+# followed_categories.
 class FilterForm(forms.Form):
     search = forms.CharField(
         required=False,
@@ -152,6 +175,7 @@ class FilterForm(forms.Form):
     )
 
 
+# It creates a form that has 3 fields: old, new, and confirm.
 class UpdatePasswordForm(forms.Form):
     old = forms.CharField(
         widget=forms.PasswordInput(
@@ -170,6 +194,7 @@ class UpdatePasswordForm(forms.Form):
     )
 
 
+# It creates a form that is based on the ContactRequests model.
 class ContactForm(forms.ModelForm):
     class Meta:
         model = models.ContactRequests
@@ -212,6 +237,7 @@ class ContactForm(forms.ModelForm):
         }
 
 
+# It creates a form with a password field.
 class ConfirmPassword(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(
@@ -220,6 +246,13 @@ class ConfirmPassword(forms.Form):
     )
 
     def confirm_password(self, user):
+        """
+        If the user's password matches the password in the form, return True.
+        Otherwise, add an error to the password field and return False.
+
+        :param user: The user object that is being edited
+        :return: The form is being returned.
+        """
         if user.check_password(self.data["password"]):
             return True
         else:

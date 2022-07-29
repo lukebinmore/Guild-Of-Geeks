@@ -5,6 +5,13 @@ from . import models
 
 
 def login_required(function):
+    """
+    If the user is logged in, return the function, otherwise redirect to the
+    index page
+
+    :param function: The function that is being decorated
+    :return: A function that wraps the function passed in as an argument.
+    """
     @wraps(function)
     def wrap(request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -17,6 +24,14 @@ def login_required(function):
 
 
 def check_post_author(function):
+    """
+    If the user is not the author of the post, or if the user is not a staff
+    member, then redirect the
+    user to the index page
+
+    :param function: The function that is being decorated
+    :return: The function is being returned.
+    """
     @wraps(function)
     def wrap(request, *args, **kwargs):
         slug = kwargs["slug"]
@@ -35,6 +50,16 @@ def check_post_author(function):
 
 
 def check_comment_author(function):
+    """
+    If the comment's author is the same as the user who is logged in, or if
+    the user is a staff member,
+    then the function will be executed. Otherwise, an error message will be
+    displayed and the user will
+    be redirected to the index page
+
+    :param function: The function that is being decorated
+    :return: The function is being returned.
+    """
     @wraps(function)
     def wrap(request, *args, **kwargs):
         id = kwargs["id"]
@@ -49,6 +74,14 @@ def check_comment_author(function):
 
 
 def check_ajax(function):
+    """
+    If the request is an ajax request, then return the function, otherwise
+    return an error message and
+    redirect to the index page
+
+    :param function: The function that is being decorated
+    :return: A function that wraps the function passed in as an argument.
+    """
     @wraps(function)
     def wrap(request, *args, **kwargs):
         if f.check_if_ajax_request(request):

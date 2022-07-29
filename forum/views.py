@@ -10,12 +10,16 @@ from . import forms
 from . import functions as f
 
 
+# This is a view for the index page.
 class Index(generic.ListView):
     model = models.Post
     template_name = "forum/index.html"
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
+        """
+        It returns the context data.
+        """
         context = super(Index, self).get_context_data(**kwargs)
         context["filters"] = forms.FilterForm(self.request.GET)
         context["user_form"] = forms.UserForm()
@@ -23,6 +27,9 @@ class Index(generic.ListView):
         return context
 
     def get_queryset(self):
+        """
+        It returns a list of objects that match the given lookup parameters.
+        """
         profile = self.request.user.profile
         filter_form = forms.FilterForm(data=self.request.GET)
         object_list = models.Post.objects.all()
@@ -73,8 +80,15 @@ class Index(generic.ListView):
         return object_list
 
 
+# This is a view for the post view page.
 class PostView(View):
     def get(self, request, slug, *args, **kwargs):
+        """
+        It gets the slug from the url and passes it to the view.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             post = f.get_object(models.Post, slug=slug)
             paginator = Paginator(post.post_comments.order_by("created_on"), 5)
@@ -96,6 +110,12 @@ class PostView(View):
         return redirect(request.path)
 
     def post(self, request, slug, *args, **kwargs):
+        """
+        A function that takes in a request, slug, and args and kwargs.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             post = f.get_object(models.Post, slug=slug)
             new_comment_form = forms.NewCommentForm(data=request.POST)
@@ -113,8 +133,15 @@ class PostView(View):
         return redirect(request.path)
 
 
+# This is a view for the post edit page.
 class PostEdit(View):
     def get(self, request, slug, *args, **kwargs):
+        """
+        It gets the slug from the url and passes it to the view.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             if slug == "new-post":
                 post_form = forms.PostForm()
@@ -127,6 +154,12 @@ class PostEdit(View):
         return redirect(request.path)
 
     def post(self, request, slug, *args, **kwargs):
+        """
+        A function that takes in a request, slug, and args and kwargs.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             if slug == "new-post":
                 post_form = forms.PostForm(data=request.POST)
@@ -175,6 +208,13 @@ class PostEdit(View):
         return self.return_render(request, slug, post_form)
 
     def return_render(self, request, slug, form):
+        """
+        It returns a render.
+
+        :param request: The request object
+        :param slug: the slug of the object
+        :param form: the form that was submitted
+        """
         if slug == "new-post":
             render_dict = {"edit_mode": True, "post_form": form}
         else:
@@ -192,8 +232,15 @@ class PostEdit(View):
         return render(request, "forum/post.html", render_dict)
 
 
+# This is a view that deletes a post.
 class PostDelete(View):
     def get(self, request, slug, *args, **kwargs):
+        """
+        It gets the slug from the url and passes it to the view.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             return self.return_render(request, slug, forms.ConfirmPassword)
         except Exception as e:
@@ -201,6 +248,12 @@ class PostDelete(View):
         return f.previous_page(request)
 
     def post(self, request, slug, *args, **kwargs):
+        """
+        A function that takes in a request, slug, and args and kwargs.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             confirm_form = forms.ConfirmPassword(data=request.POST)
             post = f.get_object(models.Post, slug=slug)
@@ -218,6 +271,13 @@ class PostDelete(View):
         return self.return_render(request, slug, confirm_form)
 
     def return_render(self, request, slug, form):
+        """
+        It returns a render.
+
+        :param request: The request object
+        :param slug: the slug of the object
+        :param form: the form that was submitted
+        """
         return render(
             request,
             "forum/deletepost.html",
@@ -225,8 +285,16 @@ class PostDelete(View):
         )
 
 
+# This is a view that likes a post.
 class PostLike(View):
     def post(self, request, slug, *args, **kwargs):
+        """
+        A function that takes in a request, a slug, and any number of
+        arguments and keyword arguments.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             if not request.user.is_authenticated:
                 raise Exception("Please login to Like posts!")
@@ -247,8 +315,15 @@ class PostLike(View):
         return f.previous_page(request)
 
 
+# This is a view that follows a post.
 class PostFollow(View):
     def post(self, request, slug, *args, **kwargs):
+        """
+        A function that takes in a request, slug, and args and kwargs.
+
+        :param request: The request object
+        :param slug: the slug of the post
+        """
         try:
             if not request.user.is_authenticated:
                 raise Exception("Please login to Follow posts!")
@@ -267,8 +342,15 @@ class PostFollow(View):
         return f.previous_page(request)
 
 
+# This is a view that likes a comment.
 class CommentLike(View):
     def post(self, request, id, *args, **kwargs):
+        """
+        A function that takes in a request, id, and args and kwargs.
+
+        :param request: The request object
+        :param id: the id of the object you want to update
+        """
         try:
             if not request.user.is_authenticated:
                 raise Exception("Please login to Like comments!")
@@ -290,8 +372,15 @@ class CommentLike(View):
         return f.previous_page(request)
 
 
+# This is a view that deletes a comment.
 class CommentDelete(View):
     def get(self, request, id, *args, **kwargs):
+        """
+        It gets the id of the object and returns the object.
+
+        :param request: The request object
+        :param id: the id of the object
+        """
         try:
             return self.return_render(request, id, forms.ConfirmPassword)
         except Exception as e:
@@ -299,6 +388,12 @@ class CommentDelete(View):
         return f.previous_page(request)
 
     def post(self, request, id, *args, **kwargs):
+        """
+        A function that takes in a request, id, and args and kwargs.
+
+        :param request: The request object
+        :param id: the id of the object you want to update
+        """
         try:
             confirm_form = forms.ConfirmPassword(data=request.POST)
             comment = f.get_object(models.Comment, id=id)
@@ -314,6 +409,13 @@ class CommentDelete(View):
         return self.return_render(request, id, confirm_form)
 
     def return_render(self, request, id, form):
+        """
+        It returns a render.
+
+        :param request: The request object
+        :param id: the id of the object being edited
+        :param form: the form that was submitted
+        """
         return render(
             request,
             "forum/deletecomment.html",
@@ -321,8 +423,15 @@ class CommentDelete(View):
         )
 
 
+# This is a view that follows a category.
 class CategoryFollow(View):
     def post(self, request, id, *args, **kwargs):
+        """
+        A function that takes in a request, id, and args and kwargs.
+
+        :param request: The request object
+        :param id: the id of the object you want to update
+        """
         try:
             if not request.user.is_authenticated:
                 raise Exception("Please login to Follow categories!")
@@ -342,11 +451,22 @@ class CategoryFollow(View):
         return f.previous_page(request)
 
 
+# This is a view that logs in a user.
 class Login(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         return self.return_render(request, forms.UserForm)
 
     def post(self, request, *args, **kwargs):
+        """
+        A function that is called when a POST request is made to the server.
+
+        :param request: The request object
+        """
         try:
             user_form = forms.UserForm(data=request.POST)
             if user_form.is_valid():
@@ -373,14 +493,31 @@ class Login(View):
         return self.return_render(request, user_form)
 
     def return_render(self, request, form):
+        """
+        It returns the render function.
+
+        :param request: The request object
+        :param form: the form that was submitted
+        """
         return render(request, "forum/login.html", {"user_form": form})
 
 
+# This is a view that creates a new user account.
 class Signup(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         return self.return_render(request, forms.UserForm, forms.ProfileForm)
 
     def post(self, request, *args, **kwargs):
+        """
+        A function that is called when a POST request is made to the server.
+
+        :param request: The request object
+        """
         try:
             user_form = forms.UserForm(data=request.POST)
             profile_form = forms.ProfileForm(
@@ -428,6 +565,14 @@ class Signup(View):
         return self.return_render(request, user_form, profile_form)
 
     def return_render(self, request, user_form, profile_form):
+        """
+        It returns the render function.
+
+        :param request: the request object
+        :param user_form: &lt;UserCreationForm bound=False, valid=Unknown,
+        fields=(username;password1;password2)&gt;
+        :param profile_form: &lt;django.forms.models.ModelForm object
+        """
         return render(
             request,
             "forum/signup.html",
@@ -435,14 +580,27 @@ class Signup(View):
         )
 
 
+# This is a view that logs a user out.
 class Logout(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         logout(request)
         return redirect("index")
 
 
+# This is a view for the profile page.
 class Profile(View):
     def get(self, request, mode, *args, **kwargs):
+        """
+        A function that gets the request, mode, args, and kwargs.
+
+        :param request: The request object
+        :param mode: 'add' or 'edit'
+        """
         try:
             if mode == "edit":
                 return self.return_render(
@@ -454,6 +612,11 @@ class Profile(View):
         return redirect(request.path)
 
     def post(self, request, *args, **kwargs):
+        """
+        A function that is called when a POST request is made to the server.
+
+        :param request: The request object
+        """
         try:
             profile_form = forms.ProfileForm(
                 data=request.POST,
@@ -472,6 +635,12 @@ class Profile(View):
         return redirect(request.path)
 
     def return_render(self, request, form):
+        """
+        It returns the render function.
+
+        :param request: The request object
+        :param form: the form that was submitted
+        """
         return render(
             request,
             "forum/profile.html",
@@ -479,11 +648,22 @@ class Profile(View):
         )
 
 
+# This is a view that updatges a user's password.
 class UpdatePassword(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         return self.render_page(request, forms.UpdatePasswordForm)
 
     def post(self, request, *args, **kwargs):
+        """
+        A function that is called when a POST request is made to the server.
+
+        :param request: The request object
+        """
         try:
             password_form = forms.UpdatePasswordForm(data=request.POST)
             if password_form.is_valid():
@@ -522,14 +702,31 @@ class UpdatePassword(View):
         return self.render_page(request, password_form)
 
     def render_page(self, request, form):
+        """
+        It renders the page.
+
+        :param request: The request object
+        :param form: The form that was submitted
+        """
         return render(request, "forum/password.html", {"password_form": form})
 
 
+# This is a view that deletes a user's profile.
 class DeleteProfile(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         return self.return_render(request, forms.ConfirmPassword)
 
     def post(self, request, *args, **kwargs):
+        """
+        A function that is called when a POST request is made to the server.
+
+        :param request: The request object
+        """
         try:
             confirm_form = forms.ConfirmPassword(data=request.POST)
             if confirm_form.is_valid():
@@ -548,13 +745,25 @@ class DeleteProfile(View):
         return self.return_render(request, confirm_form)
 
     def return_render(self, request, form):
+        """
+        It returns the render function.
+
+        :param request: The request object
+        :param form: the form that was submitted
+        """
         return render(
             request, "forum/deleteprofile.html", {"confirm_form": form}
         )
 
 
+# This is a view for the contact us page.
 class ContactUs(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         try:
             if request.user.is_authenticated:
                 user_dict = {
@@ -573,6 +782,11 @@ class ContactUs(View):
         return redirect(request.path)
 
     def post(self, request, *args, **kwargs):
+        """
+        A function that is called when a POST request is made to the server.
+
+        :param request: The request object
+        """
         try:
             contact_form = forms.ContactForm(data=request.POST)
 
@@ -595,9 +809,21 @@ class ContactUs(View):
         return self.return_render(request, contact_form)
 
     def return_render(self, request, form):
+        """
+        It returns the render function.
+
+        :param request: The request object
+        :param form: the form that was submitted
+        """
         return render(request, "forum/contactus.html", {"contact_form": form})
 
 
+# This is a view for the help page.
 class Help(View):
     def get(self, request, *args, **kwargs):
+        """
+        A function that gets the request, args, and kwargs.
+
+        :param request: The request object
+        """
         return render(request, "forum/help.html")
