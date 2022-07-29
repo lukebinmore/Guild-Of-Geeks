@@ -20,7 +20,7 @@ $(window).on('load resize change', function () {
         postColLeft.addClass('pe-0');
         contactColLeft.addClass('pe-0');
         helpColLeft.addClass('pe-0');
-    };
+    }
 
     /* Alters the hight attribute of profile picture preview to match width. */
     $('.profile-picture-preview').attr('height', $('.profile-picture-preview').width());
@@ -32,7 +32,7 @@ $('#filter-view-toggle').on('click', function () {
         indexColLeft.addClass('d-block').removeClass('d-none');
     } else {
         indexColLeft.addClass('d-none').removeClass('d-block');
-    };
+    }
 });
 
 /* Specifics the class and attributes for Select2 elements. */
@@ -50,7 +50,7 @@ $(document).on('load change', '.profile-picture-upload', function () {
         let reader = new FileReader();
         reader.onload = function (e) {
             $('.profile-picture-preview').attr('src', e.target.result);
-        }
+        };
         reader.readAsDataURL(file);
     }
 });
