@@ -139,4 +139,10 @@ There are a multitude of possible features that could be added or implented to f
 
 ## **Mentions**
 
+A special thanks to the very helpful people over on the forums listed in the Technologies page.
+Another special thanks to the creators and maintaiers over at W3C, their information and descriptons were often very useful.
+
 ## **Credits**
+
+The code used in this project has been created by myself, unless otherwise specified here.
+Library specific code such as Select2 Implementation and Bootstrap Timeouts, are the work of their development teams.
