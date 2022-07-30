@@ -17,18 +17,19 @@
                 <form id="search-form" method="GET" class="input-group" action="{% url 'index' %}">
                     <!-- Home button -->
                     {% if request.path != "/" %}
-                    <a href="{% url 'index' %}" class="btn btn-secondary d-none d-md-inline">
+                    <a href="{% url 'index' %}" class="btn btn-secondary d-none d-md-inline" aria-label="Home">
                         <i class="fa-solid fa-house"></i>
                     </a>
                     {% else %}
                     <!-- Index page filter button, displayed on small screens -->
-                    <button type="button" id="filter-view-toggle" class="btn btn-secondary d-block d-md-none">
+                    <button type="button" id="filter-view-toggle" class="btn btn-secondary d-block d-md-none"
+                        aria-label="Filters">
                         <i class="fa-solid fa-caret-down"></i>
                     </button>
                     {% endif %}
                     <!-- Search bar and search button -->
                     {{ filters.search }}
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" aria-label="Search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
@@ -51,7 +52,7 @@
             <div class="col-3 d-flex justify-content-end dropdown px-0 mt-2">
                 {% if user.is_authenticated %}
                 <button type="button" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false" aria-label="Profile Options">
                     <img src="{{ user.profile.picture.url }}" alt="Profile Picture">
                 </button>
                 <!-- User Panel dropdown for logged in users -->
@@ -85,14 +86,14 @@
                     </li>
                     <li>
                         <button type="button" class="list-group-item btn-info text-end w-100" data-bs-toggle="modal"
-                            data-bs-target="#site-modal" hx-get="{% url 'password' %}"
-                            hx-target="#site-modal-content">Update
+                            data-bs-target="#site-modal" hx-get="{% url 'password' %}" hx-target="#site-modal-content"
+                            aria-label="Update Password">Update
                             Password <i class="fa-regular fa-pen-to-square"></i></button>
                     </li>
                     <li>
                         <button type="button" class="list-group-item btn-danger text-end w-100" data-bs-toggle="modal"
                             data-bs-target="#site-modal" hx-get="{% url 'delete-profile' %}"
-                            hx-target="#site-modal-content">Delete
+                            hx-target="#site-modal-content" aria-label="Delete Profile">Delete
                             Profile <i class="fa-regular fa-trash-can"></i></button>
                     </li>
                     <li>
@@ -104,8 +105,8 @@
                 <!-- Login / Signup Button -->
                 <button type="submit" class="btn btn-primary rounded-circle border h-100 overflow-hidden p-0"
                     data-bs-toggle="modal" data-bs-target="#site-modal" hx-get="{% url 'login' %}"
-                    hx-target="#site-modal-content"><img src="{% static 'images/profile-placeholder.png' %}"
-                        alt="Profile Picture"></button>
+                    hx-target="#site-modal-content" aria-label="Login / Signup"><img
+                        src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture"></button>
                 {% endif %}
             </div>
         </div>

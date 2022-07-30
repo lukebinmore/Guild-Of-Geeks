@@ -13,11 +13,11 @@
                 <!-- If edit mode, view mode button, else edit mode button -->
                 {% if edit_mode %}
                 <h2 class="d-inline-block float-end">
-                    <a href="{% url 'profile' 'view' %}"><i class="fa-solid fa-xmark"></i></a>
+                    <a href="{% url 'profile' 'view' %}" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
                 </h2>
                 {% else %}
                 <h2 class="d-inline-block float-end">
-                    <a href="{% url 'profile' 'edit' %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{% url 'profile' 'edit' %}" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                 </h2>
                 {% endif %}
 

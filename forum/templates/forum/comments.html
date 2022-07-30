@@ -74,7 +74,7 @@
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#site-modal"
                 hx-get="{% url 'comment-delete' comment.id %}" hx-target="#site-modal-content">Delete</button>
             {% endif %}
-            <a hx-post="{% url 'comment-like' comment.id %}" class="btn btn-primary">
+            <a hx-post="{% url 'comment-like' comment.id %}" class="btn btn-primary" aria-label="Like Comment">
                 {% if user in comment.likes.all %}
                 <i class="fas fa-heart text-red"></i>
                 {% else %}

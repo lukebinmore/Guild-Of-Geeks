@@ -22,6 +22,9 @@
         <!-- Favicon -->
         <link rel="shortcut icon" href="{% static 'images/logo-98x68.png' %}" type="image/x-icon">
         <!-- Site/Page Info -->
+        <meta name="description" content="A forum for geeks, nerds and techies alike">
+        <meta name="keywords" content="forum, nerd, geek, help, question, coding, gaming">
+        <meta name="author" content="Luke Binmore">
         <title>Guild Of Geeks</title>
     </head>
 
@@ -64,7 +67,7 @@
 
         <!-- Infinte Scroll Page Links -->
         {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link"></a>
+        <a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link" aria-label="More Items"></a>
         {% endif %}
 
         <!-- JavaScript Scripts from cdns -->
