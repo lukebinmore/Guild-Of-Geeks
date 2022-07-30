@@ -1,7 +1,7 @@
 {% load static %}
 <!-- Main Template Container -->
 <!-- Signup ajax form -->
-<form hx-post="{% url 'signup' %}" hx-target="#site-modal-content" method="POST" enctype="multipart/form-data">
+<form hx-post="{% url 'signup' %}" hx-target="#site-modal-content" method="POST" hx-encoding="multipart/form-data">
     {% csrf_token %}
     <!-- Form header -->
     <div class="modal-header">
